@@ -7,9 +7,9 @@ const port = process.env.PORT || 3000
 //conection
 const connection = mysql.createConnection({
     host: 'eu-cdbr-west-02.cleardb.net',
-    user: 'b8a84ef34c9fb6',
-    password: 'e601c5e6',
-    database: 'heroku_0069b22dc9c1b23'
+    user: 'b45a5769a8153a',
+    password: 'd0b9d566',
+    database: 'heroku_a6c1a29456a7b8b'
 })
 
 
