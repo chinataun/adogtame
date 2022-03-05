@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT || 3000
 
 //conection
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
     host: 'eu-cdbr-west-02.cleardb.net',
     user: 'b45a5769a8153a',
     password: 'd0b9d566',
@@ -25,33 +25,47 @@ app.set('view engine', 'ejs')
 
 //render home page
 app.get('/', function(req, res){
-    connection.query('SELECT * FROM animal', (error, rows) => {
-        if (error) throw error;
-        
-        if (!error) {
-            console.log(rows)
-            res.render('pages/index', {rows})
+    pool.getConnection((err,connection) => {
+        if(err){
+            callback(err);
+            return;
         }
-    })
-    
+        connection.query('SELECT * FROM animal', (error, rows) => {
+            if (error)
+            connection.release();
+        
+            if (!error) {
+                console.log(rows)
+                res.render('pages/index', {rows})
+            }
+        })
+        connection.release();
+    });
 })
 
 //Introduce nuevos usuarios en la base de datos, comprobando que no haya campos vacios o usuarios repetidos
 app.post("/nuevo_animal",(request, response)=>{
     let body = request.body;
-    connection.query(
-        "insert into animal(nombre,tipo,raza) values (?,?,?)",
-        [body.nombre,body.tipo,body.raza],
-        (error, result) => {
-        if (error) {
-            response.status(500);
-            console.log(err);
-            response.end(err.message);
-        }    
-        if (!error) {
-            response.redirect('/')
+    pool.getConnection((err,connection) => {
+        if(err){
+            connection.release();
+            return;
         }
-    })
+        connection.query(
+            "insert into animal(nombre,tipo,raza) values (?,?,?)",
+            [body.nombre,body.tipo,body.raza],
+            (error, result) => {
+            if (error) {
+                response.status(500);
+                console.log(err);
+                response.end(err.message);
+            }    
+            if (!error) {
+                response.redirect('/')
+            }
+        })
+        connection.release();
+    });
 });
 
 
