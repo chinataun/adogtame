@@ -4,10 +4,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css" />    <title>Document</title>
 </head>
 <body>
-
-    <h1>Hola <%- rows[1].name %> eres un <%= rows[1].tipo %> de la raza: <%- rows[1].raza %></h1>
+    <div id="home" class="container">
+    <div id="logo_home">
+        <a href="/"> <img class="logo" src="/images/logo.png"
+            alt="logo de la aplicacion"></a>
+    </div>
+        <div id="formulario">
+            <div class = "borde"> 
+                <form action="/nuevo_animal" method="POST">
+                    <div id="formularioUsuarioNuevo">
+                        <label id="nombre" for="txt_nombre">Nombre:</label>
+                        <input id="cajaNombre" type="text" name="nombre" class="form-control" placeholder="Introduce el nombre" required >
+                        <label id="tipo" for="txt_contraseña"> Tipo: </label>
+                        <input  id="cajaTipo" type="text" name="tipo" class="form-control" placeholder="Introduce el tipo" required>  
+                        <label id="raza" for="txt_nombre"> Raza: </label>
+                        <input  id="cajaRaza" type="text" name="raza" class="form-control" placeholder="Introduce la raza" required> 
+                    </div>
+                    <div class="submit_add">
+                    <input class="btn btn-default" type="submit" value="Crear Usuario" />
+                    </div>
+                </form>
+            </div>
+        <div class="borde">
+            <h1>Animal </h1>
+            <% rows.forEach(function(animal) { %>
+                <p>
+                <span><b>nombre:</b><%= animal.nombre %></span> 
+                <span><b>tipo:</b> <%- animal.tipo %></span>
+                <span><b>raza:</b> <%- animal.raza %></span> 
+            </p>
+            <% }); %>
+        </div>
+    </div>
 </body>
 </html>

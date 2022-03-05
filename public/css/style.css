@@ -1,0 +1,69 @@
+body{
+    margin-top: 5%;
+    background-color: rgb(182, 213, 233);
+}
+#home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#logo_home{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+#formulario {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+.borde{
+    background-color: aliceblue;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border: 3px solid aliceblue;
+    padding-right:3%;
+    padding-bottom: 3%;
+}
+
+
+#cajaNombre, #cajaTipo, #cajaRaza{
+    margin-top: 10px;
+}
+
+#nombre, #tipo,#raza{
+    margin-left:5px;
+    text-align: left;
+    margin-top: 10px;
+    color:black;
+}
+
+#formularioUsuarioNuevo{
+    display: grid;
+    grid-template-areas: "col1 col2";
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 52px;
+    margin-left: 10px;
+}
+
+.btn{
+    margin:5px;
+}
+
+.logo{
+    margin-bottom: 20px;
+}
+
+.input-group{
+    margin:5px;
+}
+
+.submit_add {
+    display: flex;
+    align-items: center;
+}

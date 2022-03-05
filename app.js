@@ -1,7 +1,10 @@
 const express = require('express')
 const app = express()
 const mysql = require('mysql')
-
+const path = require("path");
+const bodyParser = require("body-parser");
+const statics = path.join(__dirname,"public");
+app.use(bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT || 3000
 
 //conection
@@ -12,6 +15,9 @@ const connection = mysql.createConnection({
     database: 'heroku_a6c1a29456a7b8b'
 })
 
+app.use(express.static(statics));
+
+
 
 //view engine
 app.set('view engine', 'ejs')
@@ -19,16 +25,35 @@ app.set('view engine', 'ejs')
 
 //render home page
 app.get('/', function(req, res){
-    connection.query('SELECT * FROM animal WHERE id = "1"', (error, rows) => {
+    connection.query('SELECT * FROM animal', (error, rows) => {
         if (error) throw error;
-    
+        
         if (!error) {
-            console.log(rows);
+            console.log(rows)
             res.render('pages/index', {rows})
         }
     })
     
 })
+
+//Introduce nuevos usuarios en la base de datos, comprobando que no haya campos vacios o usuarios repetidos
+app.post("/nuevo_animal",(request, response)=>{
+    let body = request.body;
+    connection.query(
+        "insert into animal(nombre,tipo,raza) values (?,?,?)",
+        [body.nombre,body.tipo,body.raza],
+        (error, result) => {
+        if (error) {
+            response.status(500);
+            console.log(err);
+            response.end(err.message);
+        }    
+        if (!error) {
+            response.redirect('/')
+        }
+    })
+});
+
 
 
 
