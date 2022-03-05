@@ -6,7 +6,7 @@ https://adogtame-gps.herokuapp.com/
 
 ## Installation
 
-### Requirements
+### Requerimientos
 
 - NodeJs 
 - Git 
@@ -30,9 +30,9 @@ https://adogtame-gps.herokuapp.com/
     npm start
 
 
-5. Browse to the installed local website/s. 
+5. Acceder a la url en local: 
 
-    - Local: http://www.localhost:3000
+    - http://www.localhost:3000
 
 ## Documentation
 

@@ -1,7 +1,7 @@
 {
   "name": "adogtame",
   "version": "1.0.0",
-  "description": "Proyecto realizado para la asignatura GPS",
+  "description": "Aplicación web para la adopción de animales",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
