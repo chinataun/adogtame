@@ -14,32 +14,45 @@
 <body>
     <div id="home" class="container">
     <div id="logo_home">
-        <a href="/"> <img class="logo" src="/images/logo.png"
-            alt="logo de la aplicacion"></a>
+        <h1>Prototipo de la aplicación</h1>
+        <h3>Pequeño formulario de registro de datos con listado de los mismos</h3>
     </div>
         <div id="formulario">
             <div class = "borde"> 
-                <form action="/nuevo_animal" method="POST">
+                <form action="/registro" method="POST">
                     <div id="formularioUsuarioNuevo">
                         <label id="nombre" for="txt_nombre">Nombre:</label>
-                        <input id="cajaNombre" type="text" name="nombre" class="form-control" placeholder="Introduce el nombre" required >
-                        <label id="tipo" for="txt_contraseña"> Tipo: </label>
-                        <input  id="cajaTipo" type="text" name="tipo" class="form-control" placeholder="Introduce el tipo" required>  
-                        <label id="raza" for="txt_nombre"> Raza: </label>
-                        <input  id="cajaRaza" type="text" name="raza" class="form-control" placeholder="Introduce la raza" required> 
+                        <input id="cajaNombre" type="text" name="nombre" class="form-control" placeholder="Introduce un nombre" required >
+                        <span class="input_radio"><label id="nombre" for="txt_nombre">Masculino:</label><input type="radio" name="tipo" value="Masculino" required> </span>
+                        <span class="input_radio"> <label id="nombre" for="txt_nombre">Femenino:</label><input type="radio" name="tipo" value="Femenino" required></span>
+                        <label id="nombre" for="txt_nombre">Rango (0-100): </label>
+                          <input type="range" list="tickmarks" name="rango"> 
+                            <datalist id="tickmarks">
+                              <option value="0">
+                              <option value="10">
+                              <option value="20">
+                              <option value="30">
+                              <option value="40">
+                              <option value="50">
+                              <option value="60">
+                              <option value="70">
+                              <option value="80">
+                              <option value="90">
+                              <option value="100">
+                            </datalist>
                     </div>
                     <div class="submit_add">
-                    <input class="btn btn-default" type="submit" value="Crear" />
+                    <input class="btn btn-default" type="submit" value="Crear"/>
                     </div>
                 </form>
             </div>
         <div class="borde">
-            <h1>Animal </h1>
-            <% rows.forEach(function(animal) { %>
+            <h1>Listado de Datos</h1>
+            <% rows.forEach(function(datos) { %>
                 <p>
-                <span><b>nombre:</b><%= animal.nombre %></span> 
-                <span><b>tipo:</b> <%- animal.tipo %></span>
-                <span><b>raza:</b> <%- animal.raza %></span> 
+                <span><b>nombre:</b><%- datos.nombre %></span> 
+                <span><b>tipo:</b> <%- datos.tipo %></span>
+                <span><b>rango:</b> <%- datos.rango %></span> 
             </p>
             <% }); %>
         </div>

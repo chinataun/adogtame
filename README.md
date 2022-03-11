@@ -4,14 +4,14 @@ Adogtame website:
 
 https://adogtame-gps.herokuapp.com/
 
-## Installation
+## Instalación
 
 ### Requerimientos
 
 - NodeJs 
 - Git 
 
-### Installation steps
+### Pasos de la instalación
 
 1. Clonar el repositorio:
 

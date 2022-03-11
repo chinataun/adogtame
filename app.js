@@ -30,7 +30,7 @@ app.get('/', function(req, res){
             callback(err);
             return;
         }
-        connection.query('SELECT * FROM animal', (error, rows) => {
+        connection.query('SELECT * FROM datos', (error, rows) => {
             if (error)
             connection.release();
         
@@ -44,7 +44,7 @@ app.get('/', function(req, res){
 })
 
 //Introduce nuevos usuarios en la base de datos, comprobando que no haya campos vacios o usuarios repetidos
-app.post("/nuevo_animal",(request, response)=>{
+app.post("/registro",(request, response)=>{
     let body = request.body;
     pool.getConnection((err,connection) => {
         if(err){
@@ -52,8 +52,8 @@ app.post("/nuevo_animal",(request, response)=>{
             return;
         }
         connection.query(
-            "insert into animal(nombre,tipo,raza) values (?,?,?)",
-            [body.nombre,body.tipo,body.raza],
+            "insert into datos(nombre,tipo,rango) values (?,?,?)",
+            [body.nombre,body.tipo,body.rango],
             (error, result) => {
             if (error) {
                 response.status(500);
