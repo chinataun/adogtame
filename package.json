@@ -4,7 +4,7 @@
   "description": "Aplicación web para la adopción de animales",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node app.js"
   },
   "author": "",
