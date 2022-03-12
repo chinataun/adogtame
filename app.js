@@ -1,4 +1,4 @@
-require('dotenv').config({ path: './.env' });
+
 require('./mongo')
 
 const config = require('./utils/config')

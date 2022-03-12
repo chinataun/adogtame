@@ -1,3 +1,4 @@
+require('dotenv').config({ path: './.env' });
 const mongoose = require ('mongoose')
 
 // const connectionString = `mongodb+srv://adogtame:adogtameDB@clusteradogtame.zonvg.mongodb.net/adogtame?retryWrites=true&w=majority`
