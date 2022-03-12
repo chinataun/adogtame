@@ -1,8 +1,7 @@
-import dotenv from 'dotenv'
-// imrequire('dotenv').config({ path: './.env' });
+const dotenv = require('dotenv')
+
 dotenv.config()
 require('./mongo')
-
 const config = require('./utils/config')
 const express = require('express')
 const app = express()
