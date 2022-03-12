@@ -2,18 +2,31 @@
   "name": "adogtame",
   "version": "1.0.0",
   "description": "Aplicación web para la adopción de animales",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "start": "node app.js"
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=develop nodemon index.js",
+    "lint": "eslint .",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "~1.18.2",
+    "axios": "^0.26.1",
+    "body-parser": "^1.19.2",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
     "ejs-lint": "^1.2.1",
     "express": "^4.17.3",
-    "mysql": "^2.18.1"
+    "mongoose": "^6.2.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "standard": "^16.0.4"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json"
   }
 }

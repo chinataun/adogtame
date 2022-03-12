@@ -1,75 +1,95 @@
+require('dotenv').config()
+require('./mongo')
+
+const config = require('./utils/config')
 const express = require('express')
 const app = express()
-const mysql = require('mysql')
-const path = require("path");
+const cors = require('cors')
+const usersRouter = require('./controllers/apiRouter')
+const adogtameRouter = require('./router/adogtameRouter')
+const middleware = require('./utils/middleware')
+const logger = require('./utils/logger')
+const mongoose = require('mongoose')
+const { Router } = require('express')
 const bodyParser = require("body-parser");
-const statics = path.join(__dirname,"public");
 app.use(bodyParser.urlencoded({ extended: false }));
-const port = process.env.PORT || 3000
-
-//conection
-const pool = mysql.createPool({
-    host: 'eu-cdbr-west-02.cleardb.net',
-    user: 'b45a5769a8153a',
-    password: 'd0b9d566',
-    database: 'heroku_a6c1a29456a7b8b'
-})
-
-app.use(express.static(statics));
-
-
+app.use(cors())
+// static files
+app.use(express.static('public'))
+app.use('/css', express.static(__dirname + 'public/css'))
+app.use('/images', express.static(__dirname + 'public/images'))
+app.use('/js', express.static(__dirname + 'public/js'))
 
 //view engine
+app.set('views', './views/pages')
 app.set('view engine', 'ejs')
 
+app.use(express.json())
+app.use(middleware.requestLogger)
 
-//render home page
-app.get('/', function(req, res){
-    pool.getConnection((err,connection) => {
-        if(err){
-            callback(err);
-            return;
-        }
-        connection.query('SELECT * FROM datos', (error, rows) => {
-            if (error)
-            connection.release();
-        
-            if (!error) {
-                console.log(rows)
-                res.render('pages/index', {rows})
-            }
-        })
-        connection.release();
-    });
-})
+// routes
+app.use('/api', usersRouter)
+app.use('/', adogtameRouter)
 
-//Introduce nuevos usuarios en la base de datos, comprobando que no haya campos vacios o usuarios repetidos
-app.post("/registro",(request, response)=>{
-    let body = request.body;
-    pool.getConnection((err,connection) => {
-        if(err){
-            connection.release();
-            return;
-        }
-        connection.query(
-            "insert into datos(nombre,tipo,rango) values (?,?,?)",
-            [body.nombre,body.tipo,body.rango],
-            (error, result) => {
-            if (error) {
-                response.status(500);
-                console.log(err);
-                response.end(err.message);
-            }    
-            if (!error) {
-                response.redirect('/')
-            }
-        })
-        connection.release();
-    });
-});
+app.use(middleware.unknownEndpoint)
+app.use(middleware.errorHandler)
+// const mysql = require('mysql')
+// const path = require("path");
+// const bodyParser = require("body-parser");
+// const statics = path.join(__dirname,"public");
+// app.use(bodyParser.urlencoded({ extended: false }));
+// const port = process.env.PORT || 3000
+
+//conection
+// const pool = mysql.createPool({
+//     host: 'eu-cdbr-west-02.cleardb.net',
+//     user: 'b45a5769a8153a',
+//     password: 'd0b9d566',
+//     database: 'heroku_a6c1a29456a7b8b'
+// })
+
+// app.use(express.static(statics));
+// app.use('/api/users', Router)
 
 
 
 
-app.listen(port)
-console.log(`Server is listening on ${port}`);
+
+
+
+
+
+// app.listen(port)
+// console.log(`Server is listening on ${port}`);
+
+
+// const config = require('./utils/config')
+// const express = require('express')
+// const app = express()
+// const cors = require('cors')
+// const notesRouter = require('./controllers/notes')
+// const middleware = require('./utils/middleware')
+// const logger = require('./utils/logger')
+// const mongoose = require('mongoose')
+
+// logger.info('connecting to', config.MONGODB_URI)
+
+// mongoose.connect(config.MONGODB_URI)
+//   .then(() => {
+//     logger.info('connected to MongoDB')
+//   })
+//   .catch((error) => {
+//     logger.error('error connecting to MongoDB:', error.message)
+//   })
+
+// app.use(cors())
+// app.use(express.static('build'))
+// app.use(express.json())
+// app.use(middleware.requestLogger)
+
+// app.use('/api/notes', notesRouter)
+
+// app.use(middleware.unknownEndpoint)
+// app.use(middleware.errorHandler)
+
+module.exports = app
