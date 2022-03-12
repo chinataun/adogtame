@@ -1,7 +1,7 @@
 const mongoose = require ('mongoose')
 
-const connectionString = `mongodb+srv://adogtame:adogtameDB@clusteradogtame.zonvg.mongodb.net/adogtame?retryWrites=true&w=majority`
-// const connectionString = process.env.MONGO_DB_URI
+// const connectionString = `mongodb+srv://adogtame:adogtameDB@clusteradogtame.zonvg.mongodb.net/adogtame?retryWrites=true&w=majority`
+const connectionString = process.env.MONGO_DB_URI
 //conexion a mongodb
 mongoose.connect(connectionString, {
 	useUnifiedTopology: true,
