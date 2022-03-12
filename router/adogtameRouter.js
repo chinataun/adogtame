@@ -5,7 +5,7 @@ const { default: axios } = require('axios')
 
 router.get('', async(request, response) => {
 	try {
-		const datosApi = await axios.get('http://localhost:3000/api/datos')
+		const datosApi = await axios.get('https://adogtame-gps-staging.herokuapp.com/api/datos')
 		response.render('index', {rows : datosApi.data})
 	}
 	catch (err) {
