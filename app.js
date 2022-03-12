@@ -29,7 +29,7 @@ app.use(middleware.requestLogger)
 
 // routes
 app.use('/api', usersRouter)
-app.use('/', adogtameRouter)
+app.use('', adogtameRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
