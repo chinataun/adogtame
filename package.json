@@ -1,6 +1,6 @@
 {
   "name": "adogtame",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Aplicación web para la adopción de animales",
   "main": "app.js",
   "scripts": {
