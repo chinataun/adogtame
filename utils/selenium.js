@@ -5,10 +5,10 @@ async function example() {
     await driver.get("https://adogtame-gps.herokuapp.com")
 
     await driver.findElement(By.name("nombre")).sendKeys('Adrian', Key.TAB)
-    await driver.findElement(By.name("Masculino")).sendKeys('True', Key.TAB)
-    await driver.findElement(By.name("Rango")).sendKeys('65', Key.RETURN)
+    await driver.findElement(By.id("nombreM")).click()
+    await driver.findElement(By.name("rango")).sendKeys("54", Key.TAB)
     await driver.sleep(1000)
 
-    await driver.findElement(By.name("Crear")).sendKeys("Submit", key.RETURN)
+    await driver.findElement(By.name("Crear")).sendKeys("Submit", Key.RETURN)
 }
 example();
