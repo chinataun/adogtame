@@ -4,7 +4,7 @@
   "description": "Aplicación web para la adopción de animales",
   "main": "app.js",
   "scripts": {
-    "test": "jest",
+    "test": "NODE_ENV=test jest --verbose --runInBand --detectOpenHandles",
     "start": "node app.js"
   },
   "author": "",
@@ -15,5 +15,9 @@
     "ejs-lint": "^1.2.1",
     "express": "^4.17.3",
     "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "supertest": "^6.2.2"
   }
 }

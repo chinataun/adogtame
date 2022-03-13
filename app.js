@@ -5,7 +5,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const statics = path.join(__dirname,"public");
 app.use(bodyParser.urlencoded({ extended: false }));
-const port = process.env.PORT || 3000
+
 
 //conection
 const pool = mysql.createPool({
@@ -43,6 +43,17 @@ app.get('/', function(req, res){
     });
 })
 
+//TEST INTEGRACIÓN
+app.post('/users', async (req, res) => {
+    const { password, username } = req.body
+    if (!password || !username) {
+      res.sendStatus(400)
+      return
+    }
+  
+    res.send({ userId: 0 })
+})
+
 //Introduce nuevos usuarios en la base de datos, comprobando que no haya campos vacios o usuarios repetidos
 app.post("/registro",(request, response)=>{
     let body = request.body;
@@ -68,8 +79,12 @@ app.post("/registro",(request, response)=>{
     });
 });
 
+const port = process.env.PORT || 3000
+const server = app.listen(port, () => {
+    console.log(`Server is listening on ${port}`);
+})
 
+module.exports = {app, server}
 
-
-app.listen(port)
-console.log(`Server is listening on ${port}`);
+// app.listen(port)
+// console.log(`Server is listening on ${port}`);
