@@ -9,6 +9,6 @@ async function example() {
     await driver.findElement(By.name("rango")).sendKeys("54", Key.TAB)
     await driver.sleep(1000)
 
-    await driver.findElement(By.name("Crear")).sendKeys("Submit", Key.RETURN)
+    await driver.findElement(By.id("crearSubmit")).click()
 }
 example();
