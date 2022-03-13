@@ -13,6 +13,8 @@ const logger = require('./utils/logger')
 const mongoose = require('mongoose')
 const { Router } = require('express')
 const bodyParser = require("body-parser");
+const validatePassword = require('./utils/validatePassword.js')
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors())
 // static files
@@ -23,15 +25,25 @@ app.use('/js', express.static(__dirname + 'public/js'))
 
 
 //view engine
-app.set('views', './views/pages')
-app.set('view engine', 'ejs')
+//app.set('views', './views/pages')
+//app.set('view engine', 'ejs')
 
 app.use(express.json())
 app.use(middleware.requestLogger)
 
+app.post('/users', async (req, res) => {
+  const { password, username } = req.body
+  if (!password || !username) {
+    res.sendStatus(400)
+    return
+  }
+
+  res.send({ userId: 0 })
+})
+
 // routes
 app.use('/api', usersRouter)
-app.use('', adogtameRouter)
+app.use('/', adogtameRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

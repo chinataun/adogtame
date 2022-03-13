@@ -7,7 +7,7 @@
     "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=develop nodemon index.js",
     "lint": "eslint .",
-    "test": "NODE_ENV=test jest --verbose --runInBand"
+    "test": "NODE_ENV=test jest --verbose --silent --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",
@@ -23,10 +23,9 @@
     "mongoose": "^6.2.6"
   },
   "devDependencies": {
+    "jest": "^27.5.1",
     "nodemon": "^2.0.15",
-    "standard": "^16.0.4"
-  },
-  "eslintConfig": {
-    "extends": "./node_modules/standard/eslintrc.json"
+    "standard": "^16.0.4",
+    "supertest": "^6.2.2"
   }
 }
