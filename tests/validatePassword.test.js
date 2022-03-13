@@ -1,4 +1,5 @@
 const validatePassword = require('../utils/validatePassword.js')
+const {app, server} = require('../app')
 
 test("Falso si la contraseña está vacía", () => {
   expect(validatePassword("")).toBe(false)

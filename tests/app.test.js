@@ -6,8 +6,8 @@ const {app, server} = require('../app')
 const api = supertest(app)
 
 
-describe("POST /users", () => {
-  describe.skip("Dando un usuario y contraseña", () => {
+describe.skip("POST /users", () => {
+  describe("Dando un usuario y contraseña", () => {
 
     test("Debería responder con un status code de 200", async () => {
       const response = await request(app).post("/users").send({
@@ -32,7 +32,7 @@ describe("POST /users", () => {
     })
   })
 
-  describe.skip("Cuando la contraseña o password no existe", () => {
+  describe("Cuando la contraseña o password no existe", () => {
     test("Debería responder con un status code dde 400", async () => {
       const bodyData = [
         {username: "username"},
