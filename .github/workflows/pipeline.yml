@@ -2,8 +2,7 @@ name: Deployment Pipeline
 
 on:
   push:
-    branches:
-      - develop
+    branches: [ develop ]
 
 jobs:
   deploy:
