@@ -1,0 +1,34 @@
+name: Deployment Pipeline
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [develop]
+    types: [opened, synchronize]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Cancel Previous redundant Builds
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install dependencies  
+        run: npm ci
+      - name: Test
+        run: npm test
+      - name: Deploy dev to Heroku
+        if: ${{ github.event_name == 'push' }}
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP}}
+          heroku_email: ${{secrets.HEROKU_API_EMAIL}}
