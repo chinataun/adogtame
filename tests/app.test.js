@@ -47,6 +47,5 @@ describe("POST /users", () => {
   })
 afterAll(() => {
     server.close()
-
 })
 })
