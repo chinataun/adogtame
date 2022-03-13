@@ -5,7 +5,7 @@ test("Falso si la contraseña está vacía", () => {
   expect(validatePassword("")).toBe(false)
 })
 test("Falso si la contraseña no contiene numeros", () => {
-  expect(validatePassword("aksjgkaasdf")).toBe(false)
+  expect(validatePassword("aksjgkaassadf")).toBe(false)
 })
 test("Falso si la contraseña no contiene letras", () => {
   expect(validatePassword("1251234563246")).toBe(false)
