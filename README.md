@@ -34,10 +34,11 @@ https://adogtame-gps.herokuapp.com/
 
     - http://www.localhost:3000
 
-## Documentation
-
-Puedes ver la documentación aqui: 
-
 ## Testing
 
-@TODO!
+Si queremos ejecutar pruebas en local basta con ejecutar el comando **npm test**
+
+Cuando abramos un Pull Request de una feature a dev, se ejecutarán las acciones de github para la ejecución de las pruebas y/o el deploy a staging 
+
+## Github Actions
+https://github.com/chinataun/adogtame/actions/workflows/pipeline.yml
