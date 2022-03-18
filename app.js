@@ -1,22 +1,20 @@
-const dotenv = require('dotenv')
-
-dotenv.config()
-require('./mongo')
-const config = require('./utils/config')
 const express = require('express')
-const app = express()
+const path = require('path')
 const cors = require('cors')
-const usersRouter = require('./controllers/apiRouter')
-const adogtameRouter = require('./router/adogtameRouter')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
-const mongoose = require('mongoose')
-const { Router } = require('express')
 const bodyParser = require("body-parser");
 const validatePassword = require('./utils/validatePassword.js')
+const methodOverride = require('method-override')
+const dotenv = require('dotenv')
+dotenv.config({ path: './.env' });
 
-app.use(bodyParser.urlencoded({ extended: false }));
+const app = express()
+require('./mongo')
+
+app.use(express.json())
 app.use(cors())
+
 // static files
 app.use(express.static('public'))
 app.use('/css', express.static(__dirname + 'public/css'))
@@ -25,25 +23,52 @@ app.use('/js', express.static(__dirname + 'public/js'))
 
 
 //view engine
-//app.set('views', './views/pages')
-//app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
 
-app.use(express.json())
-app.use(middleware.requestLogger)
+// Middlewares
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(methodOverride())
 
-app.post('/users', async (req, res) => {
-  const { password, username } = req.body
-  if (!password || !username) {
-    res.sendStatus(400)
-    return
-  }
 
-  res.send({ userId: 0 })
-})
+///////////////////
+
+
+// dotenv.config()
+
+// const config = require('./utils/config')
+
+// const apiRouter = require('./routes/backend/apiRouter')
+// const adogtameRouter = require('./routes/frontend/adogtameRouter')
+const animalsRouter = require('./routes/animals.routes')
+const indexRouter = require('./routes/animals.routes')
+// const mongoose = require('mongoose')
+// const { Router } = require('express')
+
+
+
+
+
+
+
+
+// app.use(middleware.requestLogger)
+
+// app.post('/users', async (req, res) => {
+// 	const { password, username } = req.body
+// 	if (!password || !username) {
+// 		res.sendStatus(400)
+// 		return
+// 	}
+
+// 	res.send({ userId: 0 })
+// })
 
 // routes
-app.use('/api', usersRouter)
-app.use('/', adogtameRouter)
+// app.use('/api', apiRouter)
+// app.use('/', adogtameRouter)3
+// app.use('/', indexRouter)
+app.use('/animales', animalsRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
@@ -105,5 +130,10 @@ app.use(middleware.errorHandler)
 
 // app.use(middleware.unknownEndpoint)
 // app.use(middleware.errorHandler)
+const PORT = process.env.PORT
+
+app.listen(PORT, () => {
+	logger.info(`Server running on port ${PORT}`)
+})
 
 module.exports = app

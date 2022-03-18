@@ -4,10 +4,10 @@
   "description": "Aplicación web para la adopción de animales",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node index.js",
-    "dev": "NODE_ENV=develop nodemon index.js",
-    "lint": "eslint .",
-    "test": "NODE_ENV=test jest --verbose --silent --detectOpenHandles"
+    "start": "NODE_ENV=production node app.js",
+    "dev": "NODE_ENV=development nodemon app.js",
+    "lint": "npm run lint",
+    "test": "NODE_ENV=develop jest --verbose --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",
@@ -20,12 +20,18 @@
     "ejs": "^3.1.6",
     "ejs-lint": "^1.2.1",
     "express": "^4.17.3",
+    "method-override": "^3.0.0",
     "mongoose": "^6.2.6"
   },
   "devDependencies": {
-    "jest": "^27.5.1",
-    "nodemon": "^2.0.15",
-    "standard": "^16.0.4",
-    "supertest": "^6.2.2"
+    "eslint": "7.18.0",
+    "jest": "27.5.1",
+    "nodemon": "2.0.15",
+    "standard": "16.0.4",
+    "supertest": "6.2.2"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslinrc.json" 
   }
+
 }

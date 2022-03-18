@@ -19,12 +19,51 @@
     </div>
         <div id="formulario">
             <div class = "borde"> 
-                <form action="/api/registro" method="POST">
+                <form action="/api/addAnimal" method="POST">
                     <div id="formularioUsuarioNuevo">
                         <label id="nombre" for="txt_nombre">Nombre:</label>
                         <input id="cajaNombre" type="text" name="nombre" class="form-control" placeholder="Introduce un nombre" required >
-                        <span class="input_radio"><label id="nombre" for="txt_nombre">Masculino:</label><input type="radio" name="tipo" value="Masculino" required> </span>
+
+
+                        <select class="custom-select" name="tipo">
+                            <option selected>Selecciona el tipo de animal</option>
+                            <option value="perro">perro</option>
+                            <option value="gato">gato</option>
+                            <option value="pajaro">pajaro</option>
+                        </select>
+
+                        <label id="raza" for="txt_nombre">Raza:</label>
+                        <input id="cajaNombre" type="text" name="raza" class="form-control" placeholder="Raza" >
+
+
+                        <label id="edad" for="txt_nombre">Edad:</label>
+                        <input id="cajaNombre" type="number" name="edad" class="form-control" placeholder="Introduce un edad" required >
+
+                        <label id="genero" for="txt_nombre">Genero:</label>
+                            <!--                   <span class="input_radio"><label id="nombre" for="txt_nombre">Masculino:</label><input type="radio" name="tipo" value="Masculino" required> </span>
                         <span class="input_radio"> <label id="nombre" for="txt_nombre">Femenino:</label><input type="radio" name="tipo" value="Femenino" required></span>
+                         -->
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="Macho">
+                            <label class="form-check-label" for="inlineRadio1">Macho</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="genero" id="inlineRadio2" value="Hembra">
+                            <label class="form-check-label" for="inlineRadio2">Hembra</label>
+                          </div>
+                       
+                    <!-- <label id="descripcion" for="txt_nombre">Descripcion:</label>
+                        <input id="cajaNombre" type="text" name="descripcion" class="form-control" placeholder="Introduce un descripcion" required >
+                        -->
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Example textarea</label>
+                            <textarea class="form-control" id="descripcion" rows="3" name="descripcion"></textarea>
+                          </div>
+                        <!-- <input id="cajaNombre" type="text" name="genero" class="form-control" placeholder="Introduce un genero" required >
+
+                    
+                        
                         <label id="nombre" for="txt_nombre">Rango (0-100): </label>
                           <input type="range" list="tickmarks" name="rango"> 
                             <datalist id="tickmarks">
@@ -39,7 +78,7 @@
                               <option value="80">
                               <option value="90">
                               <option value="100">
-                            </datalist>
+                            </datalist> -->
                     </div>
                     <div class="submit_add">
                     <input class="btn btn-default" type="submit" value="Crear"/>
@@ -52,7 +91,11 @@
                 <p>
                 <span><b>nombre:</b><%- datos.nombre %></span> 
                 <span><b>tipo:</b> <%- datos.tipo %></span>
-                <span><b>rango:</b> <%- datos.rango %></span> 
+                <span><b>raza:</b> <%- datos.raza %></span>
+                <span><b>rango:</b> <%- datos.edad %></span> 
+
+                <span><b>genero:</b> <%- datos.genero %></span>
+                <span><b>descripcion:</b> <%- datos.descripcion %></span> 
             </p>
             <% }); %>
         </div>

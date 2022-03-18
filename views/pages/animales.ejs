@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css" />    <title>Document</title>
+</head>
+<body>
+    <div id="home" class="container">
+    <div id="logo_home">
+        <h1>Prototipo de la aplicación</h1>
+        <h3>Pequeño formulario de registro de datos con listado de los mismos</h3>
+    </div>
+        <div class="borde">
+            <h1>Listado de Datos</h1>
+            <% animales.forEach(function(animal) { %>
+                <p>
+                <span><b>nombre:</b><%- animal.nombre %></span> 
+                <span><b>tipo:</b> <%- animal.tipo %></span>
+                <span><b>raza:</b> <%- animal.raza %></span>
+                <span><b>rango:</b> <%- animal.edad %></span> 
+
+                <span><b>genero:</b> <%- animal.genero %></span>
+                <span><b>descripcion:</b> <%- animal.descripcion %></span> 
+            </p>
+            <% }); %>
+        </div>
+    </div>
+</body>
+</html>

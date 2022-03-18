@@ -1,8 +1,8 @@
 const router = require('express').Router()
-// const mongoose = require ('mongoose')
+const mongoose = require ('mongoose')
 // const User = require('../models/User.js')
-const Dato = require('../models/Dato.js')
 
+const {getAnimals} = require('../../controllers/animal.controller')
 
 
 //render API USERS
@@ -17,35 +17,38 @@ const Dato = require('../models/Dato.js')
 
 //render API USERS
 router.get('/datos', (request, response) => {
-	Dato.find({}).then(datos => {
-		response.writeHead(200, {'Content-type': 'application/json'})
+	Animal.find({}).then(datos => {
 		response.end(JSON.stringify(datos))
 		// response.json(users)
 		// mongoose.connection.close()
 	})
 })
 
-router.post('/registro', (request, response) => {
-	const datos = request.body
-	// console.log(datos)
-	if (!datos) {
-		return response.status(400).json({
-			error: 'required content field missing'
-		})
-	}
-	const ficha = new Dato({
-		nombre: datos.nombre,
-		tipo: datos.tipo,
-		rango: datos.rango
-	})
-	ficha.save()
-		.then(result =>{
-			console.log(result)
-			response.redirect('/')
-		})
-		.catch(err => {
-			console.error(err)
-		})
+// router.post('/registro', (request, response) => {
+// 	const datos = request.body
+// 	console.log("datos")
+// 	console.log(datos)
+// 	if (!datos) {
+// 		return response.status(400).json({
+// 			error: 'required content field missing'
+// 		})
+// 	}
+// 	const ficha = new Animal({
+// 		nombre: datos.nombre,
+// 		tipo: datos.tipo,
+// 		raza: datos.raza,
+// 		edad: datos.edad,
+// 		genero: datos.genero,
+// 		descripcion: datos.descripcion
+// 	})
+// 	ficha.save()
+// 		.then(result =>{
+// 			// console.log(result)
+// 			response.redirect('/')
+// 		})
+// 		.catch(err => {
+// 			console.error(err)
+// 		})
 
 
 	// try {
@@ -71,7 +74,7 @@ router.post('/registro', (request, response) => {
 	//     // response.json(users)
 	//     // mongoose.connection.close()
 	// });
-})
+// })
 // usersRouter.get('/users', (request,response) => {
 //     User.find({}).then(users => {
 //         response.json(users)
