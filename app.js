@@ -1,4 +1,6 @@
 const express = require('express')
+const expressLayouts = require('express-ejs-layouts')
+
 const path = require('path')
 const cors = require('cors')
 const middleware = require('./utils/middleware')
@@ -24,6 +26,8 @@ app.use('/js', express.static(__dirname + 'public/js'))
 
 //view engine
 app.set('views', path.join(__dirname, 'views'))
+app.use(expressLayouts)
+app.set('layout', './layouts/full-width')
 app.set('view engine', 'ejs')
 
 // Middlewares

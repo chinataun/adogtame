@@ -2,11 +2,9 @@ const express = require('express')
 const router = express.Router()
 const Animal = require('../models/Animal')
 
-const {renderNotes} = require('../controllers/animal.controller')
+const {renderAnimales, renderAddAnimal} = require('../controllers/animal.controller')
 
-router.get('/add',  (request, response) => {
-  response.render('animales/new-animal')
-})
+router.get('/add', renderAddAnimal)
 
 
 router.post('/add', async (request, response) => {
@@ -28,10 +26,10 @@ router.post('/add', async (request, response) => {
 	
   const savedUser = await animal.save()
 
-  // response.json(savedUser)
-  response.redirect('/animales')
+   response.render('animales/add',{animal: savedUser, message: 'Añadido con exito'})
+ // response.redirect('/animales')
 })
 
-router.get('/', renderNotes)
+router.get('/', renderAnimales)
 
 module.exports = router

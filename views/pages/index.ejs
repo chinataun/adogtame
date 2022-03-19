@@ -1,104 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/style.css" />    <title>Document</title>
-</head>
-<body>
     <div id="home" class="container">
-    <div id="logo_home">
-        <h1>Prototipo de la aplicación</h1>
-        <h3>Pequeño formulario de registro de datos con listado de los mismos</h3>
-    </div>
-        <div id="formulario">
-            <div class = "borde"> 
-                <form action="/api/addAnimal" method="POST">
-                    <div id="formularioUsuarioNuevo">
-                        <label id="nombre" for="txt_nombre">Nombre:</label>
-                        <input id="cajaNombre" type="text" name="nombre" class="form-control" placeholder="Introduce un nombre" required >
+        <div id="logo_home">
+            <h1>Prototipo de la aplicación</h1>
+            <h3>Pequeño formulario de registro de datos con listado de los mismos</h3>
+        </div>
+            <div id="formulario">
+                <div class = "borde"> 
+                    <form action="/api/addAnimal" method="POST">
+                        <div id="formularioUsuarioNuevo">
+                            <label id="nombre" for="txt_nombre">Nombre:</label>
+                            <input id="cajaNombre" type="text" name="nombre" class="form-control" placeholder="Introduce un nombre" required >
 
 
-                        <select class="custom-select" name="tipo">
-                            <option selected>Selecciona el tipo de animal</option>
-                            <option value="perro">perro</option>
-                            <option value="gato">gato</option>
-                            <option value="pajaro">pajaro</option>
-                        </select>
+                            <select class="custom-select" name="tipo">
+                                <option selected>Selecciona el tipo de animal</option>
+                                <option value="perro">perro</option>
+                                <option value="gato">gato</option>
+                                <option value="pajaro">pajaro</option>
+                            </select>
 
-                        <label id="raza" for="txt_nombre">Raza:</label>
-                        <input id="cajaNombre" type="text" name="raza" class="form-control" placeholder="Raza" >
+                            <label id="raza" for="txt_nombre">Raza:</label>
+                            <input id="cajaNombre" type="text" name="raza" class="form-control" placeholder="Raza" >
 
 
-                        <label id="edad" for="txt_nombre">Edad:</label>
-                        <input id="cajaNombre" type="number" name="edad" class="form-control" placeholder="Introduce un edad" required >
+                            <label id="edad" for="txt_nombre">Edad:</label>
+                            <input id="cajaNombre" type="number" name="edad" class="form-control" placeholder="Introduce un edad" required >
 
-                        <label id="genero" for="txt_nombre">Genero:</label>
-                            <!--                   <span class="input_radio"><label id="nombre" for="txt_nombre">Masculino:</label><input type="radio" name="tipo" value="Masculino" required> </span>
-                        <span class="input_radio"> <label id="nombre" for="txt_nombre">Femenino:</label><input type="radio" name="tipo" value="Femenino" required></span>
-                         -->
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="Macho">
-                            <label class="form-check-label" for="inlineRadio1">Macho</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="genero" id="inlineRadio2" value="Hembra">
-                            <label class="form-check-label" for="inlineRadio2">Hembra</label>
-                          </div>
-                       
-                    <!-- <label id="descripcion" for="txt_nombre">Descripcion:</label>
-                        <input id="cajaNombre" type="text" name="descripcion" class="form-control" placeholder="Introduce un descripcion" required >
-                        -->
-                        <br>
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Example textarea</label>
-                            <textarea class="form-control" id="descripcion" rows="3" name="descripcion"></textarea>
-                          </div>
-                        <!-- <input id="cajaNombre" type="text" name="genero" class="form-control" placeholder="Introduce un genero" required >
-
-                    
+                            <label id="genero" for="txt_nombre">Genero:</label>
+                                <!--                   <span class="input_radio"><label id="nombre" for="txt_nombre">Masculino:</label><input type="radio" name="tipo" value="Masculino" required> </span>
+                            <span class="input_radio"> <label id="nombre" for="txt_nombre">Femenino:</label><input type="radio" name="tipo" value="Femenino" required></span>
+                            -->
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="Macho">
+                                <label class="form-check-label" for="inlineRadio1">Macho</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="genero" id="inlineRadio2" value="Hembra">
+                                <label class="form-check-label" for="inlineRadio2">Hembra</label>
+                            </div>
                         
-                        <label id="nombre" for="txt_nombre">Rango (0-100): </label>
-                          <input type="range" list="tickmarks" name="rango"> 
-                            <datalist id="tickmarks">
-                              <option value="0">
-                              <option value="10">
-                              <option value="20">
-                              <option value="30">
-                              <option value="40">
-                              <option value="50">
-                              <option value="60">
-                              <option value="70">
-                              <option value="80">
-                              <option value="90">
-                              <option value="100">
-                            </datalist> -->
-                    </div>
-                    <div class="submit_add">
-                    <input class="btn btn-default" type="submit" value="Crear"/>
-                    </div>
-                </form>
-            </div>
-        <div class="borde">
-            <h1>Listado de Datos</h1>
-            <% rows.forEach(function(datos) { %>
-                <p>
-                <span><b>nombre:</b><%- datos.nombre %></span> 
-                <span><b>tipo:</b> <%- datos.tipo %></span>
-                <span><b>raza:</b> <%- datos.raza %></span>
-                <span><b>rango:</b> <%- datos.edad %></span> 
+                        <!-- <label id="descripcion" for="txt_nombre">Descripcion:</label>
+                            <input id="cajaNombre" type="text" name="descripcion" class="form-control" placeholder="Introduce un descripcion" required >
+                            -->
+                            <br>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Example textarea</label>
+                                <textarea class="form-control" id="descripcion" rows="3" name="descripcion"></textarea>
+                            </div>
+                            <!-- <input id="cajaNombre" type="text" name="genero" class="form-control" placeholder="Introduce un genero" required >
 
-                <span><b>genero:</b> <%- datos.genero %></span>
-                <span><b>descripcion:</b> <%- datos.descripcion %></span> 
-            </p>
-            <% }); %>
+                        
+                            
+                            <label id="nombre" for="txt_nombre">Rango (0-100): </label>
+                            <input type="range" list="tickmarks" name="rango"> 
+                                <datalist id="tickmarks">
+                                <option value="0">
+                                <option value="10">
+                                <option value="20">
+                                <option value="30">
+                                <option value="40">
+                                <option value="50">
+                                <option value="60">
+                                <option value="70">
+                                <option value="80">
+                                <option value="90">
+                                <option value="100">
+                                </datalist> -->
+                        </div>
+                        <div class="submit_add">
+                        <input class="btn btn-default" type="submit" value="Crear"/>
+                        </div>
+                    </form>
+                </div>
+            <div class="borde">
+                <h1>Listado de Datos</h1>
+                <% rows.forEach(function(datos) { %>
+                    <p>
+                    <span><b>nombre:</b><%- datos.nombre %></span> 
+                    <span><b>tipo:</b> <%- datos.tipo %></span>
+                    <span><b>raza:</b> <%- datos.raza %></span>
+                    <span><b>rango:</b> <%- datos.edad %></span> 
+
+                    <span><b>genero:</b> <%- datos.genero %></span>
+                    <span><b>descripcion:</b> <%- datos.descripcion %></span> 
+                </p>
+                <% }); %>
+            </div>
         </div>
     </div>
-</body>
-</html>
