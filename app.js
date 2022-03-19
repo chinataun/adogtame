@@ -6,15 +6,22 @@ const cors = require('cors')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const bodyParser = require("body-parser");
+const {body, validationResult} = require('express-validator')
 const validatePassword = require('./utils/validatePassword.js')
+const session = require('express-session')
 const methodOverride = require('method-override')
+const flash = require('connect-flash')
+const cookieParser = require('cookie-parser')
 const dotenv = require('dotenv')
 dotenv.config({ path: './.env' });
 
+
+
+//Inicializaiones
 const app = express()
 require('./mongo')
 
-app.use(express.json())
+
 app.use(cors())
 
 // static files
@@ -32,9 +39,28 @@ app.set('view engine', 'ejs')
 
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(methodOverride())
+app.use(express.json())
+app.use(methodOverride('_method'))
+app.use(cookieParser('SecretStringForCookies'))
+app.use(session({
+  secret: "SecretStringForSession",
+	cookie: {	maxAge: 60000 },
+	resave: true,
+	saveUninitialized: true,
+    // store: MongoStore.create({ mongoUrl: config.MONGODB_URI }),
+}));
+// app.use(passport.initialize());
+// app.use(passport.session());
+app.use(flash())
 
-
+// Global Variables
+// app.use((req, res, next) => {
+//   res.locals.success_msg = req.flash("success_msg");
+//   res.locals.error_msg = req.flash("error_msg");
+//   res.locals.error = req.flash("error");
+//   res.locals.user = req.user || null;
+//   next();
+// });
 ///////////////////
 
 
@@ -136,8 +162,12 @@ app.use(middleware.errorHandler)
 // app.use(middleware.errorHandler)
 const PORT = process.env.PORT
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
 	logger.info(`Server running on port ${PORT}`)
 })
-
-module.exports = app
+// if (process.env.NODE_ENV !== 'test') {
+//   app.listen(PORT, () => {
+//	logger.info(`Server running on port ${PORT}`)
+//})
+// }
+module.exports = {app, server}

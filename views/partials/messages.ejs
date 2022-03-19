@@ -1,0 +1,13 @@
+<% if(typeof message !== 'undefined' && message.length > 0) { %>
+  <div class="alert alert-success" role="alert">
+  <%= message %>
+</div>
+  <% } %>
+  <% if(typeof errors_msg == 'object' && errors_msg.length > 0) { %>
+  <% errors_msg.forEach(function(error) { %>
+    <div class="alert alert-danger" role="alert">
+      <%= error.msg %>
+    </div>
+  <% }); %>
+  <% } %>
+    

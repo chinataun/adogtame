@@ -6,7 +6,7 @@ const connectionString = NODE_ENV === 'development'
 	: MONGO_DB_URI  
 	console.log(NODE_ENV)
 
-mongoose.connect(connectionString, {
+const conection = mongoose.connect(connectionString, {
 	useUnifiedTopology: true,
 	useNewUrlParser: true,
 })
@@ -17,5 +17,6 @@ mongoose.connect(connectionString, {
 	console.log(err)
 })
 
+module.exports = conection
 
 

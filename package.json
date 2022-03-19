@@ -7,13 +7,15 @@
     "start": "cross-env NODE_ENV=production node app.js",
     "dev": "cross-env NODE_ENV=development nodemon app.js",
     "lint": "npm run lint",
-    "test": "cross-env NODE_ENV=developmentnpm install jest --verbose --detectOpenHandles"
+    "test": "NODE_ENV=development jest --verbose --silent --forceExit --detectOpenHandles  --maxWorkers=1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.26.1",
     "body-parser": "^1.19.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
@@ -21,6 +23,8 @@
     "ejs-lint": "^1.2.1",
     "express": "^4.17.3",
     "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.17.2",
+    "express-validator": "^6.14.0",
     "method-override": "^3.0.0",
     "mongoose": "^6.2.6"
   },

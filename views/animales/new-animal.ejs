@@ -2,79 +2,44 @@
     <div class="card text-center">
       <div class="card-header">
         <h3>New Animal</h3>
-        <% if(message) { %>
-          <div class="alert alert-danger" role="alert"><%= message %></div>
-          <% } %>
+
       </div>
       <div class="card-body">
-        <div id="formulario">
-          <div class = "borde"> 
-              <form action="/animales/add" method="POST">
-                  <div id="formularioUsuarioNuevo">
-                      <label id="nombre" for="txt_nombre">Nombre:</label>
-                      <input id="cajaNombre" type="text" name="nombre" class="form-control" placeholder="Introduce un nombre">
 
-
-                      <select class="custom-select" name="tipo">
-                          <option selected>Selecciona el tipo de animal</option>
-                          <option value="perro">perro</option>
-                          <option value="gato">gato</option>
-                          <option value="pajaro">pajaro</option>
-                      </select>
-
-                      <label id="raza" for="txt_nombre">Raza:</label>
-                      <input id="cajaNombre" type="text" name="raza" class="form-control" placeholder="Raza" >
-
-
-                      <label id="edad" for="txt_nombre">Edad:</label>
-                      <input id="cajaNombre" type="number" name="edad" class="form-control" placeholder="Introduce un edad">
-
-                      <label id="genero" for="txt_nombre">Genero:</label>
-                          <!--                   <span class="input_radio"><label id="nombre" for="txt_nombre">Masculino:</label><input type="radio" name="tipo" value="Masculino" required> </span>
-                      <span class="input_radio"> <label id="nombre" for="txt_nombre">Femenino:</label><input type="radio" name="tipo" value="Femenino" required></span>
-                       -->
-                      <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="Macho">
-                          <label class="form-check-label" for="inlineRadio1">Macho</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="genero" id="inlineRadio2" value="Hembra">
-                          <label class="form-check-label" for="inlineRadio2">Hembra</label>
-                        </div>
-                     
-                  <!-- <label id="descripcion" for="txt_nombre">Descripcion:</label>
-                      <input id="cajaNombre" type="text" name="descripcion" class="form-control" placeholder="Introduce un descripcion" required >
-                      -->
-                      <br>
-                      <div class="form-group">
-                          <label for="exampleFormControlTextarea1">Example textarea</label>
-                          <textarea class="form-control" id="descripcion" rows="3" name="descripcion"></textarea>
-                        </div>
-                      <!-- <input id="cajaNombre" type="text" name="genero" class="form-control" placeholder="Introduce un genero" required >
-
-                  
-                      
-                      <label id="nombre" for="txt_nombre">Rango (0-100): </label>
-                        <input type="range" list="tickmarks" name="rango"> 
-                          <datalist id="tickmarks">
-                            <option value="0">
-                            <option value="10">
-                            <option value="20">
-                            <option value="30">
-                            <option value="40">
-                            <option value="50">
-                            <option value="60">
-                            <option value="70">
-                            <option value="80">
-                            <option value="90">
-                            <option value="100">
-                          </datalist> -->
-                  </div>
-                  <div class="submit_add">
-                  <input class="btn btn-default" type="submit" value="Crear"/>
-                  </div>
-              </form>
-          </div>
+            <%- include('../partials/messages.ejs') %>
+            <form action="/animales/add" method="POST">
+              <div class="mb-3">
+                  <label class="form-label" for="inputNombre">Nombre</label>
+                  <input type="text" name="nombre" class="form-control" id="inputNombre" placeholder="Nombre">
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="inputTipo">Tipo</label>
+                <input type="text" name="tipo" class="form-control" id="inputTipo" placeholder="Tipo">
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="inputRaza">Raza</label>
+                <input type="text" name="raza" class="form-control" id="inputRaza" placeholder="Raza">
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="inputEmail">Edad</label>
+                <input type="number" name="edad" class="form-control" id="inputEdad" placeholder="Edad">
+              </div>
+              <legend class="col-form-label">Genero</legend>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="genero" id="inlineMasculino" value="Masculino">
+                <label class="form-check-label" for="inlineMasculino">Masculino</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="genero" id="inlineFemenino" value="Femenino">
+                <label class="form-check-label" for="inlineFemenino">Femenino</label>
+              </div>
+              <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a description" id="floatingDescripcion" name="descripcion" style="height: 100px"></textarea>
+                <label for="floatingDescripcion">Descripción</label>
+              </div>
+              <button type="submit" class="btn btn-primary">Crear animal</button>
+          </form>
+       
      
   </div>
-     
+</div> </div>
