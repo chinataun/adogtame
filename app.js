@@ -47,7 +47,7 @@ app.use(session({
 	cookie: {	maxAge: 60000 },
 	resave: true,
 	saveUninitialized: true,
-    // store: MongoStore.create({ mongoUrl: config.MONGODB_URI }),
+  // store: MongoStore.create({ mongoUrl: config.MONGODB_URI }),
 }));
 // app.use(passport.initialize());
 // app.use(passport.session());
@@ -71,7 +71,7 @@ app.use((req, res, next) => {
 // const apiRouter = require('./routes/backend/apiRouter')
 // const adogtameRouter = require('./routes/frontend/adogtameRouter')
 const animalsRouter = require('./routes/animals.routes')
-const indexRouter = require('./routes/animals.routes')
+const usersRouter = require('./routes/users.routes')
 // const mongoose = require('mongoose')
 // const { Router } = require('express')
 
@@ -100,8 +100,9 @@ const indexRouter = require('./routes/animals.routes')
 // app.use('/', indexRouter)
 app.get('/', (request, response) => {  
   response.render('pages/index')})
-app.use('/animales', animalsRouter)
 
+app.use('/animales', animalsRouter)
+app.use('/users', usersRouter)
 // app.use(middleware.unknownEndpoint)
 // app.use(middleware.errorHandler)
 // const mysql = require('mysql')

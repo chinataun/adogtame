@@ -3,6 +3,11 @@
   <%= success_msg %>
 </div>
   <% } %>
+  <% if(typeof error !== 'undefined' && error.length > 0) { %>
+    <div class="alert alert-warning" role="alert">
+    <%= error %>
+  </div>
+    <% } %>
   <% if(typeof errors_msg == 'object' && errors_msg.length > 0) { %>
   <% errors_msg.forEach(function(error) { %>
     <div class="alert alert-danger" role="alert">
@@ -10,4 +15,3 @@
     </div>
   <% }); %>
   <% } %>
-    
