@@ -1,6 +1,6 @@
-<% if(typeof message !== 'undefined' && message.length > 0) { %>
+<% if(typeof success_msg !== 'undefined' && success_msg.length > 0) { %>
   <div class="alert alert-success" role="alert">
-  <%= message %>
+  <%= success_msg %>
 </div>
   <% } %>
   <% if(typeof errors_msg == 'object' && errors_msg.length > 0) { %>

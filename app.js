@@ -6,7 +6,7 @@ const cors = require('cors')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const bodyParser = require("body-parser");
-const {body, validationResult} = require('express-validator')
+const {expressVaidator, body, validationResult} = require('express-validator')
 const validatePassword = require('./utils/validatePassword.js')
 const session = require('express-session')
 const methodOverride = require('method-override')
@@ -54,13 +54,13 @@ app.use(session({
 app.use(flash())
 
 // Global Variables
-// app.use((req, res, next) => {
-//   res.locals.success_msg = req.flash("success_msg");
-//   res.locals.error_msg = req.flash("error_msg");
-//   res.locals.error = req.flash("error");
-//   res.locals.user = req.user || null;
-//   next();
-// });
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  res.locals.error = req.flash("error");
+  res.locals.user = req.user || null;
+  next();
+});
 ///////////////////
 
 
@@ -98,10 +98,12 @@ const indexRouter = require('./routes/animals.routes')
 // app.use('/api', apiRouter)
 // app.use('/', adogtameRouter)3
 // app.use('/', indexRouter)
+app.get('/', (request, response) => {  
+  response.render('pages/index')})
 app.use('/animales', animalsRouter)
 
-app.use(middleware.unknownEndpoint)
-app.use(middleware.errorHandler)
+// app.use(middleware.unknownEndpoint)
+// app.use(middleware.errorHandler)
 // const mysql = require('mysql')
 // const path = require("path");
 // const bodyParser = require("body-parser");

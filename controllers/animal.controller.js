@@ -1,5 +1,5 @@
 const Animal = require('../models/Animal')
-
+const { check, body, validationResult } = require('express-validator')
 
 const renderAnimales = async (request, response) => {
   const animales = await Animal.find({}) 
@@ -7,20 +7,24 @@ const renderAnimales = async (request, response) => {
   response.render('pages/animales', {animales})
 }
 
-const renderAddAnimal = async (request, response) => {
-  const message = request.flash('success_msg')
-  const errors_msg = request.flash('errors_msg')
-  const body = request.flash('body')
-  console.log(errors_msg);
-  console.log(body)
-  console.log(message)
-  console.log(request.body)
+const renderAddAnimal = async (request, response,error) => {
+  // console.log(validationResult(request));
+  // console.log(body)
+  // console.log(message)
+  // console.log(request.body)
   // console.log(errors_msg);
-  response.render('animales/new-animal', {message: message, errors_msg: errors_msg, valores: body})
+	// if (errors_msg.length > 0) {
+		response.render('animales/new-animal')
+
+	// } else {
+	// 	response.status(203).render('animales/new-animal', {message: message})
+
+	// }
+  
 }
 
 const addAnimal = async (request, response) => {
-
+	console.log(validationResult(request));
   try {
     const datos = request.body
     const animal = new Animal({
