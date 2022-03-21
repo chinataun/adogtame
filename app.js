@@ -1,12 +1,16 @@
 const express = require('express')
-const app = express()
+const cors = require('cors')
+
 const mysql = require('mysql')
 const path = require("path");
 const bodyParser = require("body-parser");
+const dotenv = require('dotenv')
+dotenv.config({ path: './.env' });
 const statics = path.join(__dirname,"public");
-app.use(bodyParser.urlencoded({ extended: false }));
 
 
+const app = express()
+require('./mongo')
 //conection
 const pool = mysql.createPool({
     host: 'eu-cdbr-west-02.cleardb.net',
@@ -14,7 +18,7 @@ const pool = mysql.createPool({
     password: 'd0b9d566',
     database: 'heroku_a6c1a29456a7b8b'
 })
-
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(statics));
 
 
@@ -79,7 +83,7 @@ app.post("/registro",(request, response)=>{
     });
 });
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 const server = app.listen(port, () => {
     console.log(`Server is listening on ${port}`);
 })
