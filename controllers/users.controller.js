@@ -28,6 +28,32 @@ const singup = async (req, res) => {
       tipo
     });
   } else {
+    //Aqui mandamos al registro protectora o al registro de usuario
+    // if (tipo == 'protectora') {
+    //   const emailUser = await Protectora.findOne({ email: email });
+    //   if (emailUser) {
+    //     req.flash('error', "The Email is already in use.");
+    //     res.redirect("/users/signup");
+    //   } else {
+    //     const newUser = new User({ email, password, tipo });
+    //     newUser.password = await newUser.encryptPassword(password);
+    //     await newUser.save();
+    //     req.flash("success_msg", `Usuario ${tipo} con email: ${email} registrado`);
+    //     res.redirect("/");
+    //   }
+    // } else {
+    //   const emailUser = await Adoptante.findOne({ email: email });
+    //   if (emailUser) {
+    //     req.flash('error', "The Email is already in use.");
+    //     res.redirect("/users/signup");
+    //   } else {
+    //     const newUser = new User({ email, password, tipo });
+    //     newUser.password = await newUser.encryptPassword(password);
+    //     await newUser.save();
+    //     req.flash("success_msg", `Usuario ${tipo} con email: ${email} registrado`);
+    //     res.redirect("/");
+    //   }
+    // }
     const emailUser = await User.findOne({ email: email });
     if (emailUser) {
       req.flash('error', "The Email is already in use.");
@@ -42,4 +68,8 @@ const singup = async (req, res) => {
   }
 };
 
-module.exports = {renderSignUpForm, singup}
+const singupProtectora = (request, response) => {
+  response.render('users/signup_protectora')
+}
+
+module.exports = {renderSignUpForm, singup, singupProtectora}

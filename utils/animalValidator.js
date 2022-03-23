@@ -1,4 +1,4 @@
-const { body } = require('express-validator')
+const { body, validationResult } = require('express-validator')
 
 const animalValidate = [
   body('nombre', 'El nombre debe tener 20 caracteres o menos' )
@@ -19,14 +19,18 @@ const animalValidate = [
     .notEmpty(),
     body('descripcion', 'La descripción debe tener una longitud inferor a 100' )
     .exists()  
-    .isLength({max: 100}),
-    function(req, res, next) {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(422).json({errors: errors.mapped()});
-      }
-      next();
-    },
+    .isLength({max: 100})
 ]
 
-module.exports = {animalValidate}
+const checkRules = (request, response, next) => {
+  const errors = validationResult(request);
+  if (!errors.isEmpty()) {
+    request.flash('error_msg', errors.array())
+   return response.redirect('/animales/add')
+  }
+  // next();
+  // response.redirect('/animales/add')
+  return response.status(201).json()
+}
+
+module.exports = {animalValidate, checkRules}

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {renderSignUpForm, singup} = require('../controllers/users.controller')
+const {renderSignUpForm, singup, singupProtectora} = require('../controllers/users.controller')
 
 // import {
 //   renderSignUpForm,
@@ -11,5 +11,6 @@ const {renderSignUpForm, singup} = require('../controllers/users.controller')
 router.get("/signup", renderSignUpForm);
 
 router.post("/signup", singup);
+router.get('/signup/protectora', singupProtectora)
 
 module.exports =  router;

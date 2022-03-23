@@ -29,13 +29,13 @@
     "http-mocks": "^1.3.2",
     "method-override": "^3.0.0",
     "mongoose": "^6.2.6",
-    "node-mocks-http": "^1.11.0",
-    "sinon": "^13.0.1"
+    "node-mocks-http": "^1.11.0"
   },
   "devDependencies": {
     "eslint": "7.18.0",
     "jest": "27.5.1",
     "nodemon": "2.0.15",
+    "sinon": "^13.0.1",
     "standard": "16.0.4",
     "supertest": "6.2.2"
   },
