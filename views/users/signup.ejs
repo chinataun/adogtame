@@ -7,7 +7,7 @@
       <div class="card-body">
         <%- include('../partials/messages.ejs') %>
         
-        <form action="/users/signup" method="POST">
+        <form action="/users/registro" method="POST">
           <div class="form-group">
             <input type="text" class="form-control" name="email" placeholder="Email" value="">
           </div>
@@ -18,10 +18,10 @@
             <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" value="">
           </div>
           <legend class="col-form-label">Tipo</legend>
-              <div class="form-check form-check-inline">
+              <!-- <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="tipo" id="inlineAdoptante" value="Adoptante">
                 <label class="form-check-label" for="inlineAdoptante">Adoptante</label>
-              </div>
+              </div> -->
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="tipo" id="inlineProtectora" value="Protectora">
                 <label class="form-check-label" for="inlineProtectora">Protectora</label>
