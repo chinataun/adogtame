@@ -1,0 +1,15 @@
+
+        <div class="borde">
+            <h1>Listado de Datos</h1>
+            <% animales.forEach(function(animal) { %>
+                <p>
+                <span><b>nombre:</b><%- animal.nombre %></span> 
+                <span><b>tipo:</b> <%- animal.tipo %></span>
+                <span><b>raza:</b> <%- animal.raza %></span>
+                <span><b>rango:</b> <%- animal.edad %></span> 
+
+                <span><b>genero:</b> <%- animal.genero %></span>
+                <span><b>descripcion:</b> <%- animal.descripcion %></span> 
+            </p>
+            <% }); %>
+        </div>
