@@ -161,7 +161,7 @@ app.use('/animales', animalsRouter)
 
 // app.use('/api/notes', notesRouter)
 
-app.use(middleware.unknownEndpoint)
+// app.use(middleware.unknownEndpoint)
 // app.use(middleware.errorHandler)
 const PORT = process.env.PORT
 
