@@ -1,6 +1,6 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
-const passport = require('passport')
+
 const path = require('path')
 const cors = require('cors')
 const middleware = require('./utils/middleware')
@@ -20,7 +20,6 @@ dotenv.config({ path: './.env' });
 //Inicializaiones
 const app = express()
 require('./mongo')
-require('./utils/passport')
 
 
 app.use(cors())
@@ -50,8 +49,7 @@ app.use(session({
 	saveUninitialized: true,
   // store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
 }));
-app.use(passport.initialize());
-app.use(passport.session());
+
 app.use(flash())
 
 // Global Variables
@@ -104,6 +102,7 @@ app.get('/', (request, response) => {
   response.render('pages/index')})
 
 app.use('/animales', animalsRouter)
+
 // app.use(middleware.unknownEndpoint)
 // app.use(middleware.errorHandler)
 // const mysql = require('mysql')
@@ -162,7 +161,7 @@ app.use('/animales', animalsRouter)
 
 // app.use('/api/notes', notesRouter)
 
-app.use(middleware.unknownEndpoint)
+// app.use(middleware.unknownEndpoint)
 // app.use(middleware.errorHandler)
 const PORT = process.env.PORT
 
@@ -171,7 +170,7 @@ const server = app.listen(PORT, () => {
 })
 // if (process.env.NODE_ENV !== 'test') {
 //   app.listen(PORT, () => {
-//	logger.info(`Server running on port ${PORT}`)
-//})
+// 	logger.info(`Server running on port ${PORT}`)
+// })
 // }
 module.exports = {app, server}

@@ -22,7 +22,3 @@ test("Verdadero si la contraseña tiene numeros, letras mayúsculas y la longitu
 test("Verdadero si la contraseña tiene numeros, letras mayúsculas y la longitud es mayor que 8 caracteres", () => {
   expect(validatePassword("12512ASDasdfasd")).toBe(true)
 })
-
-afterAll(() => {
-    server.close()
-})
