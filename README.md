@@ -40,5 +40,7 @@ Si queremos ejecutar pruebas en local basta con ejecutar el comando **npm test**
 
 Cuando abramos un Pull Request de una feature a dev, se ejecutarán las acciones de github para la ejecución de las pruebas y/o el deploy a staging 
 
+Ejecucion de selenium: Ejecutar chrome driver y en la consola node ./utils/selenium.js
+
 ## Github Actions
 https://github.com/chinataun/adogtame/actions/workflows/pipeline.yml
