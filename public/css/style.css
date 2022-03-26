@@ -1,10 +1,51 @@
-body{
-    background-color: rgb(182, 213, 233);
+:root{
+    --primario: #b6d5e9;
+    --fuenteParrafos: 'Open Sans', sans-serif;
 }
-#home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+html{
+    box-sizing: border-box;/*par aque no afecte al ancho de nuestros elelmentos*/
+    font-size: 62.5%;
+
+}
+
+body{
+   
+    font-size: 16px; /*1 rem = 10px */
+    background-color: var(--primario);
+    /*font-family: 'Krub', sans-serif;*/
+    font-family: var(--fuenteParrafos);
+    padding-top: 6rem;
+}
+a{
+    text-decoration: none;
+}
+h1 {
+    text-align: center;
+    font-size: 3.8rem;
+
+    
+}
+img{
+    max-width: 100%;
+}
+no-margenes{
+    margin: 0;
+}
+no-padding{
+    padding: 0;
+}
+
+.navegacion{
+    height: 8rem;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    right:0px;
+    left:0px;
+    max-width:100%;
+    height:70px;   /* Por darle un valor fijo para evitar conflictos con :auto */
+    z-index:1000000
+    
 }
 #logo_home{
     display:flex;
@@ -66,3 +107,48 @@ body{
     display: flex;
     align-items: center;
 }
+
+.abs-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  .redondeado{
+    border-radius: 2rem;
+  }
+  .sombreado{
+    box-shadow: 0px 0px 10px 0px #c0b7c0 inset;
+
+  }
+  
+  .titulo{
+
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 500;
+    font-family: 'Krub', sans-serif;
+
+  }
+  
+ .contenedor{
+
+max-width: 120rem;
+width: 90%;
+margin: 0 auto;
+ }
+
+
+ #gkContentTop {
+	padding-top:0;
+}
+
+#gkTopMenu .custom p, #gkTopMenu .custom img{
+	margin-top:0!important;
+}
+#content .site-content_wrap{
+    padding-top:0;
+    }
+    #content {
+        padding: 0 !important;
+    }
