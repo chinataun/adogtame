@@ -1,6 +1,6 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
-const passport = require('passport')
+
 const path = require('path')
 const cors = require('cors')
 const middleware = require('./utils/middleware')
@@ -20,7 +20,6 @@ dotenv.config({ path: './.env' });
 //Inicializaiones
 const app = express()
 require('./mongo')
-require('./utils/passport')
 
 
 app.use(cors())
@@ -104,6 +103,7 @@ app.get('/', (request, response) => {
   response.render('pages/index')})
 
 app.use('/animales', animalsRouter)
+
 // app.use(middleware.unknownEndpoint)
 // app.use(middleware.errorHandler)
 // const mysql = require('mysql')
