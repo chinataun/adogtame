@@ -165,12 +165,12 @@ app.use('/animales', animalsRouter)
 // app.use(middleware.errorHandler)
 const PORT = process.env.PORT
 
-const server = app.listen(PORT, () => {
+// const server = app.listen(PORT, () => {
+// 	logger.info(`Server running on port ${PORT}`)
+// })
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
 	logger.info(`Server running on port ${PORT}`)
 })
-// if (process.env.NODE_ENV !== 'test') {
-//   app.listen(PORT, () => {
-//	logger.info(`Server running on port ${PORT}`)
-//})
-// }
+}
 module.exports = {app, server}
