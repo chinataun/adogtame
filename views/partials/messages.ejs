@@ -8,10 +8,10 @@
     <%= error %>
   </div>
     <% } %>
-  <% if(typeof errors == 'object' && errors.length > 0) { %>
-  <% errors.forEach(function(error) { %>
+  <% if(typeof errores == 'object' && errores.length > 0) { %>
+  <% errores.forEach(function(error) { %>
     <div class="alert alert-danger" role="alert">
-      <%= error %>
+      <%= error.msg %>
     </div>
   <% }); %>
   <% } %>

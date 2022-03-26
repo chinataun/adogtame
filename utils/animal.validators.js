@@ -20,7 +20,7 @@ const validateAddAnimal = [
     body('descripcion', 'La descripción debe tener una longitud inferor a 100' )
     .exists()  
     .isLength({max: 100}),
-  (request, response, next) => {
+  (request, response)=> {
     // validateResult(request, response, next)
 
     try {
@@ -28,7 +28,7 @@ const validateAddAnimal = [
       // response.status(200).statusMessage('ADELANTE!!!').send(pedo)
        validationResult(request).throw()
       // next()
-      try {
+      //try {
         const datos = request.body
         const animal = new Animal({
           nombre: datos.nombre,
@@ -42,21 +42,18 @@ const validateAddAnimal = [
         const savedUser = animal.save()
         // response.send({data: savedUser})
         request.flash('success_msg', 'Añadido con éxito')
-        response.status(200).render('animales/new-animal', {success_msg: request.flash('success_msg')})
+        response.render('animales/add', {success_msg: request.flash('success_msg')})
 
         // response.redirect('/animales/add')
-      } catch (error) {
-        console.log(error)
-      }
-
-
 
     } catch (errors) {
-      // console.log('pedo');
-      request.flash('errors_msg', errors.array())
-      response.status(400).render('animales/new-animal', {errors_msg: request.flash('errors_msg')})
+      console.log('pedo');
+      console.log(errors.array());
+      request.flash('errores', errors.array())
+      //console.log(request.flash('error_msg'))
+      response.render('animales/add')
 
-      // response.redirect('/animales/add')
+      //response.redirect('/animales/add')
       // req.session.errors = error.array();
       //       req.session.success = false;
       // response.send(error.array())
