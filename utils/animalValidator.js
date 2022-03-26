@@ -26,11 +26,11 @@ const checkRules = (request, response, next) => {
   const errors = validationResult(request);
   if (!errors.isEmpty()) {
     request.flash('error_msg', errors.array())
-   return response.redirect('/animales/add')
+    return response.redirect('/animales/add')
   }
-  // next();
+  next();
   // response.redirect('/animales/add')
-  return response.status(201).json()
+  //return response.status(201).json()
 }
 
 module.exports = {animalValidate, checkRules}
