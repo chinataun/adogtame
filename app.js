@@ -20,7 +20,6 @@ dotenv.config({ path: './.env' });
 //Inicializaiones
 const app = express()
 require('./mongo')
-require('./utils/passport')
 
 
 app.use(cors())
