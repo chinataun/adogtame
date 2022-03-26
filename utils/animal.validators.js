@@ -1,5 +1,4 @@
 const { check, body, validationResult } = require('express-validator')
-const { validateResult } = require('../helpers/validateHelper')
 const Animal = require('../models/Animal')
 const validateAddAnimal = [
   body('nombre', 'El nombre debe tener 20 caracteres o menos' )

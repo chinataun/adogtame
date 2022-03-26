@@ -49,8 +49,7 @@ app.use(session({
 	saveUninitialized: true,
   // store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
 }));
-app.use(passport.initialize());
-app.use(passport.session());
+
 app.use(flash())
 
 // Global Variables
