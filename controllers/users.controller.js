@@ -1,8 +1,4 @@
 const User = require('../models/User')
-const Protectora = require('../models/Protectora')
-const { check, body, validationResult } = require('express-validator')
-const validator = require('../utils/service.validations')
-const  passport = require('passport')
 
 
 const renderRegistro = (request, response) => {

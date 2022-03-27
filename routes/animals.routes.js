@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {renderAnimals, renderAddAnimal, addAnimal} = require('../controllers/animal.controller')
+const {renderAnimals, renderAddAnimal, addAnimal} = require('../controllers/animals.controller')
 const { animalValidate, checkRules } = require('../utils/animalValidator')
 const { validateAddAnimal } = require('../utils/animal.validators')
 
