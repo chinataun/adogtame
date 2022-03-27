@@ -63,6 +63,7 @@ app.use((req, res, next) => {
 app.get('/', (request, response) => {  
   response.render('pages/index')})
 app.use('/animales', animalsRouter)
+app.use('/users', usersRouter)
 
 
 app.use(middleware.requestLogger)
