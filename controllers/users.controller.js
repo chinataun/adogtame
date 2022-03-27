@@ -1,6 +1,6 @@
 const User = require('../models/User')
 const Protectora = require('../models/Protectora')
-
+const  passport = require('passport')
 
 const renderRegistro = (request, response) => {
   response.render('users/signup')
@@ -61,5 +61,15 @@ const registro = async (req, res) => {
       response.redirect('/users/login')
     }
 
-   module.exports = {renderRegistro, registro,renderRegistroProtectora, registroProtectora
+    const login = passport.authenticate('local', {
+      successRedirect: "/",
+      failureRedirect: "/users/login",
+      failureFlash: true,
+    })
+
+    const renderLogin = (request, response) => {
+      response.render('users/login')
+    }
+
+   module.exports = {renderRegistro, registro,renderRegistroProtectora, registroProtectora,login,renderLogin
    }
