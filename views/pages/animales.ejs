@@ -1,7 +1,7 @@
 <section id="box">
     <p>   
         <form name="frmBuscador" method="post" action="/animales/buscar">  
-            <input type="search" id="Buscado" name="user[buscador]" class="Buscador" placeholder="Buscar animal..." />
+            <input type="search" id="Buscado" name="busqueda" class="Buscador" placeholder="Buscar animal..." />
         </form>	   
 
    </p>
@@ -23,10 +23,11 @@
                     <p><span> Edad:          </span> <%- animal.edad %>         </p>
                     <p><span> Genero:        </span> <%- animal.genero %>       </p>
 
-                    <span><b>image:</b> <img src="uploads/<%= animal.image %>" alt=""></span> 
-                    <!-- <div class="sign">
-                    <a href='#' class='button'>Ver mas detalles..</a>
-                    </div> -->
+                    <!-- <span><b>image:</b> <img src="uploads/<%= animal.image %>" alt=""></span>  -->
+                    <p><span> id:        </span> <%- animal.id %>       </p>
+                    <div class="sign">
+                    <a href='/animales/animal/<%= animal.id %>' class='button'>Ver mas detalles..</a>
+                    </div>
                 </div>
                 </li>
         </p>
@@ -36,18 +37,4 @@
 
 
 
-        <div class="borde">
-            <h1>Listado de Datos</h1>
-            <% animales.forEach(function(animal) { %>
-                <p>
-                <span><b>nombre:</b><%- animal.nombre %></span> 
-                <span><b>tipo:</b> <%- animal.tipo %></span>
-                <span><b>raza:</b> <%- animal.raza %></span>
-                <span><b>rango:</b> <%- animal.edad %></span> 
-
-                <span><b>genero:</b> <%- animal.genero %></span>
-                <span><b>descripcion:</b> <%- animal.descripcion %></span> 
-                <span><b>image:</b> <img src="uploads/<%= animal.image %>" alt=""></span> 
-            </p>
-            <% }); %>
-        </div> 
+        

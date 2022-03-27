@@ -3,8 +3,21 @@ const { check, body, validationResult } = require('express-validator')
 
 const renderAnimales = async (request, response) => {
   const animales = await Animal.find({}) 
+  console.log(animales);
   
   response.render('pages/animales', {animales})
+}
+
+const renderAnimal = async (request, response) => {
+  const { id } = request.params
+
+  Animal.findById(id)
+    .then(animal => {
+      if (animal) 
+      response.render('animales/animal', {animal})
+    })
+    .catch(err => next(err))
+
 }
 
 const renderAddAnimal = async (request, response,error) => {
@@ -21,6 +34,29 @@ const renderAddAnimal = async (request, response,error) => {
 
 	// }
   
+}
+
+const busquedaAnimal = async (request, response) => {
+    console.log(request.query);
+    console.log(request.body);
+
+    const {busqueda} = request.body
+    console.log(busqueda);
+    let animales = []
+    Animal.find({
+      'descripcion' : {$regex : busqueda}
+    })
+    .then(animales => {
+
+      if (animales)
+      console.log(animales);
+      response.render('pages/animales', {animales})
+    })
+    .catch(err => next(err))
+
+
+
+
 }
 
 const addAnimal = async (request, response, error) => {
@@ -50,4 +86,4 @@ const addAnimal = async (request, response, error) => {
   }
 }
 
-module.exports = {renderAnimales, renderAddAnimal, addAnimal}
+module.exports = {renderAnimales, renderAddAnimal, addAnimal, renderAnimal, busquedaAnimal}
