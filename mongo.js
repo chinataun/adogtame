@@ -5,7 +5,7 @@ const connectionString = NODE_ENV === 'development'
 	? MONGO_DB_URI_DEVELOP
 	: MONGO_DB_URI 
   
-const conection = mongoose.connect(connectionString, {
+const conection = mongoose.connect('mongodb+srv://adogtame:adogtameDB@clusteradogtame.zonvg.mongodb.net/adogtame-staging?retryWrites=true&w=majority', {
 	useUnifiedTopology: true,
 	useNewUrlParser: true,
 })
