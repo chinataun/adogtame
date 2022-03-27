@@ -5,7 +5,7 @@ const connectionString = NODE_ENV === 'development'
 	? 'mongodb+srv://adogtame:adogtameDB@clusteradogtame.zonvg.mongodb.net/adogtame-staging?retryWrites=true&w=majority'
 	: 'mongodb+srv://adogtame:adogtameDB@clusteradogtame.zonvg.mongodb.net/adogtame?retryWrites=true&w=majority'
   
-const conection = mongoose.connect(connectionString, {
+const conection = mongoose.connect('mongodb+srv://adogtame:adogtameDB@clusteradogtame.zonvg.mongodb.net/adogtame-staging?retryWrites=true&w=majority', {
 	useUnifiedTopology: true,
 	useNewUrlParser: true,
 })
