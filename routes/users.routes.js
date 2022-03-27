@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const {renderRegistro, registro} =require('../controllers/users.controller')
+const {renderRegistro, registro} =require('../controllers/user.controller')
 
 // Routes
 router.get("/registro", renderRegistro);
