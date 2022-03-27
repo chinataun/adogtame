@@ -1,5 +1,6 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
+const  passport = require('passport')
 
 const path = require('path')
 const cors = require('cors')
@@ -46,7 +47,8 @@ app.use(session({
 	saveUninitialized: true,
   // store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
 }));
-
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash())
 
 // Global Variables
