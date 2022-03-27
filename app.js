@@ -11,6 +11,7 @@ const methodOverride = require('method-override')
 const flash = require('connect-flash')
 const cookieParser = require('cookie-parser')
 const animalsRouter = require('./routes/animals.routes')
+const usersRouter = require('./routes/users.routes')
 const dotenv = require('dotenv')
 dotenv.config({ path: './.env' });
 // const config = require('./utils/config')
@@ -63,6 +64,7 @@ app.use((req, res, next) => {
 app.get('/', (request, response) => {  
   response.render('pages/index')})
 app.use('/animales', animalsRouter)
+app.use('/users', usersRouter) 
 
 
 app.use(middleware.requestLogger)
