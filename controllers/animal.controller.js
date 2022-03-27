@@ -1,5 +1,5 @@
 const Animal = require('../models/Animal')
-
+const mongoose = require('mongoose')
 const renderAnimals = async (request, response) => {
   const animales = await Animal.find({}) 
   response.render('pages/animales', {animales})
@@ -21,7 +21,11 @@ const addAnimal = async (request, response) => {
       descripcion: datos.descripcion
     })
 
-    const savedUser = await animal.save()
+    note.animal().then(result => {
+      mongoose.connection.close()
+    })
+
+    // const savedUser = await animal.save()
     request.flash('success_msg', 'Añadido con éxito')
     response.redirect('/animales/add')
   } catch (error) {
