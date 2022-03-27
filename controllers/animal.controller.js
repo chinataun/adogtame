@@ -23,23 +23,30 @@ const renderAddAnimal = async (request, response,error) => {
   
 }
 
-const addAnimal = async (request, response) => {
+const addAnimal = async (request, response, error) => {
+
+  const {file, body} = request
+
   try {
-    const datos = request.body
+    const datos = body
     const animal = new Animal({
-			nombre: datos.nombre,
-			tipo: datos.tipo,
-			raza: datos.raza,
-			edad: datos.edad,
-			genero: datos.genero,
-			descripcion: datos.descripcion
+			nombre: body.nombre,
+			tipo: body.tipo,
+			raza: body.raza,
+			edad: body.edad,
+			genero: body.genero,
+			descripcion: body.descripcion,
+      image: file.filename,
 		})
 		
+    console.log(animal);
 		const savedUser = await animal.save()
+    console.log(savedUser);
     request.flash('success_msg', 'Añadido con éxito')
     response.redirect('/animales/add')
   } catch (error) {
-    console.log(error)
+    console.log('pedo')
+    response.render('animales/new-animal')
   }
 }
 

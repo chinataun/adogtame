@@ -3,7 +3,7 @@
         <h3 class="titulo ">New Animal</h3>
       <div class="card-body">
             <%- include('../partials/messages.ejs') %>
-            <form action="/animales/add" method="POST">
+            <form action="/animales/add" method="POST" enctype="multipart/form-data">
               <div class="mb-3">
                   <label class="form-label" for="inputNombre">Nombre</label>
                   <input type="text" name="nombre" class="form-control" id="inputNombre" placeholder="Nombre">
@@ -22,12 +22,16 @@
               </div>
               <legend class="col-form-label">Genero</legend>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="genero" id="inlineMasculino" value="Masculino">
-                <label class="form-check-label" for="inlineMasculino">Masculino</label>
+                <input class="form-check-input" type="radio" name="genero" id="inlineMasculino" value="Macho">
+                <label class="form-check-label" for="inlineMasculino">Macho</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="genero" id="inlineFemenino" value="Femenino">
-                <label class="form-check-label" for="inlineFemenino">Femenino</label>
+                <input class="form-check-input" type="radio" name="genero" id="inlineFemenino" value="Hembra">
+                <label class="form-check-label" for="inlineFemenino">Hembra</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="file" name="image" id="inlineImage">
+                <label class="form-check-label" for="inlineImage">Imagen</label>
               </div>
               <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a description" id="floatingDescripcion" name="descripcion" style="height: 100px"></textarea>
