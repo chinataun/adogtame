@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const Protectora = require('../models/Protectora')
 
 
 const renderRegistro = (request, response) => {
@@ -33,9 +34,32 @@ const registro = async (req, res) => {
       tipo
     });
   } 
-  else {
-            res.redirect('registro/protectora') 
+  else {if (tipo === 'Protectora') {
+    req.flash('registro', {email, password, tipo})
+    res.render("users/signup_protectora", {email, password, tipo});
+    // res.redirect('registro/protectora')
+  }
           }
     }
+    const renderRegistroProtectora =  (request, response) => {
 
-   module.exports = {renderRegistro, registro}
+      response.redirect('/users/registro')
+    }
+    
+    const registroProtectora = async (request, response) => {
+      let errors = [];
+      const { email, cif, telefono, descripcion, nombre, password } = request.body;
+      console.log(request.body)
+      let tipo = 'protectora'
+      if (!validator.validateNombre(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
+    
+      console.log(errors)
+      const newProtectora = new Protectora({ nombre, email, tipo, cif, telefono, descripcion, password });
+      newProtectora.password = await newProtectora.encryptPassword(password);
+      await newProtectora.save();
+      request.flash("success_msg", `Usuario ${tipo} con email: ${email} registrado`);
+      response.redirect('/users/login')
+    }
+
+   module.exports = {renderRegistro, registro,renderRegistroProtectora, registroProtectora
+   }
