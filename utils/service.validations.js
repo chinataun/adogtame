@@ -59,7 +59,6 @@ function validateGeneroAnimal(genero) {
 
 function validateImageAnimal(file) {
   const mimetypes = /image\/png|image\/jpeg|image\/gif/;
-
   if (file !== undefined) {
     if(!mimetypes.test(file['mimetype'])) {
       return ('Tipo de archivo no soportado. Tipos validos: jpg, png o gif')
@@ -92,4 +91,4 @@ function validateAnimal(params) {
 
 }
 
-module.exports = {validatePassword, validateNombreAnimal, validateRazaAnimal,validateTipoAnimal,validateGeneroAnimal,validateImageAnimal, validateDescripciónAnimal,validateAnimal}
+module.exports = {obligatorio, validLength, validatePassword, validateNombreAnimal, validateRazaAnimal,validateTipoAnimal,validateEdadAnimal, validateGeneroAnimal,validateImageAnimal, validateDescripciónAnimal,validateAnimal}
