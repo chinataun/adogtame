@@ -7,7 +7,8 @@ const animalesSchema = new mongoose.Schema(
     raza: String,
     edad: Number,
     genero: String,
-    descripcion: String
+    descripcion: String,
+    imagen: String,
   },
   {
     timestamps: true
