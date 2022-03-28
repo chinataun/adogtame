@@ -9,6 +9,29 @@ const renderAddAnimal = async (request, response) => {
   response.render('animales/add')
 }
 
+const busquedaAnimal = async (request, response) => {
+  console.log(request.query);
+  console.log(request.body);
+
+  const {busqueda} = request.body
+  console.log(busqueda);
+  let animales = []
+  Animal.find({
+    'descripcion' : {$regex : busqueda}
+  })
+  .then(animales => {
+
+    if (animales)
+    console.log(animales);
+    response.render('pages/animales', {animales})
+  })
+  .catch(err => next(err))
+
+
+
+
+}
+
 const addAnimal = async (request, response) => {
   try {
     const datos = request.body
@@ -29,4 +52,4 @@ const addAnimal = async (request, response) => {
   }
 }
 
-module.exports = {renderAnimals, renderAddAnimal, addAnimal}
+module.exports = {renderAnimals, renderAddAnimal, addAnimal, busquedaAnimal}
