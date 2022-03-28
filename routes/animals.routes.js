@@ -11,12 +11,14 @@ const { animalValidate, checkRules } = require('../utils/animalValidator')
 
 
 router.get('/add', renderAddAnimal)
-
+router.get('/animal/:id')
 // router.post('/add', validateAddAnimal, addAnimal)
 router.post('/add', addAnimal)
 
 router.post('/buscar', busquedaAnimal)
 
 router.get('/', renderAnimales)
+
+
 
 module.exports = router
