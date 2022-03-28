@@ -1,18 +1,8 @@
-const express = require('express');
-const { check, validationResult } = require('express-validator');
-const validations = require('../utils/service.validations')
-const request = require('supertest');
-const mongoose = require('mongoose')
-const supertest = require('supertest')
-const { validateAddAnimal } = require('../utils/animal.validators')
-const animalValidator = require('../utils/animalValidator')
-const {app, server}  = require('../app');
-const { response } = require('express');
-const { NextFunction, Request, Response } = require('express')
-const api = supertest(app)
 
-const sinon = require('sinon');
-const { array } = require('../utils/handleUpload');
+const supertest = require('supertest')
+const {app, server}  = require('../app');
+const api = supertest(app)
+const mongoose = require('mongoose')
 
 describe('Imagen', () => {
     const normalfile = { 
