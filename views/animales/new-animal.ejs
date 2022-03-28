@@ -1,4 +1,60 @@
-<div class="col-md-3 mx-auto abs-center ">
+<div class="row">
+  <div class="col-md-4 mx-auto">
+    <div class="card mt-4 text-center">
+      <%- include('../partials/messages.ejs') %>
+      <div class="card-header">
+        <h1 >
+          Añadir animales
+        </h1>
+      </div>
+
+      <div class="card-body">
+        <%- include('../partials/messages.ejs') %>
+        <form action="/animales/add" method="POST" enctype="multipart/form-data">
+          <div class="mb-3">
+              <label class="form-label" for="inputNombre">Nombre</label>
+              <input type="text" name="nombre" class="form-control" id="inputNombre" placeholder="Nombre">
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputTipo">Tipo</label>
+            <input type="text" name="tipo" class="form-control" id="inputTipo" placeholder="Tipo">
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputRaza">Raza</label>
+            <input type="text" name="raza" class="form-control" id="inputRaza" placeholder="Raza">
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputEmail">Edad</label>
+            <input type="number" name="edad" class="form-control" id="inputEdad" placeholder="Edad">
+          </div>
+          <legend class="col-form-label">Genero</legend>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="genero" id="inlineMasculino" value="Macho">
+            <label class="form-check-label" for="inlineMasculino">Macho</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="genero" id="inlineFemenino" value="Hembra">
+            <label class="form-check-label" for="inlineFemenino">Hembra</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="file" name="image" id="inlineImage">
+            <label class="form-check-label" for="inlineImage">Imagen</label>
+          </div>
+          <div class="form-floating">
+            <textarea class="form-control" placeholder="Leave a description" id="floatingDescripcion" name="descripcion" style="height: 100px"></textarea>
+            <label for="floatingDescripcion">Descripción</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Crear animal</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- <div class="col-md-3 mx-auto abs-center ">
     <div class="card text-center redondeado sombreado">
         <h3 class="titulo ">New Animal</h3>
       <div class="card-body">
@@ -41,4 +97,4 @@
           </form>
       </div>
     </div>
-</div>
+</div> -->

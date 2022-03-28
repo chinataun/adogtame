@@ -11,6 +11,9 @@ html{
 body{
    
     font-size: 16px; /*1 rem = 10px */
+    /* background-image: url("/images/background.jpg"); */
+    /* background-repeat: no-repeat;
+    background-size: cover; */
     background-color: var(--primario);
     /*font-family: 'Krub', sans-serif;*/
     font-family: var(--fuenteParrafos);
@@ -28,11 +31,17 @@ h1 {
 img{
     max-width: 100%;
 }
-no-margenes{
+.no-margenes{
     margin: 0;
 }
-no-padding{
+.no-padding{
     padding: 0;
+}
+
+.circle_logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
 }
 
 .navegacion{
@@ -52,6 +61,18 @@ no-padding{
     flex-direction: column;
     align-items: center;
 }
+/* HOME */
+.index {
+  margin-left: 104px;
+  width: 35%;
+}
+
+.index .p-5 {
+  border-radius: 40px !important;
+} 
+
+
+
 #formulario {
     display: flex;
     flex-direction: row;
@@ -211,7 +232,7 @@ ul li {
 }
 .top h1 {
   padding-top: 20px;
-  font-size: 13px;
+  font-size: 20px;
 }
 
 .circle {
@@ -230,9 +251,13 @@ ul li {
 .bottom {
   margin-top: 50px;
 }
-.bottom p {
-  font-size: 13px;
+.top h1 {
+  color: white;
+}
+.bottom, .top {
+  font-size: 16px;
   padding: 0px;
+  color: #000000;
 }
 .bottom p span {
   font-weight: bold;
@@ -293,4 +318,43 @@ ul li {
     margin-top: 0px;
     font-size: 1em;
     border-radius: 50px;
+}
+
+/* animales */
+#animales {
+}
+
+
+
+
+
+/* animal */
+#animal {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column;
+}
+
+#animal h1 {
+  font-size: 36px;
+}
+
+#animal .bottom {
+  align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bottom .animal_image {
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+#animal .bottom img {
+  width: 400px;
+  border-radius: 50px;
 }
