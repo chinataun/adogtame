@@ -1,7 +1,6 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
-const  passport = require('passport')
-
+const passport = require('passport')
 const path = require('path')
 const cors = require('cors')
 const middleware = require('./utils/middleware')
@@ -15,12 +14,11 @@ const animalsRouter = require('./routes/animals.routes')
 const usersRouter = require('./routes/users.routes')
 const dotenv = require('dotenv')
 dotenv.config({ path: './.env' });
-// const config = require('./utils/config')
 
 //Inicializaiones
 const app = express()
 require('./mongo')
-
+require('./utils/passport')
 app.use(cors())
 
 // static files
@@ -28,6 +26,7 @@ app.use(express.static('public'))
 app.use('/css', express.static(__dirname + 'public/css'))
 app.use('/images', express.static(__dirname + 'public/images'))
 app.use('/js', express.static(__dirname + 'public/js'))
+
 
 //view engine
 app.set('views', path.join(__dirname, 'views'))
@@ -62,25 +61,23 @@ app.use((req, res, next) => {
   next();
 });
 
-// routes
+//Routes
+
+
 app.get('/', (request, response) => {  
-  response.render('pages/index')})
+  response.render('pages/index')
+})
 app.use('/animales', animalsRouter)
-app.use('/users', usersRouter) 
+app.use('/users', usersRouter)
 
+// app.use(middleware.requestLogger)
 
-app.use(middleware.requestLogger)
 app.use(middleware.unknownEndpoint)
-app.use(middleware.errorHandler)
-
-const PORT = process.env.PORT  //|| 4000 
+// app.use(middleware.errorHandler)
+const PORT = process.env.PORT
 
 const server = app.listen(PORT, () => {
 	logger.info(`Server running on port ${PORT}`)
 })
-// if (process.env.NODE_ENV !== 'test') {
-//   app.listen(PORT, () => {
-// 	logger.info(`Server running on port ${PORT}`)
-// })
-// }
-module.exports = {app, server} 
+
+module.exports = {app, server}
