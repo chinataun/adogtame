@@ -1,6 +1,6 @@
 const Animal = require('../models/Animal')
 
-const renderAnimals = async (request, response) => {
+const renderAnimales = async (request, response) => {
   const animales = await Animal.find({}) 
   response.render('pages/animales', {animales})
 }
@@ -52,4 +52,4 @@ const addAnimal = async (request, response) => {
   }
 }
 
-module.exports = {renderAnimals, renderAddAnimal, addAnimal, busquedaAnimal}
+module.exports = {renderAnimales, renderAddAnimal, addAnimal, busquedaAnimal}
