@@ -73,7 +73,7 @@ app.use(middleware.requestLogger)
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 4000 
 
 const server = app.listen(PORT, () => {
 	logger.info(`Server running on port ${PORT}`)
@@ -83,4 +83,4 @@ const server = app.listen(PORT, () => {
 // 	logger.info(`Server running on port ${PORT}`)
 // })
 // }
-module.exports = {app, server}
+module.exports = {app, server} 
