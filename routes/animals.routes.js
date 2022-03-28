@@ -7,6 +7,7 @@ const { validate } = require('../models/Animal')
 const { error } = require('../utils/logger')
 const { validateAddAnimal } = require('../utils/animal.validators')
 const { animalValidate, checkRules } = require('../utils/animalValidator')
+const upload = require('../utils/handleUpload')
 
 
 
