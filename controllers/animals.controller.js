@@ -1,4 +1,5 @@
 const Animal = require('../models/Animal')
+const {validateNombreAnimal, validateAnimal} = require('../utils/service.validations')
 
 const renderAnimales = async (request, response) => {
   const animales = await Animal.find({}) 
@@ -35,13 +36,13 @@ const busquedaAnimal = async (request, response) => {
 const addAnimal = async (request, response, error) => {
 
   const {file, body} = request
-  //const validation = validateAnimal(request)
-  //if (validation.length !== 0) {
-    //return response.render('animales/new-animal', {errors: validation})
-  //}
+  const validation = validateAnimal(request)
+  if (validation.length !== 0) {
+    return response.render('animales/new-animal', {errors: validation})
+  }
 
   try {
-    // const datos = body
+    const datos = body
     console.log((body.edad == '') ? undefined : body.edad)
     console.log(file == undefined)
     const animal = new Animal({
@@ -54,11 +55,9 @@ const addAnimal = async (request, response, error) => {
       image: (file == undefined) ? file : file.filename,
         })
         const savedUser = await animal.save()
-    console.log(savedUser);
     request.flash('success_msg', 'Añadido con éxito')
     response.redirect('/animales/add')
   } catch (error) {
-    console.log('pedo');
     response.render('animales/add')
   }
 }
