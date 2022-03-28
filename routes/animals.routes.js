@@ -13,8 +13,7 @@ const { animalValidate, checkRules } = require('../utils/animalValidator')
 router.get('/add', renderAddAnimal)
 router.get('/animal/:id',renderAnimal)
 // router.post('/add', validateAddAnimal, addAnimal)
-router.post('/add', addAnimal)
-
+router.post('/add', upload.single('image'), addAnimal)
 router.post('/buscar', busquedaAnimal)
 
 router.get('/', renderAnimales)
