@@ -59,7 +59,7 @@ const addAnimal = async (request, response, error) => {
     response.redirect('/animales/add')
   } catch (error) {
     console.log('pedo');
-    response.render('animales/new-animal')
+    response.render('animales/add')
   }
 }
 const renderAnimal = async (request, response) => {
