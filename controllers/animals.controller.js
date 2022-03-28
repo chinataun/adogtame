@@ -62,5 +62,16 @@ const addAnimal = async (request, response, error) => {
     response.render('animales/new-animal')
   }
 }
+const renderAnimal = async (request, response) => {
+  const { id } = request.params
 
-module.exports = {renderAnimales, renderAddAnimal, addAnimal, busquedaAnimal}
+  Animal.findById(id)
+    .then(animal => {
+      if (animal) 
+      response.render('animales/animal', {animal})
+    })
+    .catch(err => next(err))
+
+}
+
+module.exports = {renderAnimales, renderAddAnimal, addAnimal, busquedaAnimal, renderAnimal}
