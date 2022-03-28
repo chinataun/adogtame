@@ -1,11 +1,22 @@
-const router = require('express').Router()
-const {renderAnimals, renderAddAnimal, addAnimal} = require('../controllers/animals.controller')
-const { animalValidate, checkRules } = require('../utils/animalValidator')
+const express = require('express')
+const router = express.Router()
+const Animal = require('../models/Animal')
+const {body, validationResult} = require('express-validator')
+const {renderAnimales,  renderAddAnimal, addAnimal, busquedaAnimal} = require('../controllers/animal.controller')
+const { validate } = require('../models/Animal')
+const { error } = require('../utils/logger')
 const { validateAddAnimal } = require('../utils/animal.validators')
+const { animalValidate, checkRules } = require('../utils/animalValidator')
 
-router.get('/', renderAnimals)
+
+
 router.get('/add', renderAddAnimal)
-router.post('/add', validateAddAnimal, addAnimal)
 
+// router.post('/add', validateAddAnimal, addAnimal)
+router.post('/add', addAnimal)
+
+router.post('/buscar', busquedaAnimal)
+
+router.get('/', renderAnimales)
 
 module.exports = router
