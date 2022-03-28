@@ -7,7 +7,7 @@
     "start": "cross-env NODE_ENV=production node app.js",
     "dev": "cross-env NODE_ENV=development nodemon app.js",
     "lint": "npm run lint",
-    "test": "cross-env NODE_ENV=development jest --verbose --silent --forceExit --detectOpenHandles  --maxWorkers=1"
+    "test": "cross-env NODE_ENV=development jest --verbose --silent --forceExit --maxWorkers=1"
   },
   "author": "",
   "license": "ISC",

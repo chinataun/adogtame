@@ -16,6 +16,11 @@ const conection = mongoose.connect('mongodb+srv://adogtame:adogtameDB@clusterado
 	console.log(err)
 })
 
+process.on('uncaughtException', error => {
+  console.error(error)
+  mongoose.disconnect()
+})
+
 module.exports = conection
 
 

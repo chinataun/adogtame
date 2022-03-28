@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const Protectora = require('../models/Protectora')
+const validator = require('../utils/service.validations')
 const  passport = require('passport')
 
 const renderRegistro = (request, response) => {
@@ -51,7 +52,7 @@ const registro = async (req, res) => {
       const { email, cif, telefono, descripcion, nombre, password } = request.body;
       console.log(request.body)
       let tipo = 'protectora'
-      if (!validator.validateNombre(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
+      if (!validator.validateNombreAnimal(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
     
       console.log(errors)
       const newProtectora = new Protectora({ nombre, email, tipo, cif, telefono, descripcion, password });

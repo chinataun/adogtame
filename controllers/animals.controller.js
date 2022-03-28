@@ -16,7 +16,6 @@ const busquedaAnimal = async (request, response) => {
 
   const {busqueda} = request.body
   console.log(busqueda);
-  let animales = []
   Animal.find({
     'descripcion' : {$regex : busqueda}
   })
@@ -38,7 +37,7 @@ const addAnimal = async (request, response, error) => {
   const {file, body} = request
   const validation = validateAnimal(request)
   if (validation.length !== 0) {
-    return response.render('animales/new-animal', {errors: validation})
+    return response.render('animales/add', {errors: validation})
   }
 
   try {

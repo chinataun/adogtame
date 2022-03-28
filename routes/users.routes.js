@@ -1,8 +1,6 @@
 const router = require('express').Router()
-
 const {renderRegistro, registro,renderRegistroProtectora, registroProtectora, renderLogin, login} = require('../controllers/users.controller')
 
-// Routes
 router.get("/registro", renderRegistro);
 router.post("/registro", registro);
 
