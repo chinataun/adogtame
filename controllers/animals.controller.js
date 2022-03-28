@@ -32,23 +32,34 @@ const busquedaAnimal = async (request, response) => {
 
 }
 
-const addAnimal = async (request, response) => {
-  try {
-    const datos = request.body
-    const animal = new Animal({
-      nombre: datos.nombre,
-      tipo: datos.tipo,
-      raza: datos.raza,
-      edad: datos.edad,
-      genero: datos.genero,
-      descripcion: datos.descripcion
-    })
+const addAnimal = async (request, response, error) => {
 
-    const savedUser = await animal.save()
+  const {file, body} = request
+  //const validation = validateAnimal(request)
+  //if (validation.length !== 0) {
+    //return response.render('animales/new-animal', {errors: validation})
+  //}
+
+  try {
+    // const datos = body
+    console.log((body.edad == '') ? undefined : body.edad)
+    console.log(file == undefined)
+    const animal = new Animal({
+            nombre: body.nombre,
+            tipo: body.tipo,
+            raza: body.raza,
+            edad: (body.edad == '') ? undefined : body.edad,
+            genero: body.genero,
+            descripcion: (body.descripcion == '') ? undefined : body.descripcion,
+      image: (file == undefined) ? file : file.filename,
+        })
+        const savedUser = await animal.save()
+    console.log(savedUser);
     request.flash('success_msg', 'Añadido con éxito')
     response.redirect('/animales/add')
   } catch (error) {
-    console.log(error)
+    console.log('pedo');
+    response.render('animales/new-animal')
   }
 }
 
