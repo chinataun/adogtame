@@ -7,14 +7,14 @@ const { validate } = require('../models/Animal')
 const { error } = require('../utils/logger')
 const { validateAddAnimal } = require('../utils/animal.validators')
 const { animalValidate, checkRules } = require('../utils/animalValidator')
+const upload = require('../utils/handleUpload')
 
 
 
 router.get('/add', renderAddAnimal)
 router.get('/animal/:id',renderAnimal)
 // router.post('/add', validateAddAnimal, addAnimal)
-router.post('/add', addAnimal)
-
+router.post('/add', upload.single('image'), addAnimal)
 router.post('/buscar', busquedaAnimal)
 
 router.get('/', renderAnimales)
