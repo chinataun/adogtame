@@ -3,7 +3,7 @@ describe('Animales', () =>{
     cy.visit('http://localhost:4000')
   })
 
-  it('frontpage can be opened', () => {
+  it.skip('frontpage can be opened', () => {
     cy.contains('ADOGTAME')
   })
 
