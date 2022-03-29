@@ -8,7 +8,7 @@ describe('Animales', () =>{
   })
 
   describe('Login password incorrect', () =>{
-    it('login form can be opened', () => {
+    it.skip('login form can be opened', () => {
       cy.visit('http://localhost:4000/users/login')
       cy.contains('Iniciar sesión')
       cy.get('[placeholder="Email"]').type('jesusvelez@ucm.es')
@@ -19,7 +19,7 @@ describe('Animales', () =>{
   })
 
   describe('Login password incorrect', () =>{
-    it('login form can be opened', () => {
+    it.skip('login form can be opened', () => {
       cy.visit('http://localhost:4000/users/login')
       cy.contains('Iniciar sesión')
       cy.get('[placeholder="Email"]').type('mala@ucm.es')
@@ -30,7 +30,7 @@ describe('Animales', () =>{
   })
 
   describe('Login correct', () =>{
-    it('login form can be opened', () => {
+    it.skip('login form can be opened', () => {
       cy.visit('http://localhost:4000/users/login')
       cy.contains('Iniciar sesión')
       cy.get('[placeholder="Email"]').type('jesusvelez@ucm.es')

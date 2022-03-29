@@ -3,12 +3,12 @@ describe('Animales', () =>{
     cy.visit('http://localhost:4000')
   })
 
-  it('frontpage can be opened', () => {
+  it.skip('frontpage can be opened', () => {
     cy.contains('ADOGTAME')
   })
 
   describe('Registro usuario', () =>{
-    it('Registro vacío', () => {
+    it.skip('Registro vacío', () => {
       cy.visit('http://localhost:4000/users/registro')
       cy.get('button.btn').click()
       cy.contains('Inserta email')
