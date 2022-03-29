@@ -4,7 +4,7 @@
   "description": "Aplicación web para la adopción de animales",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node app.js",
+    "start": "cross-env NODE_ENV=development node app.js",
     "dev": "cross-env NODE_ENV=development nodemon app.js",
     "lint": "npm run lint",
     "test": "cross-env NODE_ENV=development jest --verbose --silent --forceExit --maxWorkers=1"
