@@ -13,14 +13,14 @@ passport.use(
       const user = await Protectora.findOne({ email: email });
 
       if (!user) {
-        return done(null, false, { message: "Not User found." });
+        return done(null, false, {message:"Usuario no encontrado"});
       } else {
         // Match Password's User
         const match = await user.matchPassword(password);
         if (match) {
           return done(null, user);
         } else {
-          return done(null, false, { message: "Incorrect Password." });
+          return done(null, false, { message: "Contraseña incorrecta" });
         }
       }
     }

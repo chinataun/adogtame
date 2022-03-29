@@ -18,7 +18,6 @@ const registro = async (req, res) => {
     errors.push('Inserta email')
   }
   if (password != confirm_password) {
-    console.log('pedo')
     errors.push("Las contraseñas no coinciden");
   }
   if (password.length < 8 || password.length > 20) {
@@ -29,19 +28,19 @@ const registro = async (req, res) => {
   //   errors.push("Ya existe un usuario con ese email");
   // }
   console.log(errors.length)
-  // if (errors.length > 0) {
+  if (errors.length > 0) {
 
-  //   req.flash("errores", errors);
-  //   console.log(req.flash('errores'))
-  //   res.render("users/signup", {
-  //     errors,
-  //     email,
-  //     password,
-  //     confirm_password,
-  //     tipo
-  //   });
-  // } 
-  // else {
+    req.flash("errores", errors);
+    console.log(req.flash('errores'))
+    res.render("users/signup", {
+      errors,
+      email,
+      password,
+      confirm_password,
+      tipo
+    });
+  } 
+  else {
     if (tipo === 'Protectora') {
         req.flash('registro', {email, password, tipo})
         res.render("users/signup_protectora", {email, password, tipo});
@@ -50,7 +49,7 @@ const registro = async (req, res) => {
       // else{
       //   registroAdoptante
       // }
-    // }
+    }
 
 
 

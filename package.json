@@ -7,7 +7,8 @@
     "start": "cross-env NODE_ENV=production node app.js",
     "dev": "cross-env NODE_ENV=development nodemon app.js",
     "lint": "npm run lint",
-    "test": "NODE_ENV=development jest --verbose --forceExit --detectOpenHandles  --maxWorkers=1"
+    "test": "NODE_ENV=development jest --verbose --forceExit --detectOpenHandles  --maxWorkers=1",
+    "cypress:open": "cypress open"
   },
   "author": "",
   "license": "ISC",
@@ -35,6 +36,7 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
+    "cypress": "^9.5.3",
     "eslint": "7.18.0",
     "jest": "27.5.1",
     "nodemon": "2.0.15",
