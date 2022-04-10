@@ -9,6 +9,7 @@ const animalesSchema = new mongoose.Schema(
     genero: String,
     descripcion: String,
     image: String,
+    protectora: String,
   },
   {
     timestamps: true
