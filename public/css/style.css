@@ -321,7 +321,8 @@ background-color: #bc9b94;
 }
 
 /* animales */
-#animales {
+#animales #avatar_animal{
+  text-transform: lowercase;
 }
 
 
@@ -358,3 +359,4 @@ display: flex;
 width: 400px;
 border-radius: 50px;
 }
+

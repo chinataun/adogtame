@@ -3,12 +3,12 @@ describe('Animales', () =>{
     cy.visit('http://localhost:4000')
   })
 
-  it.skip('frontpage can be opened', () => {
+  it('frontpage can be opened', () => {
     cy.contains('ADOGTAME')
   })
 
   describe('Añadir animal', () =>{
-    it.skip('login form can be opened', () => {
+    it('login form can be opened', () => {
       cy.visit('http://localhost:4000/animales/add')
       cy.get('[placeholder="Nombre"]').type('Betthoven')
       cy.get('[placeholder="Tipo"]').type('Perro')
@@ -22,7 +22,7 @@ describe('Animales', () =>{
   })
 
   describe('Error al añadir animal', () =>{
-    it.skip('login form can be opened', () => {
+    it('login form can be opened', () => {
       cy.visit('http://localhost:4000/animales/add')
       cy.get('[placeholder="Nombre"]').type('Betthoven')
       cy.get('[placeholder="Raza"]').type('San bernardo')

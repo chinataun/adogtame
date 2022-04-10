@@ -3,7 +3,7 @@ const {validateNombreAnimal, validateAnimal} = require('../utils/service.validat
 
 const renderAnimales = async (request, response) => {
   const animales = await Animal.find({}) 
-  response.render('pages/animales', {animales})
+  response.render('animales/animales', {animales})
 }
 
 const renderAddAnimal = async (request, response) => {
@@ -34,10 +34,11 @@ const busquedaAnimal = async (request, response) => {
 
 const addAnimal = async (request, response, error) => {
 
-  const {file, body} = request
+  const {file, body, nombre} = request
+  console.log(body);
   const validation = validateAnimal(request)
   if (validation.length !== 0) {
-    return response.render('animales/add', {errors: validation})
+    return response.render('animales/add', {errors: validation, body})
   }
 
   try {
