@@ -37,8 +37,15 @@ const addAnimal = async (request, response, error) => {
   const {file, body, nombre} = request
   console.log(body);
   const validation = validateAnimal(request)
+  let checkedH;
+  let checkedM;
   if (validation.length !== 0) {
-    return response.render('animales/add', {errors: validation, body})
+    if (body.genero === "Hembra") {
+      checkedH = 'checked'
+    } else if (body.genero === "Macho") {
+      checkedM = 'checked'
+    }
+    return response.render('animales/add', {errors: validation, body, checkedH, checkedM})
   }
 
   try {
