@@ -2,17 +2,17 @@
 
   <div class="top">
     <h1>
-        <%- animal.nombre %>
+        {{animal.nombre}}
     </h1>
   </div>
     <div class="bottom">
       <div class="animal_image">
-        <img src="/uploads/<%= animal.image %>" alt="perrete">
+        <img src="/uploads/{{ animal.image }}" alt="perrete">
       </div>
-        <p><span> Tipo:          </span> <%- animal.tipo %>         </p>
-        <p><span> Raza:          </span> <%- animal.raza %>         </p>
-        <p><span> Edad:          </span> <%- animal.edad %>         </p>
-        <p><span> Genero:        </span> <%- animal.genero %>       </p>
-        <p><span> Descripción:        </span> <%- animal.descripcion %>       </p>
+        <p><span> Tipo:          </span> {{ animal.tipo }}         </p>
+        <p><span> Raza:          </span> {{ animal.raza }}         </p>
+        <p><span> Edad:          </span> {{ animal.edad }}         </p>
+        <p><span> Genero:        </span> {{ animal.genero }}       </p>
+        <p><span> Descripción:        </span> {{ animal.descripcion }}       </p>
     </div>
 </div>

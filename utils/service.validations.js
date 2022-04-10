@@ -91,4 +91,7 @@ function validateAnimal(params) {
 
 }
 
-module.exports = {obligatorio, validLength, validatePassword, validateNombreAnimal, validateRazaAnimal,validateTipoAnimal,validateEdadAnimal, validateGeneroAnimal,validateImageAnimal, validateDescripciónAnimal,validateAnimal}
+
+
+
+module.exports = { obligatorio, validLength, validatePassword, validateNombreAnimal, validateRazaAnimal,validateTipoAnimal,validateEdadAnimal, validateGeneroAnimal,validateImageAnimal, validateDescripciónAnimal,validateAnimal}

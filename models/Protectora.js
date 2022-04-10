@@ -15,6 +15,7 @@ const ProtectoraSchema = new mongoose.Schema(
     // tipo: { type: String, required: true },
     // date: { type: Date, default: Date.now },
     date: { type: Date, default: Date.now },
+    image: { type: String },
   },
   {
     timestamps: true,

@@ -23,7 +23,7 @@ const busquedaAnimal = async (request, response) => {
 
     if (animales)
     console.log(animales);
-    response.render('pages/animales', {animales})
+    response.render('animales/animales', {animales})
   })
   .catch(err => next(err))
 
@@ -35,7 +35,7 @@ const busquedaAnimal = async (request, response) => {
 const addAnimal = async (request, response, error) => {
 
   const {file, body, nombre} = request
-  console.log(body);
+
   const validation = validateAnimal(request)
   let checkedH;
   let checkedM;
@@ -50,8 +50,8 @@ const addAnimal = async (request, response, error) => {
 
   try {
     const datos = body
-    console.log((body.edad == '') ? undefined : body.edad)
-    console.log(file == undefined)
+    console.log(body);
+    console.log(file);
     const animal = new Animal({
             nombre: body.nombre,
             tipo: body.tipo,
@@ -59,9 +59,11 @@ const addAnimal = async (request, response, error) => {
             edad: (body.edad == '') ? undefined : body.edad,
             genero: body.genero,
             descripcion: (body.descripcion == '') ? undefined : body.descripcion,
-      image: (file == undefined) ? file : file.filename,
+            image: (file == undefined) ? file : file.filename,
         })
+        console.log(animal);
         const savedUser = await animal.save()
+        // console.log(savedUser);
     request.flash('success_msg', 'Añadido con éxito')
     response.redirect('/animales/add')
   } catch (error) {
@@ -73,7 +75,8 @@ const renderAnimal = async (request, response) => {
 
   Animal.findById(id)
     .then(animal => {
-      if (animal) 
+      if (animal)
+      console.log(animal); 
       response.render('animales/animal', {animal})
     })
     .catch(err => next(err))

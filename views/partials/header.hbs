@@ -11,7 +11,10 @@
             <li class="nav-item">
               <a class="nav-link" href="/animales">Animales</a>
             </li>
-            <% if(user) {%> 
+                        <li class="nav-item">
+              <a class="nav-link" href="/users/protectoras">Protectoras</a>
+            </li>
+            {{# user}}
             <li class="nav-item">
               <a class="nav-link" href="/animales/add">Añadir animales</a>
             </li>
@@ -26,14 +29,15 @@
                 <a class="dropdown-item" href="/users/logout">Logout</a>
               </div>
             </li> -->
-            <% } else { %>
+            {{/ user}}
+                        {{^ user}}
             <li class="nav-item">
               <a class="nav-link" href="/users/login">Iniciar sesion</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/users/registro">Registrarse</a>
             </li>
-            <% } %>
+            {{/ user}}
         </ul> 
       </div>
   </nav>

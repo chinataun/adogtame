@@ -1,0 +1,35 @@
+<div id="animales">
+    <section id="box">
+        <p>
+            <form name="frmBuscador" method="post" action="/protectoras/buscar">
+                <input type="search" id="Buscado" name="busqueda" class="Buscador" placeholder="Buscar protectora..." />
+            </form>
+    
+       </p>
+    </section>
+    <ul>
+        {{#each protectoras}}
+            <p>
+                <li>
+                    <div class="top">
+                        <h1>
+                            {{nombre}}
+                        </h1>
+                                        <div class=""><img id="avatar_animal" class="circle_logo" src="{{#if image}}../uploads/{{image}}{{else}}../images/logo.png{{/if}}" width="60" height="60"></div>
+
+                    </div>
+                    <div class="bottom">
+                        <br>
+                        <p><span> email:          </span> {{ email }}         </p>
+                        <p><span> Cif:        </span> {{ cif}}       </p>
+                        <div class="sign">
+                        <a href='/users/protectora/{{id}}' class='button'>Ver mas detalles..</a>
+                        </div>
+                    </div>
+                    </li>
+            </p>
+        {{/each}}
+       
+    </ul>
+    
+    </div>
