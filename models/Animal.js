@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 
-const animalesSchema = new mongoose.Schema(
+const animalesSchema = new Schema(
   {
     nombre: String,
     tipo: String,
@@ -9,7 +10,10 @@ const animalesSchema = new mongoose.Schema(
     genero: String,
     descripcion: String,
     image: String,
-    protectora: String,
+    protectora: {
+      type: Schema.Types.ObjectId, 
+      ref: 'Protectora',
+    },
   },
   {
     timestamps: true

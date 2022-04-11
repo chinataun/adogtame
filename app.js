@@ -1,6 +1,6 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
-const passport = require('passport')
+// const passport = require('passport')
 const path = require('path')
 const cors = require('cors')
 const middleware = require('./utils/middleware')
@@ -17,7 +17,8 @@ const dotenv = require('dotenv')
 const Handlebars = require('handlebars')
 const expressHandlebars = require('express-handlebars');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
-
+const cookieJwtAuth = require('./utils/cookieJwtAuth')
+const { Console } = require('console')
 dotenv.config({ path: './.env' });
 
 //Inicializaiones
@@ -56,37 +57,39 @@ app.set("view engine", ".hbs");
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(methodOverride('_method'))
-app.use(cookieParser('SecretStringForCookies'))
-app.use(session({
-  secret: "SecretStringForSession",
-	cookie: {	maxAge: 60000 },
-	resave: true,
-	saveUninitialized: true,
-  // store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash())
+app.use(cookieParser('SECRET'))
+// app.use(session({
+//   secret: "SecretStringForSession",
+// 	cookie: {	maxAge: 60000 },
+// 	resave: true,
+// 	saveUninitialized: true,
+//   // store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
+// }));
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(flash())
 
 // Global Variables
-app.use((req, res, next) => {
-  res.locals.success_msg = req.flash("success_msg");
-  res.locals.error_msg = req.flash("error_msg");
-  res.locals.error = req.flash("error");
-  res.locals.errores = req.flash("errores");
-  // res.locals.registro = req.flash("registro");
-  res.locals.user = req.user || null;
-  next();
-});
+// app.use((req, res, next) => {
+//   res.locals.success_msg = req.flash("success_msg");
+//   res.locals.error_msg = req.flash("error_msg");
+//   res.locals.error = req.flash("error");
+//   res.locals.errores = req.flash("errores");
+//   // res.locals.registro = req.flash("registro");
+//   res.locals.user = req.user || null;
+//   next();
+// });
 
 //Routes
 
 
-app.get('/', (request, response) => {  
+app.get('/',cookieJwtAuth, (request, response) => {  
+
+
   response.render('index')
 })
-app.use('/animales', animalsRouter)
-app.use('/users', usersRouter)
+app.use('/animales',cookieJwtAuth, animalsRouter)
+app.use('/users',cookieJwtAuth, usersRouter)
 
 // app.use(middleware.requestLogger)
 

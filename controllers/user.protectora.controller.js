@@ -1,6 +1,7 @@
 const Protectora = require('../models/Protectora')
+const User = require('../models/User')
 const validatorProtectora = require('../utils/service.validations.user')
-
+const token = require('../utils/generateToken')
 
 const renderRegistroProtectora =  (request, response) => {
 
@@ -9,10 +10,8 @@ const renderRegistroProtectora =  (request, response) => {
 
 const registroProtectora = async (request, response) => {
   let errors = [];
-  const { email, cif, telefono, descripcion, nombre, password } = request.body;
+  const { email, cif, telefono, descripcion, nombre, password, role } = request.body;
   const {file} = request
-  console.log(file)
-  let tipo = 'protectora'
   // if (!validatorProtectora.validateNombreProtectora(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
   // validatorProtectora.validateTelefonoProtectora(telefono)
   const validation = validatorProtectora.validateProtectora(request)
@@ -20,20 +19,25 @@ const registroProtectora = async (request, response) => {
     return response.render('users/signup_protectora', {errors: validation, email, cif, telefono, descripcion, nombre, password})
   }
   const newProtectora = new Protectora({ 
-    nombre: nombre, 
-    email: email, 
-    tipo: tipo, 
+    nombre: nombre,
     cif: cif, 
     telefono: telefono, 
     descripcion: (descripcion == '') ? undefined : descripcion,
-    password: password,
     image: (file == undefined) ? file : file.filename,
-  });
-  console.log(newProtectora)
-  newProtectora.password = await newProtectora.encryptPassword(password);
-  await newProtectora.save();
-  request.flash("success_msg", `Usuario ${tipo} con email: ${email} registrado`);
-  response.redirect('/users/login')
+  }); 
+  const protectorasaved = await newProtectora.save();
+  
+  const newUser = new User({
+    email: email,
+    password: password,
+    role: role,
+    references: protectorasaved,
+  })
+  newUser.password = await newUser.encryptPassword(password);
+  const userSaved = await newUser.save();
+  token.tokenSign(userSaved)
+  // request.flash("success_msg", `Usuario ${role} con email: ${email} registrado`);
+  response.redirect('/')
 }
 
 

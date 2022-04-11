@@ -1,8 +1,8 @@
 const User = require('../models/User')
-const Protectora = require('../models/Protectora')
 const validator = require('../utils/service.validations')
 const validatorProtectora = require('../utils/service.validations.user')
 const  passport = require('passport')
+const jwt = require('jsonwebtoken')
 
 const renderRegistro = (request, response) => {
   response.render('users/signup')
@@ -11,7 +11,7 @@ const renderRegistro = (request, response) => {
 
 const registro = async (req, res) => {
   let errors = [];
-  const { email, password, confirm_password, tipo } = req.body;
+  const { email, password, confirm_password, role } = req.body;
   if (email.length <= 0 ) {
     errors.push('Inserta email')
   }
@@ -25,14 +25,14 @@ const registro = async (req, res) => {
   if (emailUser) {
     errors.push("Ya existe un usuario con ese email");
   }
-  if (tipo == undefined) {
+  if (role == undefined) {
     errors.push("Debe serleccionar un tipo de registro");
   }
   let checkedA;
   let checkedP;
-    if (tipo === "Adoptante") {
+    if (role === "Adoptante") {
       checkedA = 'checked'
-    } else if (tipo === "Protectora") {
+    } else if (role === "Protectora") {
       checkedP = 'checked'
    
   }
@@ -44,31 +44,57 @@ const registro = async (req, res) => {
       email,
       password,
       confirm_password,
-      tipo,
+      role,
       checkedA,
       checkedP,
     });
   } 
   else {
-    if (tipo === 'Protectora') {
-      req.flash('registro', {email, password, tipo})
-      res.render("users/signup_protectora", {email, password, tipo});
+    if (role === 'Protectora') {
+      req.flash('registro', {email, password, role})
+      res.render("users/signup_protectora", {email, password, role});
       // res.redirect('registro/protectora')
     } else {
-      req.flash('registro', {email, password, tipo})
-      res.render("users/signup_adoptante", {email, password, tipo});
+      req.flash('registro', {email, password, role})
+      res.render("users/signup_adoptante", {email, password, role});
       // res.redirect('registro/protectora')
     }
   }
 }
 
-
-
-const login = passport.authenticate('local', {
+const login2 = passport.authenticate('local', {
   successRedirect: "/",
   failureRedirect: "/users/login",
   failureFlash: true,
 })
+
+const login = async (request, response) => {
+  const {email, password} = request.body;
+
+  const user = await User.findOne({ email: email });
+  console.log(password)
+  if (!user) {
+      response.send('USuario no encontrado')  
+    } else {
+    // Match Password's User
+    const match = await  user.matchPassword(password);
+    console.log(user.id);
+    if (match) {
+      const token = jwt.sign({user}, 'SECRET', {expiresIn: "1h"});
+
+      response.cookie('token', token, {
+        httpOnly: true
+      });
+
+      return response.redirect('/')  
+    } else {
+      response.send('contraseña incorrecta')   
+    }
+  }
+
+
+
+}
 
 const renderLogin = (request, response) => {
   response.render('users/login')

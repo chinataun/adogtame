@@ -1,4 +1,5 @@
 const Adoptante = require('../models/Adoptante')
+const User = require('../models/User')
 const validatorAdoptante = require('../utils/service.validations.user')
 
 const renderRegistroAdoptante =  (request, response) => {
@@ -7,7 +8,7 @@ const renderRegistroAdoptante =  (request, response) => {
 
 const registroAdoptante = async (request, response) => {
   let errors = [];
-  const { email, cif, telefono, descripcion, nombre, password } = request.body;
+  const { email, cif, telefono, descripcion, nombre, password, role } = request.body;
   const {file} = request
   console.log(file)
   let tipo = 'adoptante'
@@ -19,17 +20,22 @@ const registroAdoptante = async (request, response) => {
   // }
   const newAdoptante = new Adoptante({ 
     nombre: nombre, 
-    email: email, 
-    tipo: tipo, 
     cif: cif, 
     telefono: telefono, 
     descripcion: (descripcion == '') ? undefined : descripcion,
-    password: password,
     image: (file == undefined) ? file : file.filename,
   });
-  console.log(newAdoptante)
-  newAdoptante.password = await newAdoptante.encryptPassword(password);
-  await newAdoptante.save();
+  const adoptantesaved = await newAdoptante.save();
+
+  const newUser = new User({
+    email: email,
+    password: password,
+    role: role,
+    references: adoptantesaved,
+  })
+  newUser.password = await newUser.encryptPassword(password);
+  await newUser.save();
+
   request.flash("success_msg", `Usuario ${tipo} con email: ${email} registrado`);
   response.redirect('/users/login')
 }
