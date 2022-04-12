@@ -1,0 +1,22 @@
+        {{> messages }}
+<div id="animal">
+
+  <div class="top">
+    <h1>
+      SOLICITUDES
+    </h1>
+  </div>
+    <div class="bottom">
+                {{#solicitudes}}
+        
+
+        <p><span> Tipo:          </span> {{ _id }}         </p>
+        <p><span> Raza:          </span> {{ mensaje  }}         </p>
+        <p><span> Edad:          </span> {{ animal.edad }}         </p>
+        <p><span> Genero:        </span> {{ animal.genero }}       </p>
+        <p><span> Descripción:        </span> {{ animal.descripcion }}       </p>
+                {{/solicitudes}}
+      </div>
+    </div>
+      
+</div>

@@ -51,11 +51,9 @@ const registro = async (req, res) => {
   } 
   else {
     if (role === 'Protectora') {
-      req.flash('registro', {email, password, role})
       res.render("users/signup_protectora", {email, password, role});
       // res.redirect('registro/protectora')
     } else {
-      req.flash('registro', {email, password, role})
       res.render("users/signup_adoptante", {email, password, role});
       // res.redirect('registro/protectora')
     }

@@ -58,27 +58,27 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(methodOverride('_method'))
 app.use(cookieParser('SECRET'))
-// app.use(session({
-//   secret: "SecretStringForSession",
-// 	cookie: {	maxAge: 60000 },
-// 	resave: true,
-// 	saveUninitialized: true,
-//   // store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
-// }));
+app.use(session({
+  secret: "SecretStringForSession",
+	cookie: {	maxAge: 60000 },
+	resave: true,
+	saveUninitialized: true,
+  // store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
+}));
 // app.use(passport.initialize());
 // app.use(passport.session());
-// app.use(flash())
+app.use(flash())
 
 // Global Variables
-// app.use((req, res, next) => {
-//   res.locals.success_msg = req.flash("success_msg");
-//   res.locals.error_msg = req.flash("error_msg");
-//   res.locals.error = req.flash("error");
-//   res.locals.errores = req.flash("errores");
-//   // res.locals.registro = req.flash("registro");
-//   res.locals.user = req.user || null;
-//   next();
-// });
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  res.locals.error = req.flash("error");
+  res.locals.errores = req.flash("errores");
+  // res.locals.registro = req.flash("registro");
+  res.locals.user = req.user || null;
+  next();
+});
 
 //Routes
 
