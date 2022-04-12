@@ -2,8 +2,11 @@ const Animal = require('../models/Animal')
 const {validateNombreAnimal, validateAnimal} = require('../utils/service.validations')
 
 const renderAnimales = async (request, response) => {
-  const animales = await Animal.find({}) 
-  response.render('animales/animales', {animales})
+const animales = await Animal.find({}) 
+const animales_filtrado_tipo = await Animal.collection.distinct("tipo")
+const animales_filtrado_genero = await Animal.collection.distinct("genero")
+const animales_filtrado_raza = await Animal.collection.distinct("raza")
+response.render('animales/animales', { animales , animales_filtrado_tipo , animales_filtrado_genero, animales_filtrado_raza })
 }
 
 const renderAddAnimal = async (request, response) => {
@@ -11,14 +14,30 @@ const renderAddAnimal = async (request, response) => {
 }
 
 const busquedaAnimal = async (request, response) => {
+  console.log(" AAAAAAAAAAAAAA -----------------------------------------------------------------------------------------");
   console.log(request.query);
+  console.log(" BBBBBBBBBBBBBBB -----------------------------------------------------------------------------------------");
   console.log(request.body);
-
+  console.log(" CCCCCCCCCCCCCCC  -----------------------------------------------------------------------------------------");
   const {busqueda} = request.body
+  console.log("-----------------------------------------------------------------------------------------");
   console.log(busqueda);
-  Animal.find({
-    'descripcion' : {$regex : busqueda}
-  })
+  console.log(busqueda[0]);
+  console.log(busqueda[1]);
+  console.log(busqueda[2]);
+  console.log(busqueda[3]);
+  console.log(busqueda[4]);
+  console.log(busqueda[5]);
+  Animal.find
+  (
+    { $or: [
+            {'edad': { '$gt':busqueda[4] ,'$lt': busqueda[5] }},
+            {'tipo': busqueda[1] },
+            {'genero': busqueda[2] },
+            {'raza': busqueda[3]  }
+            ]
+    }
+  )
   .then(animales => {
 
     if (animales)
@@ -26,11 +45,9 @@ const busquedaAnimal = async (request, response) => {
     response.render('animales/animales', {animales})
   })
   .catch(err => next(err))
-
-
-
-
 }
+
+// {'descripcion' : {$regex : busqueda[0]}},
 
 const addAnimal = async (request, response, error) => {
 
@@ -83,4 +100,4 @@ const renderAnimal = async (request, response) => {
 
 }
 
-module.exports = {renderAnimales, renderAddAnimal, addAnimal, busquedaAnimal, renderAnimal}
+module.exports = {renderAnimales, renderAddAnimal, addAnimal, busquedaAnimal, renderAnimal }
