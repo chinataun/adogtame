@@ -1,3 +1,4 @@
+        {{> messages }}
 <div id="animal">
 
   <div class="top">
@@ -14,5 +15,43 @@
         <p><span> Edad:          </span> {{ animal.edad }}         </p>
         <p><span> Genero:        </span> {{ animal.genero }}       </p>
         <p><span> Descripción:        </span> {{ animal.descripcion }}       </p>
+      </div>
     </div>
+      {{#if adoptante}}
+        {{#if solicitado}}
+          <span>Ya has solicitado la adopción del animal</span>    
+        {{/if}}
+        {{^solicitado}}
+          <span>Si desea solicitar la adopción {{animal.nombre}}, mandonos una <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#solicitud">
+          solicitud</button> y nos pondremos en contacto con usted.<span>
+        {{/solicitado}}
+      {{/if}}       
+
+
+<!-- Modal -->
+<div class="modal fade" id="solicitud" tabindex="-1" aria-labelledby="solicitudLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="solicitudLabel">Solicitar adopción</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <form action="/animales/solicitud" method="POST">
+
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Mensaje:</label>
+            <textarea class="form-control" name="mensaje" id="message-text" placeholder="Cuentanos sobre ti. ¿Has tenido alguna experiencia con animales? ¿Vives en un Piso?"></textarea>
+          </div>
+          <input type="text" class="form-control" id="recipient-name" name="animal" value="{{animal.id}}" hidden>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Solicitar adopción</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
 </div>
