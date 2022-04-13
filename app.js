@@ -17,7 +17,7 @@ const dotenv = require('dotenv')
 const Handlebars = require('handlebars')
 const expressHandlebars = require('express-handlebars');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
-const cookieJwtAuth = require('./utils/cookieJwtAuth')
+const {cookieJwtAuth, authenticateToken} = require('./utils/cookieJwtAuth')
 const { Console } = require('console')
 dotenv.config({ path: './.env' });
 
@@ -59,8 +59,8 @@ app.use(express.json())
 app.use(methodOverride('_method'))
 app.use(cookieParser('SECRET'))
 app.use(session({
-  secret: "SecretStringForSession",
-	cookie: {	maxAge: 60000 },
+  secret: "SECRET",
+	cookie: {	maxAge: 600000 },
 	resave: true,
 	saveUninitialized: true,
   // store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
@@ -86,7 +86,7 @@ app.use((req, res, next) => {
 app.get('/',cookieJwtAuth, (request, response) => {  
 
 
-  response.render('index')
+  response.render('index', request.flash('perros'))
 })
 app.use('/animales',cookieJwtAuth, animalsRouter)
 app.use('/users',cookieJwtAuth, usersRouter)

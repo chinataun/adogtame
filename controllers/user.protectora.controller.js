@@ -77,4 +77,23 @@ const renderProtectora = async (request, response) => {
 
 }
 
-module.exports = {renderRegistroProtectora, registroProtectora, renderProtectoras, busquedaProtectoras, renderProtectora}
+const renderSolicitudesProtectora = async (request, response) => {
+  const {user} = request.user
+  const solicitudes = await Solicitud.find({adoptante: user._id}).populate('animal')
+  response.render('users/solicitudes_adoptante', {solicitudes})
+
+}
+
+const procesarSolicitudes = async (request, response) => {
+  const { id } = request.params
+
+  Protectora.findById(id)
+    .then(protectora => {
+      if (protectora)
+      response.render('users/protectora', {protectora})
+    })
+    .catch(err => next(err))
+
+}
+
+module.exports = {renderRegistroProtectora, registroProtectora, renderProtectoras, busquedaProtectoras, renderProtectora,renderSolicitudesProtectora,procesarSolicitudes}

@@ -90,7 +90,7 @@ const addAnimal = async (request, response, error) => {
         })
     const savedUser = await animal.save()
         // response.locals.success_msg = 'Añadido con exito'
-    // request.flash('success_msg', 'Añadido con éxito')
+    request.flash('success_msg', 'Añadido con éxito')
     response.redirect('/animales/animal/'+ savedUser.id )
   } catch (error) {
     response.render('animales/add')
@@ -99,7 +99,6 @@ const addAnimal = async (request, response, error) => {
 const renderAnimal = async (request, response) => {
   const { id } = request.params
   const {user} = request.user
-  console.log(request.session);
   const solicitado = await Solicitud.find({adoptante: user._id, animal: id})
 
   const animal = await Animal.findById(id)
@@ -122,9 +121,10 @@ const renderAnimal = async (request, response) => {
       adoptante: user.user._id,
       mensaje: mensaje,
       protectora: protectora.protectora._id,
+      estado: 'enviada'
     })
     const saved = await solicitud.save()
-    request.flash("success_msg", 'Solivitud enviada')
+    request.flash("success_msg", 'Solicitud enviada correctamente.')
       response.redirect('/animales/animal/' + animal)
     // console.log(solicitud);
     // console.log(saved);

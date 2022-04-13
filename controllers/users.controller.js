@@ -3,6 +3,7 @@ const validator = require('../utils/service.validations')
 const validatorProtectora = require('../utils/service.validations.user')
 const  passport = require('passport')
 const jwt = require('jsonwebtoken')
+const { request, response } = require('express')
 
 const renderRegistro = (request, response) => {
   response.render('users/signup')
@@ -78,7 +79,7 @@ const login = async (request, response) => {
     const match = await  user.matchPassword(password);
     console.log(user.id);
     if (match) {
-      const token = jwt.sign({user}, 'SECRET', {expiresIn: "1h"});
+      const token = jwt.sign({user}, 'SECRET', {expiresIn: "24h"});
 
       response.cookie('token', token, {
         httpOnly: true
@@ -98,5 +99,14 @@ const renderLogin = (request, response) => {
   response.render('users/login')
 }
 
+const logout = (request, response) => {
+  try {
+    response.clearCookie("token")
+    return response.redirect('/')
+  } catch (error) {
+    response.status(500).send(error)
+  }
+}
 
-module.exports = {renderRegistro, registro,login,renderLogin}
+
+module.exports = {renderRegistro, registro,login,renderLogin, logout}
