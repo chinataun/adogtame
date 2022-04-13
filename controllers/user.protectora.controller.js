@@ -85,7 +85,7 @@ const renderSolicitudesProtectora = async (request, response) => {
 }
 
 const procesarSolicitudes = async (request, response) => {
-  const { id } = request.params
+
 
   Protectora.findById(id)
     .then(protectora => {
