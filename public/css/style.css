@@ -17,7 +17,7 @@ body{
   background-color: var(--primario);
   /*font-family: 'Krub', sans-serif;*/
   font-family: var(--fuenteParrafos);
-  padding-top: 6rem;
+
 }
 a{
   text-decoration: none;
@@ -43,7 +43,7 @@ width: 60px;
 height: 60px;
 border-radius: 60px;
 }
-
+/* 
 .navegacion{
   height: 8rem;
   width: 100%;
@@ -52,10 +52,10 @@ border-radius: 60px;
   right:0px;
   left:0px;
   max-width:100%;
-  height:70px;   /* Por darle un valor fijo para evitar conflictos con :auto */
+  height:70px;   // Por darle un valor fijo para evitar conflictos con :auto
   z-index:1000000
   
-}
+} */
 #logo_home{
   display:flex;
   flex-direction: column;
