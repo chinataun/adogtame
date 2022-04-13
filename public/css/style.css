@@ -308,16 +308,12 @@ background-color: #bc9b94;
 
 .Buscador
 {
-  color: white;
-  background: #fff;
-  border: #ccc 1px solid;
-  border-bottom: #ccc 2px solid;
-  padding: 5px;
-  width: 100%;
-  color: #000000;
-  margin-top: 0px;
-  font-size: 1em;
-  border-radius: 50px;
+  width: 580px;
+  height: 25px;
+  margin: 1px auto;
+  text-align: left;
+  color: #2e4146;
+  border-radius: 10px;
 }
 
 /* animales */
@@ -360,3 +356,60 @@ width: 400px;
 border-radius: 50px;
 }
 
+
+#filtrado_tipo 
+{
+  width: 200px;
+  margin: 1px auto;
+  text-align: left;
+  color: #2e4146;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#filtrado_genero 
+{
+  width: 150px;
+  margin: 1px auto;
+  text-align: left;
+  color: #2e4146;
+  border-radius: 10px;
+  text-align: center;
+  }
+
+
+  
+#edad_minima_animal 
+{
+  width: 25px;
+  height: 25px;  
+  margin: 1px auto;
+  text-align: left;
+  color: #2e4146;
+  border-radius: 10px;
+  text-align: center;
+  }
+
+  #edad_maxima_animal 
+{
+  width: 25px;
+  height: 25px;
+  margin: 1px auto;
+  text-align: left;
+  color: #2e4146;
+  border-radius: 10px;
+  text-align: center;
+  }
+
+  #btnFiltrarAnimal
+  {
+    width: 225px;
+    height: 25px;
+    margin: 1px auto;
+    text-align: left;
+    color: #ffffff;
+    background-color: rgb(44, 44, 44);
+    border-radius: 18px;
+    text-align: center;
+
+  }

@@ -28,21 +28,28 @@ const busquedaAnimal = async (request, response) => {
   console.log(busqueda[3]);
   console.log(busqueda[4]);
   console.log(busqueda[5]);
+
+ // {'tipo': {$cond: $eq: [busqueda[1] ,null ] }},
+ // {'genero': busqueda[2] }
+
+ const animales_filtrado_tipo = await Animal.collection.distinct("tipo")
+ const animales_filtrado_genero = await Animal.collection.distinct("genero")
+ const animales_filtrado_raza = await Animal.collection.distinct("raza")
+
+  // $or: [ ]
   Animal.find
   (
-    { $or: [
-            {'edad': { '$gt':busqueda[4] ,'$lt': busqueda[5] }},
-            {'tipo': busqueda[1] },
-            {'genero': busqueda[2] },
-            {'raza': busqueda[3]  }
-            ]
-    }
+    {
+      'tipo': { "$in" : [busqueda[1]] },
+      'genero': { "$in" : [busqueda[2]] },
+      'edad': { '$gt':busqueda[4] ,'$lt': busqueda[5] 
+    }}
   )
   .then(animales => {
 
     if (animales)
     console.log(animales);
-    response.render('animales/animales', {animales})
+    response.render('animales/animales', {animales, animales_filtrado_tipo , animales_filtrado_genero, animales_filtrado_raza})
   })
   .catch(err => next(err))
 }

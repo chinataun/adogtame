@@ -53,7 +53,7 @@ function onInput_BusquedaAnimal_Tipo() {
       document.getElementById("filtro_edad_maxima_animal").value = "50";
       document.getElementById("filtro_edad_minima_animal").value = edad_minima;
     }
-
+    document.getElementById("edad_minima_animal").value = edad_minima;
   }
 
   function onBusquedaAnimal_Edad_Maxima() 
@@ -74,6 +74,7 @@ function onInput_BusquedaAnimal_Tipo() {
       document.getElementById("filtro_edad_maxima_animal").value = edad_maxima ;
     }
 
+    document.getElementById("edad_maxima_animal").value = edad_maxima ;
 
   }
 
