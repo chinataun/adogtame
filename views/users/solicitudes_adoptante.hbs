@@ -8,13 +8,22 @@
   </div>
     <div class="bottom">
                 {{#solicitudes}}
-        
+        <h3>SOLICITUD</h3>
+        <p><span> id:          </span> {{ _id }}         </p>
+        <p><span> Mensaje:          </span> {{ mensaje }}         </p>
+        <p><span> Estado:          </span> Enviada (Por hacer)        </p>
 
-        <p><span> Tipo:          </span> {{ _id }}         </p>
-        <p><span> Raza:          </span> {{ mensaje  }}         </p>
+          <h3>ANIMAL</h3>
+                <div class="animal_image">
+        <img src="/uploads/{{ animal.image }}" alt="perrete">
+      </div>
+        <p><span> Tipo:          </span> {{ animal.tipo }}         </p>
+        <p><span> Raza:          </span> {{ animal.raza  }}         </p>
         <p><span> Edad:          </span> {{ animal.edad }}         </p>
         <p><span> Genero:        </span> {{ animal.genero }}       </p>
         <p><span> Descripción:        </span> {{ animal.descripcion }}       </p>
+               <h3>PROTECTORA</h3>
+               <p><span> id protectora:          </span> {{ protectora }}         </p>
                 {{/solicitudes}}
       </div>
     </div>
