@@ -23,7 +23,6 @@ if (token) {
   const user = jwt.verify(token, 'SECRET')
 
   request.user = user;
-  // console.log(user.user)
   if (user.user.role === 'Adoptante'){
     response.locals.user = request.user
     response.locals.adoptante = user.user.role

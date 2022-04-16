@@ -15,7 +15,7 @@
         <p><span> Raza:          </span> {{ animal.raza }}         </p>
         <p><span> Edad:          </span> {{ animal.edad }}         </p>
         <p><span> Genero:        </span> {{ animal.genero }}       </p>
-        <p><span> Ciudad:        </span> {{ animal.protectora.ciudad }}       </p>
+        <p><span> Ciudad:        </span> {{ animal.protectora.user.ciudad }}       </p>
         <p><span> Descripción:        </span> {{ animal.descripcion }}       </p>
       </div>
     </div>
@@ -31,12 +31,14 @@
       {{/if}}     
       {{^if adoptante}}
         {{#if protectora}}  
-          <span>
-            <form action="/animales/edit-animal/">
-              <input type="text" class="form-control" id="id" name="id" value="{{animal.id}}" hidden>
-                <button type="submit" class="btn btn-primary">Editar animal</button>
-            </form>
-          </span>
+          {{#canEdit}}
+            <span>
+              <form action="/animales/edit-animal/">
+                <input type="text" class="form-control" id="id" name="id" value="{{animal.id}}" hidden>
+                  <button type="submit" class="btn btn-primary">Editar animal</button>
+              </form>
+            </span>
+          {{/canEdit}} 
         {{/if}} 
         {{^if protectora}}  
           <span>Si desea solicitar la adopción de {{animal.nombre}} debe <a href="/users/registro">registrarse</a> como adoptante en nuestra página.

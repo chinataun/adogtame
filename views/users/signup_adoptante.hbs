@@ -11,24 +11,19 @@
       <div class="card-body">
               <form action="/users/registro/adoptante" method="POST" enctype="multipart/form-data">
           <div class="form-group">
-            <input type="text" class="form-control" name="nombre" placeholder="nombre" value="{{nombre}}">
+            <label class="form-label" for="inputEmail">Nombre</label>
+            <input type="text" class="form-control" name="nombre" placeholder="Nombre" value="{{nombre}}">
           </div>
 
           <div class="form-group">
-            <input type="text" class="form-control" name="dni" placeholder="dni" value="{{dni}}">
+            <label class="form-label" for="inputEmail">Dni</label>
+            <input type="text" class="form-control" name="dni" placeholder="Dni" value="{{dni}}">
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="telefono" placeholder="telefono" value="{{telefono}}">
+            <label class="form-label" for="inputEmail">Telefono</label>
+            <input type="text" class="form-control" name="telefono" placeholder="Telefono" value="{{telefono}}">
           </div>
-          <div class="form-group">
-            <input type="password" hidden class="form-control" name="password" placeholder="Password" value="{{ password }}">
-          </div>
-          <div class="form-group">
-            <input type="text" hidden class="form-control" name="email" placeholder="email" value="{{ email }}">
-          </div>
-          <div class="form-group">
-            <input type="text" hidden class="form-control" name="role" placeholder="role" value="{{ role }}">
-          </div>
+
           <div class="form-group">
             <label class="form-label" for="inputImage">Imagen</label>
             <input class="form-control" type="file" name="image" id="inputImage">
@@ -36,7 +31,7 @@
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Descripción</label>
-            <textarea class="form-control" name="descripcion" id="inlineDescription" placeholder="Descripcion del animal">{{animal.descripcion}}</textarea>
+            <textarea class="form-control" name="descripcion" id="inlineDescription" placeholder="Descripcion del adoptante">{{animal.descripcion}}</textarea>
           </div>
           <div>
             <button class="btn btn-primary btn-block">

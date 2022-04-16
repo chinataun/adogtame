@@ -110,16 +110,30 @@ const addAnimal = async (request, response, error) => {
 
 const renderAnimal = async (request, response) => {
   const { id } = request.params
-  const animal = await Animal.findById(id).populate('protectora')
+  const animal = await Animal.findById(id).populate('protectora').populate([{
+    path: 'protectora',
+    model: 'User',
+    populate: {
+      path: 'user',
+      model: 'Protectora'
+    }
+  }])
   if (animal) {
     if (request.user !== undefined) {
       const {user} = request.user
+      console.log(user._id);
+      console.log(animal.protectora._id.toString());
+      let canEdit = false
+      if (user._id === animal.protectora._id.toString()) {
+        canEdit = true
+      }
       const solicitado = await Solicitud.find({adoptante: user._id, animal: id})
-      return response.render('animales/animal', {animal, solicitado})
+      return response.render('animales/animal', {animal, solicitado, canEdit})
     }
     return response.render('animales/animal', {animal})
-  } else{
-    response.response('/animales')
+  }
+   else{
+    response.redirect('/animales')
   }
 }
 
@@ -134,7 +148,7 @@ const renderAnimal = async (request, response) => {
       mensajeAdoptante: mensaje,
       mesanjeProtectora: undefined,
       protectora: protectora.protectora._id,
-      estado: 'enviada'
+      estado: 'En proceso'
     })
     const saved = await solicitud.save()
     request.flash("success_msg", 'Solicitud enviada correctamente.')

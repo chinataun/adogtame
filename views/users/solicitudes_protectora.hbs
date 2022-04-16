@@ -6,7 +6,7 @@
       SOLICITUDES
     </h1>
   </div>
-
+  {{#if solicitudes}}
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
 .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
@@ -28,7 +28,7 @@
   </tr>
 </thead>
 <tbody>
-  {{#solicitudes}}
+  {{#each solicitudes}}
   <tr>
     <td class="tg-0pky">{{ _id }} </td>
 
@@ -42,7 +42,7 @@
     <td class="tg-0pky">
       <p><span> Nombre:          </span> {{ adoptante.user.nombre }}         </p>
       <p><span> Mensaje:          </span> {{ mensajeAdoptante }}         </p>
-      <p><span><a href='/users/adoptantes/{{adoptante._id }}' class='button'>Ver ficha del adoptante</a>        </span>        </p>  
+      <p><span><a href='/users/adoptante/{{adoptante._id }}' class='button'>Ver ficha del adoptante</a>        </span>        </p>  
     </td>
     <td class="tg-0pky">{{ estado }}  </td>
     <td class="tg-0pky">     
@@ -56,12 +56,16 @@
     </td>
   </tr>
  
-    {{/solicitudes}}
+{{/each}}
 </tbody>
 </table>
 
 
       </div>
+       {{/if}}
+         {{^solicitudes}}
+         <h2>No hay solicitudes</h2>
+        {{/solicitudes}}
     </div>
       
 </div>

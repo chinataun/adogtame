@@ -38,11 +38,7 @@ const registroProtectora = async (request, response) => {
   newUser.password = await newUser.encryptPassword(password);
   const userSaved = await newUser.save();
   
-  const token = jwt.sign({userSaved}, 'SECRET', {expiresIn: "24h"});
 
-  response.cookie('token', token, {
-    httpOnly: true
-  });
   request.flash("success_msg", `Usuario ${role} con email: ${email} registrado`);
   response.redirect('/')
 }
@@ -104,11 +100,16 @@ const renderSolicitudesProtectora = async (request, response) => {
 }
 
 const procesarSolicitudAdopcion = async (request, response) => {
-  const {idSolicitud, mensaje} = request.body
+  const {idSolicitud, mensaje, submit} = request.body
   const solicitud = await Solicitud.findById(idSolicitud);
 
   solicitud.mensajeProtectora = mensaje
-  solicitud.estado = 'procesada'
+  if (submit === 'rechazar') {
+    solicitud.estado = 'rechazada'
+  } else if (submit === 'aceptar'){
+    solicitud.estado = 'aceptada'
+  }
+  
   const solicitudSaved = await solicitud.save();
   
   response.redirect('/users/solicitudesProtectora')
@@ -123,11 +124,8 @@ const renderEditProtectora = async (request, response) => {
 
 const editProtectora = async (request, response, error) => {
   const {user} = request.user
-  console.log(user);
   const { email, cif, telefono, descripcion, nombre, password, role, ciudad } = request.body;
   const {file} = request
-  // if (!validatorProtectora.validateNombreProtectora(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
-  // validatorProtectora.validateTelefonoProtectora(telefono)
   const validation = validatorProtectora.validateProtectora(request)
   if (validation.length !== 0) {
     const protectoraFound = await User.findById(user._id).populate('user')

@@ -35,13 +35,9 @@ const registroAdoptante = async (request, response) => {
   })
   newUser.password = await newUser.encryptPassword(password);
   await newUser.save();
-  const token = jwt.sign({newUser}, 'SECRET', {expiresIn: "24h"});
 
-  response.cookie('token', token, {
-    httpOnly: true
-  });
   request.flash("success_msg", `Usuario ${role} con email: ${email} registrado`);
-  response.redirect('/')
+  response.redirect('/users/login')
 }
 
 
@@ -52,37 +48,78 @@ const renderAdoptantes = async (request, response) => {
 
 const renderAdoptante = async (request, response) => {
   const { id } = request.params
+  const userAdoptante = await User.findById(id).populate('user')
+  response.render('users/adoptante', {adoptante: userAdoptante})
 
-  Adoptante.findById(id)
-    .then(Adoptante => {
-      if (Adoptante)
-      response.render('users/adoptante', {Adoptante})
-    })
-    .catch(err => next(err))
+  // User.findById(id).populate('user')
+  //   .then(protectora => {
+  //     if (protectora)
+  //     console.log(protectora.user.populate('animales'));
+
+  //     response.render('users/protectora', {protectora, animales})
+  //   })
+  //   .catch(err => next(err))
 
 }
 
 const renderSolicitudesAdoptante = async (request, response) => {
   const {user} = request.user
-  const solicitudes = await Solicitud.find({adoptante: user._id}).populate('animal')
-
+  const solicitudes = await Solicitud.find({adoptante: user._id}).populate('animal protectora').populate([{
+    path: 'protectora',
+    model: 'User',
+    populate: {
+      path: 'user',
+      model: 'Protectora'
+    }
+  }])
+  console.log(solicitudes);
   response.render('users/solicitudes_adoptante', {solicitudes})
 
 }
 
 const renderEditAdoptante = async (request, response) => {
   const {user} = request.user
-  const solicitudes = await Solicitud.find({adoptante: user._id}).populate('animal')
-
-  response.render('users/solicitudes_adoptante', {solicitudes})
+  const adoptante = await User.findById(user._id).populate('user')
+  response.render('users/edit_adoptante', {adoptante})
 }
 
 const editAdoptante = async (request, response, error) => {
-
   const {user} = request.user
-  const solicitudes = await Solicitud.find({adoptante: user._id}).populate('animal')
+  const { email, dni, telefono, descripcion, nombre} = request.body;
+  const {file} = request
+  const validation = validatorProtectora.validateProtectora(request)
+  if (validation.length !== 0) {
+    const protectoraFound = await User.findById(user._id).populate('user')
+    const adoptante = {
+      email: email,
+      user: {
+        nombre: nombre,
+        dni: dni, 
+        telefono: telefono, 
+        descripcion: descripcion,
+        image: protectoraFound.user.image,
+      }
 
-  response.render('users/solicitudes_adoptante', {solicitudes})
+    }
+    return response.render('users/edit_adoptante', {errors: validation, adoptante})
+  }
+  const adoptanteUpdated = { 
+    nombre: nombre,
+    cif: cif, 
+    telefono: telefono, 
+    ciudad: ciudad,
+    descripcion: (descripcion == '') ? undefined : descripcion,
+    image: (file == undefined) ? file : file.filename,
+  };   
+  const newUser = {
+    email: email
+  };
+  await User.findByIdAndUpdate(user._id, newUser);
+  await Protectora.findByIdAndUpdate(user.user, adoptanteUpdated);
+
+
+  request.flash("success_msg", `Usuario actualizado`);
+  response.redirect('/users/adoptante/' + user._id)
 }
 
 module.exports = {renderRegistroAdoptante, registroAdoptante, renderAdoptantes, renderAdoptante, renderSolicitudesAdoptante, renderEditAdoptante, editAdoptante}
