@@ -1,7 +1,7 @@
 const Protectora = require('../models/Protectora')
 const User = require('../models/User')
 const Solicitud = require('../models/Solicitud')
-const validatorProtectora = require('../utils/service.validations.user')
+const validatorProtectora = require('../utils/service.validations.user.protectora')
 const token = require('../utils/generateToken')
 const jwt = require('jsonwebtoken')
 

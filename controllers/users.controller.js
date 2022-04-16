@@ -1,6 +1,6 @@
 const User = require('../models/User')
 const validator = require('../utils/service.validations')
-const validatorProtectora = require('../utils/service.validations.user')
+const validatorProtectora = require('../utils/service.validations.user.protectora')
 const  passport = require('passport')
 const jwt = require('jsonwebtoken')
 const { request, response } = require('express')

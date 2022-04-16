@@ -1,7 +1,7 @@
 const Adoptante = require('../models/Adoptante')
 const User = require('../models/User')
 const Solicitud = require('../models/Solicitud')
-const validatorAdoptante = require('../utils/service.validations.user')
+const validatorAdoptante = require('../utils/service.validations.user.protectora')
 const jwt = require('jsonwebtoken')
 
 const renderRegistroAdoptante =  (request, response) => {

@@ -1,25 +1,18 @@
-function validatePassword(password) {
-  const validLength = password.length >= 8
-  let hasLetter = /[a-zA-Z]/g.test(password)
-  let hasNumber = /[0-9]/g.test(password)
-  return hasNumber && hasLetter && validLength
-}
-
-function obligatorio(param) {
-  var knownStringVar = "" +  param;
-  return knownStringVar.length == 0
-}
-
-function validLength(param, num) {
-  var knownStringVar = "" +  param;
-  return knownStringVar.length > num
-}
+const {obligatorio,validLength}  = require('./service.validations')
 
 function validateNombreProtectora(nombre) {
   if (obligatorio(nombre)) {
     return 'Nombre obligatorio'
   } else if (validLength(nombre, 20)) {
     return 'El nombre no puede tener mas de 20 caracteres'
+  }
+  return '';
+}
+function validateCiudadProtectora(ciudad) {
+  if (obligatorio(ciudad)) {
+    return 'Ciudad obligatorio'
+  } else if (validLength(ciudad, 50)) {
+    return 'La ciudad no puede tener mas de 50 caracteres'
   }
   return '';
 }
@@ -35,6 +28,19 @@ function validateCifProtectora(cif) {
   }
   return '';
 }
+
+function validateDniAdoptante(dni) {
+  // var str = cif.replace(/\s/g, '');
+  if (obligatorio(dni)) {
+    return 'DNI obligatorio'
+  } else if (cif.length != 9) {
+    return 'El numero de caracteres de un DNI son 9. Ejemplo: 11111111A'
+  }else if (!/^(\d{7})([ABCDEFGHJKLMNPQRSUVW])([0-9A-J])$/.test(dni)) {
+    return 'Tipo de DNI inválido'
+  }
+  return '';
+}
+
 function validateTelefonoProtectora(telefono) {
   // var str = telefono.toString().replace(/\s/g, '');
   // console.log(str.length === 9 && /^[679]{1}[0-9]{8}$/.test(str));
@@ -68,16 +74,15 @@ function validateDescripciónProtectora(descripcion) {
   return '';
 }
 
-function validateProtectora(params) {
+function validateAdoptante(params) {
   const {file, body} = params
   const errores = [];
   if (validateNombreProtectora(body['nombre']) !== '') errores.push(validateNombreProtectora(body['nombre']));
   if (validateTelefonoProtectora(body['telefono']) !== '') errores.push(validateTelefonoProtectora(body['telefono']));
   if (validateCifProtectora(body['cif']) !== '') errores.push(validateCifProtectora(body['cif']));
-  // if (validateEdadAnimal(body['edad']) !== '') errores.push(validateEdadAnimal(body['edad']));
-  // if (validateGeneroAnimal(body['genero']) !== '') errores.push(validateGeneroAnimal(body['genero']));
+  if (validateCiudadProtectora(body['ciudad']) !== '') errores.push(validateCiudadProtectora(body['ciudad']));
   if (validateDescripciónProtectora(body['descripcion']) !== '') errores.push(validateDescripciónProtectora(body['descripcion']));
-  // // if (validateImageAnimal(file) !== '') errores.push(validateImageAnimal(file));
+  if (validateImageProtectora(file) !== '') errores.push(validateImageProtectora(file));
 
   return errores;
 
