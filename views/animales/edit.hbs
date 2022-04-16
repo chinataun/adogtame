@@ -3,28 +3,28 @@
     <div class="card mt-4 text-center">
       <div class="card-header">
         <h1 >
-          Añadir animales
+          Editar animales
         </h1>
       </div>
 
       <div class="card-body">
         {{> messages }}
-        <form action="/animales/add" method="POST" enctype="multipart/form-data">
+        <form action="/animales/edit/{{animal._id}}" method="POST" enctype="multipart/form-data">
           <div class="mb-3">
               <label class="form-label" for="inputNombre">Nombre</label>
-              <input type="text" name="nombre" class="form-control" id="inputNombre" placeholder="Nombre" value="{{body.nombre}}">
+              <input type="text" name="nombre" class="form-control" id="inputNombre" placeholder="Nombre" value="{{animal.nombre}}">
           </div>
           <div class="mb-3">
             <label class="form-label" for="inputTipo">Tipo</label>
-            <input type="text" name="tipo" class="form-control" id="inputTipo" placeholder="Tipo" value="{{body.tipo}}">
+            <input type="text" name="tipo" class="form-control" id="inputTipo" placeholder="Tipo" value="{{animal.tipo}}">
           </div>
           <div class="mb-3">
             <label class="form-label" for="inputRaza">Raza</label>
-            <input type="text" name="raza" class="form-control" id="inputRaza" placeholder="Raza" value="{{body.raza}}">
+            <input type="text" name="raza" class="form-control" id="inputRaza" placeholder="Raza" value="{{animal.raza}}">
           </div>
           <div class="mb-3">
             <label class="form-label" for="inputEmail">Edad</label>
-            <input type="number" name="edad" class="form-control" id="inputEdad" placeholder="Edad" value="{{body.edad}}">
+            <input type="number" name="edad" class="form-control" id="inputEdad" placeholder="Edad" value="{{animal.edad}}">
           </div>
           <legend class="col-form-label">Genero</legend>
           <div class="form-check form-check-inline">
@@ -37,6 +37,9 @@
           </div>
           <div class="mb-3">
             <label class="form-label" for="inputImage">Imagen</label>
+            <img id="image" src="/uploads/{{ animal.image }}" width="60px" alt="image" /></br>
+
+            <label class="form-label" for="inputImage">Modificar imagen</label>
             <input class="form-control" type="file" name="image" id="inputImage">
 
           </div>
@@ -44,7 +47,7 @@
             <label for="message-text" class="col-form-label">Descripción</label>
             <textarea class="form-control" name="descripcion" id="inlineDescription" placeholder="Descripcion del animal">{{animal.descripcion}}</textarea>
           </div>
-          <button type="submit" class="btn btn-primary">Crear animal</button>
+          <button type="submit" class="btn btn-primary">Editar animal</button>
       </form>
       </div>
     </div>

@@ -2,6 +2,7 @@ const Adoptante = require('../models/Adoptante')
 const User = require('../models/User')
 const Solicitud = require('../models/Solicitud')
 const validatorAdoptante = require('../utils/service.validations.user')
+const jwt = require('jsonwebtoken')
 
 const renderRegistroAdoptante =  (request, response) => {
   response.redirect('/users/registro')
@@ -9,10 +10,8 @@ const renderRegistroAdoptante =  (request, response) => {
 
 const registroAdoptante = async (request, response) => {
   let errors = [];
-  const { email, cif, telefono, descripcion, nombre, password, role } = request.body;
+  const { email, dni, telefono, descripcion, nombre, password, role } = request.body;
   const {file} = request
-  console.log(file)
-  let tipo = 'adoptante'
   // if (!validatorAdoptante.validateNombreAdoptante(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
   // validatorAdoptante.validateTelefonoAdoptante(telefono)
   // const validation = validatorAdoptante.validateAdoptante(request)
@@ -21,7 +20,7 @@ const registroAdoptante = async (request, response) => {
   // }
   const newAdoptante = new Adoptante({ 
     nombre: nombre, 
-    cif: cif, 
+    dni: dni, 
     telefono: telefono, 
     descripcion: (descripcion == '') ? undefined : descripcion,
     image: (file == undefined) ? file : file.filename,
@@ -32,13 +31,17 @@ const registroAdoptante = async (request, response) => {
     email: email,
     password: password,
     role: role,
-    references: adoptantesaved,
+    user: adoptantesaved._id,
   })
   newUser.password = await newUser.encryptPassword(password);
   await newUser.save();
+  const token = jwt.sign({newUser}, 'SECRET', {expiresIn: "24h"});
 
-  request.flash("success_msg", `Usuario ${tipo} con email: ${email} registrado`);
-  response.redirect('/users/login')
+  response.cookie('token', token, {
+    httpOnly: true
+  });
+  request.flash("success_msg", `Usuario ${role} con email: ${email} registrado`);
+  response.redirect('/')
 }
 
 
@@ -62,10 +65,24 @@ const renderAdoptante = async (request, response) => {
 const renderSolicitudesAdoptante = async (request, response) => {
   const {user} = request.user
   const solicitudes = await Solicitud.find({adoptante: user._id}).populate('animal')
-  console.log(solicitudes);
-  console.log(user);
+
   response.render('users/solicitudes_adoptante', {solicitudes})
 
 }
 
-module.exports = {renderRegistroAdoptante, registroAdoptante, renderAdoptantes, renderAdoptante, renderSolicitudesAdoptante}
+const renderEditAdoptante = async (request, response) => {
+  const {user} = request.user
+  const solicitudes = await Solicitud.find({adoptante: user._id}).populate('animal')
+
+  response.render('users/solicitudes_adoptante', {solicitudes})
+}
+
+const editAdoptante = async (request, response, error) => {
+
+  const {user} = request.user
+  const solicitudes = await Solicitud.find({adoptante: user._id}).populate('animal')
+
+  response.render('users/solicitudes_adoptante', {solicitudes})
+}
+
+module.exports = {renderRegistroAdoptante, registroAdoptante, renderAdoptantes, renderAdoptante, renderSolicitudesAdoptante, renderEditAdoptante, editAdoptante}

@@ -9,12 +9,13 @@ const SolicitudSchema = new Schema(
     },
     adoptante: {
       type: Schema.Types.ObjectId, 
-      ref: 'Adoptante',
+      ref: 'User',
     },
-    mensaje: { type: String },
+    mensajeAdoptante: { type: String },
+    mensajeProtectora: { type: String },
     protectora: {
       type: Schema.Types.ObjectId, 
-      ref: 'Protectora',
+      ref: 'User',
     },
     estado: String,
   },

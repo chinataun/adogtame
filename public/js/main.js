@@ -78,3 +78,13 @@ function onInput_BusquedaAnimal_Tipo() {
 
   }
 
+  jQuery(function($) {
+    $('#solicitud').on('show.bs.modal', function (event) {
+      var myVal = $(event.relatedTarget).data('id');
+      $('input#idSolicitud').attr('value', myVal);
+      console.log(myVal);
+      console.log($('input#idSolicitud'));
+    });
+  
+  });
+

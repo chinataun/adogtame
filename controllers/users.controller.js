@@ -70,14 +70,13 @@ const login2 = passport.authenticate('local', {
 const login = async (request, response) => {
   const {email, password} = request.body;
 
-  const user = await User.findOne({ email: email });
-  console.log(password)
+  const user = await User.findOne({ email: email })
   if (!user) {
       response.send('USuario no encontrado')  
     } else {
     // Match Password's User
     const match = await  user.matchPassword(password);
-    console.log(user.id);
+
     if (match) {
       const token = jwt.sign({user}, 'SECRET', {expiresIn: "24h"});
 

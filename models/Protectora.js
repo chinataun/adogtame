@@ -7,6 +7,7 @@ const ProtectoraSchema = new Schema(
     nombre: { type: String},
     cif: { type: String},
     telefono: { type: String},
+    ciudad: {type: String},
     descripcion: { type: String },
     image: { type: String },
     animales: {

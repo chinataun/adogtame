@@ -2,15 +2,42 @@
 
   <div class="top">
     <h1>
-        {{protectora.nombre}}
+        {{protectora.user.nombre}}
     </h1>
+            {{> messages }}
   </div>
     <div class="bottom">
       <div class="animal_image">
-        <img src="/uploads/{{ protectora.image }}" alt="perrete">
+        <img src="/uploads/{{ protectora.user.image }}" alt="perrete">
       </div>
-        <p><span> Telefono:          </span> {{ protectora.telefono }}         </p>
-        <p><span> CIF:        </span> {{ protectora.cif }}       </p>
-        <p><span> Descripción:        </span> {{ protectora.descripcion }}       </p>
+              <p><span> Email:          </span> {{ protectora.email }}         </p>
+        <p><span> Telefono:          </span> {{ protectora.user.telefono }}         </p>
+                <p><span> Ciudad:          </span> {{ protectora.user.ciudad }}         </p>
+                <p><span> CIF:        </span> {{ protectora.user.cif }}       </p>
+        <p><span> Descripción:        </span> {{ protectora.user.descripcion }}       </p>
     </div>
 </div>
+<ul>
+        {{#each animales}}
+            <p>
+                <li>
+                    <div class="top">
+                        <h1>
+                            {{nombre}}
+                        </h1>
+                        <div class=""><img id="avatar_animal" src="../images/{{tipo}}.png" width="60" height="60"></div>
+                    </div>
+                    <div class="bottom">
+                        <br>
+                        <p><span> Tipo:          </span> {{ tipo }}         </p>
+                        <p><span> Raza:          </span> {{ raza }}         </p>
+                        <p><span> Genero:        </span> {{ genero}}       </p>
+                        <div class="sign">
+                        <a href='/animales/animal/{{id }}' class='button'>Ver mas detalles..</a>
+                        </div>
+                    </div>
+                    </li>
+            </p>
+        {{/each}}
+       
+    </ul>
