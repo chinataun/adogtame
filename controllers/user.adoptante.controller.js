@@ -9,7 +9,6 @@ const renderRegistroAdoptante =  (request, response) => {
 }
 
 const registroAdoptante = async (request, response) => {
-  let errors = [];
   const { email, dni, telefono, descripcion, nombre, password, role } = request.body;
   const {file} = request
   // if (!validatorAdoptante.validateNombreAdoptante(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
