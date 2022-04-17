@@ -2,7 +2,7 @@ const Animal = require('../models/Animal')
 const Protectora = require('../models/Protectora')
 const Solicitud = require('../models/Solicitud')
 const User = require('../models/User')
-const {validateNombreAnimal, validateAnimal} = require('../utils/service.validations')
+const {validateAnimal} = require('../utils/service.validations.animales')
 
 const renderAnimales = async (request, response) => {
 const animales = await Animal.find({}) 
@@ -65,9 +65,10 @@ const addAnimal = async (request, response, error) => {
 
 
   const validation = validateAnimal(request)
+  console.log(Object.keys(validation).length === 0  );
   let checkedH;
   let checkedM;
-  if (validation.length !== 0) {
+  if (Object.keys(validation).length !== 0) {
     if (body.genero === "Hembra") {
       checkedH = 'checked'
     } else if (body.genero === "Macho") {
@@ -78,6 +79,7 @@ const addAnimal = async (request, response, error) => {
 
   try {
     const datos = body
+    console.log(datos);
     // console.log(body);
     // console.log(file);
     const animal = new Animal({
@@ -102,7 +104,7 @@ const addAnimal = async (request, response, error) => {
     const protectoraUpdates = await protectoraf.save()
 
     request.flash('success_msg', 'Añadido con éxito')
-    response.redirect('/animales/animal/'+ savedAnimal._id )
+    return response.redirect('/animales/animal/'+ savedAnimal._id )
   } catch (error) {
     response.render('animales/add')
   }
@@ -210,8 +212,6 @@ const renderAnimal = async (request, response) => {
         descripcion:body.descripcion,
 
     }
-    console.log(body);
-    console.log(animal);
     let animalUpdated = await Animal.findByIdAndUpdate(id, animal);
   
       request.flash('success_msg', 'Editado con éxito')

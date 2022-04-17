@@ -413,3 +413,9 @@ border-radius: 50px;
     text-align: center;
 
   }
+
+  /* VALIDACIONES BOOTSTRAP */
+  /* .form-control.is-invalid:focus, .was-validated .form-control:invalid:focus {
+    border-color: unset;
+    box-shadow:unset;
+} */
