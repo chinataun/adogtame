@@ -51,7 +51,6 @@ const busquedaAnimal = async (request, response) => {
   .then(animales => {
 
     if (animales)
-    console.log(animales);
     response.render('animales/animales', {animales, animales_filtrado_tipo , animales_filtrado_genero, animales_filtrado_raza})
   })
   .catch(err => next(err))
@@ -88,6 +87,7 @@ const addAnimal = async (request, response, error) => {
             raza: body.raza,
             edad: (body.edad == '') ? undefined : body.edad,
             genero: body.genero,
+            historial: (body.historial == '') ? undefined : body.historial,
             descripcion: (body.descripcion == '') ? undefined : body.descripcion,
             image: (file == undefined) ? file : file.filename,
             protectora: user.user._id
@@ -208,6 +208,7 @@ const renderAnimal = async (request, response) => {
         raza: body.raza,
         edad: body.edad,
         genero: body.genero,
+        historial:body.descripcion,
         image: (file == undefined) ? file : file.filename,
         descripcion:body.descripcion,
 

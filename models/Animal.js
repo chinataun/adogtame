@@ -9,6 +9,7 @@ const animalesSchema = new Schema(
     edad: Number,
     genero: String,
     descripcion: String,
+    historial: String,
     image: {type:String},
     protectora: {
       type: Schema.Types.ObjectId, 

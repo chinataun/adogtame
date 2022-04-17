@@ -9,7 +9,7 @@
 
       <div class="card-body">
         <form action="/animales/add" method="POST" enctype="multipart/form-data" novalidate>
-          <div class="col-md-3">
+          <div class="mb-3">
             <label for="validationNombre" class="form-label">Nombre*</label>
             <input type="text" class="form-control {{#errors.nombre}}is-invalid{{/errors.nombre}}" name="nombre" value="{{body.nombre}}" id="validationNombre" aria-describedby="validationNombreFeedback" required>
             <div id="validationNombreFeedback" class="invalid-feedback">
@@ -45,8 +45,8 @@
           <div class="form-check mb-3">
             <input class="form-check-input {{#errors.genero}}is-invalid{{/errors.genero}}" type="radio" name="genero" id="inlineFemenino" value="Hembra" {{ checkedH }}>
             <label class="form-check-label" for="inlineFemenino">Hembra</label>
-                            <div id="validationTipoFeedback" class="invalid-feedback">
-                {{errors.genero}}
+            <div id="validationTipoFeedback" class="invalid-feedback">
+              {{errors.genero}}
               </div>
           </div>
 
@@ -57,6 +57,13 @@
               <div id="validationTipoFeedback" class="invalid-feedback">
                 {{errors.file}}
               </div>
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Historial médico</label>
+            <textarea class="form-control {{#errors.historial}}is-invalid{{/errors.historial}}" name="historial" id="inlineHistorial" placeholder="Historial médico del animal.">{{body.historial}}</textarea>
+            <div id="validationHistorialFeedback" class="invalid-feedback">
+              {{errors.descripcion}}
+            </div>
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Descripción</label>
