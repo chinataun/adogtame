@@ -14,12 +14,12 @@ function validateDni(dni) {
 
 function validateAdoptante(params) {
   const {file, body} = params
-  const errores = [];
-  if (validateNombre(body['nombre']) !== '') errores.push(validateNombre(body['nombre']));
-  if (validateDni(body['dni']) !== '') errores.push(validateDni(body['dni']));
-  if (validateTelefono(body['telefono']) !== '') errores.push(validateTelefono(body['telefono']));
-  if (validateImage(file) !== '') errores.push(validateImage(file));
-  if (validateDescripcion(body['descripcion']) !== '') errores.push(validateDescripcion(body['descripcion']));
+  const errores = {};
+  if (validateNombre(body['nombre']) !== '') errores.nombre = (validateNombre(body['nombre']));
+  if (validateDni(body['dni']) !== '') errores.dni = (validateDni(body['dni']));
+  if (validateTelefono(body['telefono']) !== '') errores.telefono = (validateTelefono(body['telefono']));
+  if (validateImage(file) !== '') errores.file = (validateImage(file));
+  if (validateDescripcion(body['descripcion']) !== '') errores.descripcion = validateDescripcion(body['descripcion']);
 
   return errores;
 

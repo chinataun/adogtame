@@ -1,46 +1,55 @@
 <div class="row">
   <div class="col-md-4 mx-auto">
-    <div class="card mt-4 text-center">
-        {{> messages }}
+    <div class="card mt-4">
       <div class="card-header">
         <h1>
           Editar Adoptante
         </h1>
 
       </div>
-              {{#adoptante}}
-            <div class="animal_image">
-                <img class="" src="/uploads/{{ user.image }}" alt="Logo">
+              
+            <div class="animal_image text-center">
+                <img class="" src="/uploads/{{ adoptante.user.image }}" alt="Logo">
             </div>
       <div class="card-body">
-              <form action="/users/edit-protectora" method="POST" enctype="multipart/form-data">
-              
-          <div class="form-group">
-            <label class="form-label" for="inputEmail">Email</label>
-            <input type="email" class="form-control" name="email" placeholder="Email" value="{{email}}">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="inputNombre">Nombre</label>
-            <input type="text" class="form-control" name="nombre" placeholder="Nombre" value="{{user.nombre}}">
+        <form action="/users/edit-adoptante" method="POST" enctype="multipart/form-data" novalidate>
+          <div class="mb-3">
+            <label class="form-label" for="inputEmail">Nombre</label>
+            <input type="text" class="form-control {{#errors.nombre}}is-invalid{{/errors.nombre}}" name="nombre" placeholder="Nombre" value="{{adoptante.user.nombre}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.nombre}}
+            </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="inputCif">Dni</label>
-            <input type="text" class="form-control" name="dni" placeholder="Dni" value="{{user.dni}}">
+          <div class="mb-3">
+            <label class="form-label" for="inputEmail">Dni</label>
+            <input type="text" class="form-control {{#errors.dni}}is-invalid{{/errors.dni}}" name="dni" placeholder="Dni" value="{{adoptante.user.dni}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.dni}}
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="inputTelefono">Telefono</label>
-            <input type="text" class="form-control" name="telefono" placeholder="Telefono" value="{{user.telefono}}">
+          <div class="mb-3">
+            <label class="form-label" for="inputEmail">Telefono</label>
+            <input type="text" class="form-control {{#errors.telefono}}is-invalid{{/errors.telefono}}" name="telefono" placeholder="Telefono" value="{{adoptante.user.telefono}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.telefono}}
+            </div>
           </div>
-          <div class="form-group">
+          <div class="mb-3">
             <label class="form-label" for="inputImage">Imagen</label>
-            <input class="form-control" type="file" name="image" id="inputImage">
-
+            <input class="form-control {{#errors.file}}is-invalid{{/errors.file}}" type="file" name="image" id="inputImage">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.file}}
+            </div>
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Descripción</label>
-            <textarea class="form-control" name="descripcion" id="inlineDescription" placeholder="Descripcion del animal">{{user.descripcion}}</textarea>
+            <textarea class="form-control {{#errors.descripcion}}is-invalid{{/errors.descripcion}}" name="descripcion" id="inlineDescription" placeholder="Descripcion de la protectora">{{adoptante.user.descripcion}}</textarea>
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.descripcion}}
+            </div>
           </div>
+
           <div>
             
             <button class="btn btn-primary btn-block">
@@ -50,7 +59,7 @@
 
         </form>
       </div>
-              {{/adoptante}}
+              
     </div>
   </div>
 </div>

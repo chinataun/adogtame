@@ -1,40 +1,46 @@
 <div class="row">
   <div class="col-md-4 mx-auto">
-    <div class="card mt-4 text-center">
-        {{> messages }}
+    <div class="card mt-4">
       <div class="card-header">
         <h1>
           Editar Protectora
         </h1>
 
       </div>
-              {{#protectora}}
-            <div class="animal_image">
-                <img class="" src="/uploads/{{ user.image }}" alt="Logo">
+
+            <div class="animal_image text-center">
+                <img class="" src="/uploads/{{ protectora.user.image }}" alt="Logo">
             </div>
       <div class="card-body">
-              <form action="/users/edit-protectora" method="POST" enctype="multipart/form-data">
-              
-          <div class="form-group">
-            <label class="form-label" for="inputEmail">Email</label>
-            <input type="email" class="form-control" name="email" placeholder="Email" value="{{email}}">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="inputNombre">Nombre</label>
-            <input type="text" class="form-control" name="nombre" placeholder="Nombre" value="{{user.nombre}}">
+              <form action="/users/edit-protectora" method="POST" enctype="multipart/form-data" novalidate>
+          <div class="mb-3">
+            <label class="form-label" for="inputNombre">Nombre*</label>
+            <input type="text" class="form-control {{#errors.nombre}}is-invalid{{/errors.nombre}}" name="nombre" placeholder="Nombre" value="{{protectora.user.nombre}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.nombre}}
+            </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="inputCif">Cif</label>
-            <input type="text" class="form-control" name="cif" placeholder="Cif" value="{{user.cif}}">
+          <div class="mb-3">
+            <label class="form-label" for="inputCif">Cif*</label>
+            <input type="text" class="form-control {{#errors.cif}}is-invalid{{/errors.cif}}" name="cif" placeholder="Cif" value="{{protectora.user.cif}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.cif}}
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="inputTelefono">Telefono</label>
-            <input type="text" class="form-control" name="telefono" placeholder="Telefono" value="{{user.telefono}}">
+          <div class="mb-3">
+            <label class="form-label" for="inputTelefono">Telefono*</label>
+            <input type="text" class="form-control {{#errors.telefono}}is-invalid{{/errors.telefono}}" name="telefono" placeholder="Telefono" value="{{protectora.user.telefono}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.telefono}}
+            </div>  
           </div>
-          <div class="form-group">
-            <label class="form-label" for="inputCiudad">Ciudad</label>
-            <input type="text" class="form-control" name="ciudad" placeholder="Ciudad" value="{{user.ciudad}}">
+          <div class="mb-3">
+            <label class="form-label" for="inputCiudad">Ciudad*</label>
+            <input type="text" class="form-control {{#errors.ciudad}}is-invalid{{/errors.ciudad}}" name="ciudad" placeholder="Ciudad" value="{{protectora.user.ciudad}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.ciudad}}
+            </div>
           </div>
           <div class="form-group">
             <label class="form-label" for="inputImage">Imagen</label>
@@ -43,7 +49,7 @@
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Descripción</label>
-            <textarea class="form-control" name="descripcion" id="inlineDescription" placeholder="Descripcion del animal">{{user.descripcion}}</textarea>
+            <textarea class="form-control" name="descripcion" id="inlineDescription" placeholder="Descripcion del animal">{{protectora.user.descripcion}}</textarea>
           </div>
           <div>
             
@@ -54,7 +60,6 @@
 
         </form>
       </div>
-              {{/protectora}}
     </div>
   </div>
 </div>

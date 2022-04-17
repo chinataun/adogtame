@@ -1,7 +1,6 @@
 <div class="row">
   <div class="col-md-4 mx-auto">
-    <div class="card mt-4 text-center">
-        {{> messages }}
+    <div class="card mt-4">
       <div class="card-header">
         <h1>
           Registro Protectora
@@ -9,41 +8,58 @@
       </div>
         <img class="rounded-circle mx-auto d-block logo m-4" src="/images/logo.png" alt="Logo">
       <div class="card-body">
-              <form action="/users/registro/protectora" method="POST" enctype="multipart/form-data">
-          <div class="form-group">
+              <form action="/users/registro/protectora" method="POST" enctype="multipart/form-data" novalidate>
+          <div class="mb-3">
             <label class="form-label" for="inputNombre">Nombre</label>
-            <input type="text" class="form-control" name="nombre" placeholder="nombre" value="{{nombre}}" required>
+            <input type="text" class="form-control {{#errors.nombre}}is-invalid{{/errors.nombre}}" name="nombre" placeholder="Nombre" value="{{nombre}}" required>
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.nombre}}
+            </div>
           </div>
 
-          <div class="form-group">
+          <div class="mb-3">
             <label class="form-label" for="inputCif">Cif</label>
-            <input type="text" class="form-control" name="cif" placeholder="nif" value="{{cif}}">
+            <input type="text" class="form-control {{#errors.cif}}is-invalid{{/errors.cif}}" name="cif" placeholder="Cif" value="{{cif}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.cif}}
+            </div>
           </div>
-          <div class="form-group">
+          <div class="mb-3">
             <label class="form-label" for="inputTelefono">Telefono</label>
-            <input type="text" class="form-control" name="telefono" placeholder="telefono" value="{{telefono}}">
+            <input type="text" class="form-control {{#errors.telefono}}is-invalid{{/errors.telefono}}" name="telefono" placeholder="Telefono" value="{{telefono}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.telefono}}
+            </div>  
           </div>
-          <div class="form-group">
+          <div class="mb-3">
             <label class="form-label" for="inputCiudad">Ciudad</label>
-            <input type="text" class="form-control" name="ciudad" placeholder="Ciudad" value="{{ciudad}}">
+            <input type="text" class="form-control {{#errors.ciudad}}is-invalid{{/errors.ciudad}}" name="ciudad" placeholder="Ciudad" value="{{ciudad}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.ciudad}}
+            </div>
           </div>
-          <div class="form-group">
+          <div class="mb-3">
             <input type="password" hidden class="form-control" name="password" placeholder="Password" value="{{ password }}">
           </div>
-          <div class="form-group">
+          <div class="mb-3">
             <input type="text" hidden class="form-control" name="email" placeholder="email" value="{{ email }}">
           </div>
-          <div class="form-group">
+          <div class="mb-3">
             <input type="text" hidden class="form-control" name="role" placeholder="role" value="{{ role }}">
           </div>
-          <div class="form-group">
+          <div class="mb-3">
             <label class="form-label" for="inputImage">Imagen</label>
-            <input class="form-control" type="file" name="image" id="inputImage">
-
+            <input class="form-control {{#errors.file}}is-invalid{{/errors.file}}" type="file" name="image" id="inputImage">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.file}}
+            </div>
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Descripción</label>
-            <textarea class="form-control" name="descripcion" id="inlineDescription" placeholder="Descripcion de la protectora">{{animal.descripcion}}</textarea>
+            <textarea class="form-control {{#errors.descripcion}}is-invalid{{/errors.descripcion}}" name="descripcion" id="inlineDescription" placeholder="Descripcion de la protectora">{{descripcion}}</textarea>
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.descripcion}}
+            </div>
           </div>
           <div>
             <button class="btn btn-primary btn-block">

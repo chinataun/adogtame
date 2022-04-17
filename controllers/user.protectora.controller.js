@@ -1,7 +1,7 @@
 const Protectora = require('../models/Protectora')
 const User = require('../models/User')
 const Solicitud = require('../models/Solicitud')
-const validatorProtectora = require('../utils/service.validations.user.protectora')
+const {validateProtectora} = require('../utils/service.validations.user.protectora')
 const token = require('../utils/generateToken')
 const jwt = require('jsonwebtoken')
 
@@ -15,8 +15,8 @@ const registroProtectora = async (request, response) => {
   const {file} = request
   // if (!validatorProtectora.validateNombreProtectora(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
   // validatorProtectora.validateTelefonoProtectora(telefono)
-  const validation = validatorProtectora.validateProtectora(request)
-  if (validation.length !== 0) {
+  const validation = validateProtectora(request)
+  if (Object.keys(validation).length !== 0) {
     return response.render('users/signup_protectora', {errors: validation, email, cif, telefono, descripcion, nombre, ciudad, password})
   }
   const newProtectora = new Protectora({ 
@@ -126,8 +126,8 @@ const editProtectora = async (request, response, error) => {
   const {user} = request.user
   const { email, cif, telefono, descripcion, nombre, password, role, ciudad } = request.body;
   const {file} = request
-  const validation = validatorProtectora.validateProtectora(request)
-  if (validation.length !== 0) {
+  const validation = validateProtectora(request)
+  if (Object.keys(validation).length !== 0) {
     const protectoraFound = await User.findById(user._id).populate('user')
     const protectora = {
       email: email,

@@ -1,7 +1,7 @@
 const Adoptante = require('../models/Adoptante')
 const User = require('../models/User')
 const Solicitud = require('../models/Solicitud')
-const validatorAdoptante = require('../utils/service.validations.user.protectora')
+const {validateAdoptante} = require('../utils/service.validations.user.adoptante')
 const jwt = require('jsonwebtoken')
 
 const renderRegistroAdoptante =  (request, response) => {
@@ -14,10 +14,10 @@ const registroAdoptante = async (request, response) => {
   const {file} = request
   // if (!validatorAdoptante.validateNombreAdoptante(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
   // validatorAdoptante.validateTelefonoAdoptante(telefono)
-  // const validation = validatorAdoptante.validateAdoptante(request)
-  // if (validation.length !== 0) {
-  //   return response.render('users/signup_adoptante', {errors: validation, email, cif, telefono, descripcion, nombre, password})
-  // }
+  const validation = validateAdoptante(request)
+  if (Object.keys(validation).length !== 0) {
+    return response.render('users/signup_adoptante', {errors: validation, email, dni, telefono, descripcion, nombre, password})
+  }
   const newAdoptante = new Adoptante({ 
     nombre: nombre, 
     dni: dni, 
@@ -87,8 +87,8 @@ const editAdoptante = async (request, response, error) => {
   const {user} = request.user
   const { email, dni, telefono, descripcion, nombre} = request.body;
   const {file} = request
-  const validation = validatorProtectora.validateProtectora(request)
-  if (validation.length !== 0) {
+  const validation = validateAdoptante(request)
+  if (Object.keys(validation).length !== 0) {
     const protectoraFound = await User.findById(user._id).populate('user')
     const adoptante = {
       email: email,
