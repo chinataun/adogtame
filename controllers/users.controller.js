@@ -35,13 +35,16 @@ const registro = async (req, res) => {
       tipo
     });
   } 
-  else {if (tipo === 'Protectora') {
-    req.flash('registro', {email, password, tipo})
-    res.render("users/signup_protectora", {email, password, tipo});
-    // res.redirect('registro/protectora')
-  }
-          }
+  else {
+    if (role === 'Protectora') {
+      response.render("users/signup_protectora", {email, password, role});
+      // res.redirect('registro/protectora')
+    } else {
+      response.render("users/signup_adoptante", {email, password, role});
+      // res.redirect('registro/protectora')
     }
+  }
+}
     const renderRegistroProtectora =  (request, response) => {
 
       response.redirect('/users/registro')
