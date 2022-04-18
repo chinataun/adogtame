@@ -74,5 +74,18 @@ const renderProtectora = async (request, response) => {
 
 }
 
+const renderSolicitudesProtectora = async (request, response) => {
+  const {user} = request.user
+  const solicitudes = await Solicitud.find({protectora: user._id}).populate('animal adoptante').populate([{
+    path: 'adoptante',
+    model: 'User',
+    populate: {
+      path: 'user',
+      model: 'Adoptante'
+    }
+  }])
+  response.render('users/solicitudes_protectora', {solicitudes})
 
-module.exports = {renderRegistroProtectora, registroProtectora, renderProtectoras, busquedaProtectoras, renderProtectora}
+}
+
+module.exports = {renderRegistroProtectora,renderSolicitudesProtectora, registroProtectora, renderProtectoras, busquedaProtectoras, renderProtectora}
