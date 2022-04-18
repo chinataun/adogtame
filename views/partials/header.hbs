@@ -24,8 +24,15 @@
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a href="/animales/add" class="dropdown-item">Añadir animales</a>
                                 <div class="dropdown-divider"></div>
+                                <a href="/users/logout" class="dropdown-item">Logout</a>  
                             </div>
                         {{/ protectora}}
+                        {{# adoptante }}
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <div class="dropdown-divider"></div>
+                                <a href="/users/logout" class="dropdown-item">Logout</a>
+                            </div>
+                        {{/ adoptante}}
                         
                     </li>
                     {{/if}}
