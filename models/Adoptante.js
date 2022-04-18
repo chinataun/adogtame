@@ -7,6 +7,8 @@ const AdoptanteSchema = new mongoose.Schema(
     dni: { type: String},
     telefono: {type: String},
     descripcion: { type: String },
+    image: { type: String },
+
   },
   {
     timestamps: true,
