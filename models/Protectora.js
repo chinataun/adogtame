@@ -8,6 +8,7 @@ const ProtectoraSchema = new Schema(
     cif: { type: String},
     telefono: { type: String},
     ciudad: {type: String},
+    image: { type: String },
     descripcion: { type: String },
     animales: {
       type: [Schema.Types.ObjectId], 
