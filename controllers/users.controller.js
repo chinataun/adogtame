@@ -1,5 +1,4 @@
 const User = require('../models/User')
-const Protectora = require('../models/Protectora')
 const validator = require('../utils/service.validations')
 const  passport = require('passport')
 
@@ -8,34 +7,45 @@ const renderRegistro = (request, response) => {
 }
 
 
-const registro = async (req, res) => {
+const registro = async (request, response) => {
   let errors = [];
-  const { email, password, confirm_password, tipo } = req.body;
-  if (email.length <= 0 ) {
-    errors.push('Inserta email')
-  }
-  if (password != confirm_password) {
-    errors.push("Las contraseñas no coinciden");
-  }
-  if (password.length < 8 || password.length > 20) {
-    errors.push("La contraseña debe contener entre 8 y 20 caracteres");
-  }
-  const emailUser = await User.findOne({ email: email });
-  if (emailUser) {
-    errors.push("Ya existe un usuario con ese email");
-  }
-  if (errors.length > 0) {
+  const { email, password, confirm_password, role } = request.body;
+  // if (email.length <= 0 ) {
+  //   errors.email = ('Inserta email')
+  // }
+  // if (password != confirm_password) {
+  //   errors.push("Las contraseñas no coinciden");
+  // }
+  // if (password.length < 8 || password.length > 20) {
+  //   errors.push("La contraseña debe contener entre 8 y 20 caracteres");
+  // }
+  // const emailUser = await User.findOne({ email: email });
+  // if (emailUser) {
+  //   errors.push("Ya existe un usuario con ese email");
+  // }
+  // if (role == undefined) {
+  //   errors.push("Debe serleccionar un tipo de registro");
+  // }
+  let checkedA;
+  let checkedP;
 
-    req.flash("errores", errors);
-    res.render("users/signup", {
-      errors,
+  /*const validation = validateUser(request)
+  if (Object.keys(validation).length !== 0) {
+    if (role === "Adoptante") {
+      checkedA = 'checked'
+    } else if (role === "Protectora") {
+      checkedP = 'checked'
+    }
+    return response.render("users/signup", {errors: validation,
       email,
       password,
       confirm_password,
-      tipo
+      role,
+      checkedA,
+      checkedP,
     });
   } 
-  else {
+  else {*/
     if (role === 'Protectora') {
       response.render("users/signup_protectora", {email, password, role});
       // res.redirect('registro/protectora')
@@ -44,36 +54,51 @@ const registro = async (req, res) => {
       // res.redirect('registro/protectora')
     }
   }
+// }
+
+ const login = passport.authenticate('local', {
+   successRedirect: "/",
+   failureRedirect: "/users/login",
+   failureFlash: true,
+ })
+
+/*const login = async (request, response) => {
+  const {email, password} = request.body;
+
+  const user = await User.findOne({ email: email })
+  if (!user) {
+      response.send('USuario no encontrado')  
+    } else {
+    // Match Password's User
+    const match = await  user.matchPassword(password);
+
+    if (match) {
+      const token = jwt.sign({user}, 'SECRET', {expiresIn: "24h"});
+
+      response.cookie('token', token, {
+        httpOnly: true
+      });
+
+      return response.redirect('/')  
+    } else {
+      response.send('contraseña incorrecta')   
+    }
+  }
+
+}*/
+
+const renderLogin = (request, response) => {
+  response.render('users/login')
 }
-    const renderRegistroProtectora =  (request, response) => {
 
-      response.redirect('/users/registro')
-    }
-    
-    const registroProtectora = async (request, response) => {
-      let errors = [];
-      const { email, cif, telefono, descripcion, nombre, password } = request.body;
-      console.log(request.body)
-      let tipo = 'protectora'
-      if (!validator.validateNombreAnimal(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
-    
-      console.log(errors)
-      const newProtectora = new Protectora({ nombre, email, tipo, cif, telefono, descripcion, password });
-      newProtectora.password = await newProtectora.encryptPassword(password);
-      await newProtectora.save();
-      request.flash("success_msg", `Usuario ${tipo} con email: ${email} registrado`);
-      response.redirect('/users/login')
-    }
+/*const logout = (request, response) => {
+  try {
+    response.clearCookie("token")
+    return response.redirect('/')
+  } catch (error) {
+    response.status(500).send(error)
+  }
+}*/
 
-    const login = passport.authenticate('local', {
-      successRedirect: "/",
-      failureRedirect: "/users/login",
-      failureFlash: true,
-    })
 
-    const renderLogin = (request, response) => {
-      response.render('users/login')
-    }
-
-   module.exports = {renderRegistro, registro,renderRegistroProtectora, registroProtectora,login,renderLogin
-   }
+module.exports = {renderRegistro, registro,login,renderLogin}
