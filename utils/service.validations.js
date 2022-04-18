@@ -11,53 +11,34 @@ function obligatorio(param) {
 }
 
 function validLength(param, num) {
-  var knownStringVar = "" +  param;
-  return knownStringVar.length > num
+  return param.length > num
 }
 
 
-function validateNombreAnimal(nombre) {
+function validateNombre(nombre) {
   if (obligatorio(nombre)) {
     return 'Nombre obligatorio'
   } else if (validLength(nombre, 20)) {
-    return 'El nombre no puede tener mas de 20 caracteres'
+    return 'El nombre debe ser mayor de 3 caracteres y menor de 20'
   }
   return '';
 }
 
-function validateTipoAnimal(tipo) {
-  if (obligatorio(tipo)) {
-    return 'Tipo obligatorio'
-  } else if (validLength(tipo, 20)) {
-    return 'El tipo no puede tener mas de 20 caracteres'
+function validateTelefono(telefono) {
+  // var str = telefono.toString().replace(/\s/g, '');
+  // console.log(str.length === 9 && /^[679]{1}[0-9]{8}$/.test(str));
+  // return str.length === 9 && /^[679]{1}[0-9]{8}$/.test(str);
+  if (obligatorio(telefono)) {
+    return 'Telefono obligatorio'
+  } else if (telefono.length != 9) {
+    return 'Escribe un telefono con 9 caracteres'
+  }else if (!/^[679]{1}[0-9]{8}$/.test(telefono)) {
+    return 'Tipo de telefono invalido'
   }
   return '';
 }
 
-function validateRazaAnimal(raza) {
-  if (obligatorio(raza)) {
-    return 'Raza obligatoria'
-  } else if (validLength(raza, 20)) {
-    return 'La raza no puede tener mas de 20 caracteres'
-  }
-  return '';
-}
-
-function validateEdadAnimal(edad) {
-  if (edad !== '' && edad == 0 ) {
-    return 'La edad tiene que ser mayor que 0'
-  }
-  return ''; 
-}
-
-function validateGeneroAnimal(genero) {
-  if (genero === undefined ) {
-    return 'Género obligatorio'
-  }
-  return '';
-}
-
-function validateImageAnimal(file) {
+function validateImage(file) {
   const mimetypes = /image\/png|image\/jpeg|image\/gif/;
   if (file !== undefined) {
     if(!mimetypes.test(file['mimetype'])) {
@@ -69,26 +50,11 @@ function validateImageAnimal(file) {
   return '';
 }
 
-function validateDescripciónAnimal(descripcion) {
+function validateDescripcion(descripcion) {
   if (validLength(descripcion, 500)) {
     return 'La descripción no puede tener mas de 500 caracteres'
   }
   return '';
 }
 
-function validateAnimal(params) {
-  const {file, body} = params
-  const errores = [];
-  if (validateNombreAnimal(body['nombre']) !== '') errores.push(validateNombreAnimal(body['nombre']));
-  if (validateTipoAnimal(body['tipo']) !== '') errores.push(validateTipoAnimal(body['tipo']));
-  if (validateRazaAnimal(body['raza']) !== '') errores.push(validateRazaAnimal(body['raza']));
-  if (validateEdadAnimal(body['edad']) !== '') errores.push(validateEdadAnimal(body['edad']));
-  if (validateGeneroAnimal(body['genero']) !== '') errores.push(validateGeneroAnimal(body['genero']));
-  if (validateDescripciónAnimal(body['descripcion']) !== '') errores.push(validateDescripciónAnimal(body['descripcion']));
-  if (validateImageAnimal(file) !== '') errores.push(validateImageAnimal(file));
-
-  return errores;
-
-}
-
-module.exports = {obligatorio, validLength, validatePassword, validateNombreAnimal, validateRazaAnimal,validateTipoAnimal,validateEdadAnimal, validateGeneroAnimal,validateImageAnimal, validateDescripciónAnimal,validateAnimal}
+module.exports = { obligatorio, validLength, validatePassword, validateNombre,validateTelefono, validateImage, validateDescripcion}

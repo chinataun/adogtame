@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-4 mx-auto">
+    <div class="card mt-4">
+      <div class="card-header">
+        <h1 >
+          Añadir animales
+        </h1>
+      </div>
+
+      <div class="card-body">
+        <form action="/animales/add" method="POST" enctype="multipart/form-data" novalidate>
+          <div class="mb-3">
+            <label for="validationNombre" class="form-label">Nombre*</label>
+            <input type="text" class="form-control" name="nombre" value="{{body.nombre}}" id="validationNombre" aria-describedby="validationNombreFeedback">
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="validationTipo">Tipo*</label>
+            <input type="text" name="tipo" class="form-control" id="validationTipoFeedback" placeholder="Tipo" value="{{body.tipo}}">
+
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputRaza">Raza*</label>
+            <input type="text" name="raza" class="form-control" id="inputRaza" placeholder="Raza" value="{{body.raza}}">
+
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputEmail">Edad</label>
+            <input type="number" name="edad" class="form-control" id="inputEdad" placeholder="Edad" value="{{body.edad}}">
+
+          </div>
+          <legend class="col-form-label">Genero*</legend>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="genero" id="inlineMasculino" value="Macho" {{ checkedM }}>
+            <label class="form-check-label" for="inlineMasculino">Macho</label>
+          </div>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" name="genero" id="inlineFemenino" value="Hembra" {{ checkedH }}>
+            <label class="form-check-label" for="inlineFemenino">Hembra</label>
+
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputImage">Imagen</label>
+            <input class="form-control" type="file" name="image" id="inputImage">
+
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Descripción</label>
+            <textarea class="form-control" name="descripcion" id="inlineDescription" placeholder="Descripcion del animal">{{body.descripcion}}</textarea>
+
+          </div>
+          <button type="submit" class="btn btn-primary">Crear animal</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
