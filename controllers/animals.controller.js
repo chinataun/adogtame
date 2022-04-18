@@ -1,8 +1,14 @@
 const Animal = require('../models/Animal')
+const Protectora = require('../models/Protectora')
+const Solicitud = require('../models/Solicitud')
+const User = require('../models/User')
 const {validateAnimal} = require('../utils/service.validations.animales')
 
 const renderAnimales = async (request, response) => {
   const animales = await Animal.find({}) 
+  const animales_filtrado_tipo = await Animal.collection.distinct("tipo")
+const animales_filtrado_genero = await Animal.collection.distinct("genero")
+const animales_filtrado_raza = await Animal.collection.distinct("raza")
   response.render('pages/animales', {animales})
 }
 
@@ -27,14 +33,11 @@ const busquedaAnimal = async (request, response) => {
   })
   .catch(err => next(err))
 
-
-
-
 }
 
 const addAnimal = async (request, response, error) => {
 
-  const {file, body} = request
+  const {file, body, nombre, user} = request
   const validation = validateAnimal(request)
 
   if (Object.keys(validation).length !== 0) {
@@ -50,34 +53,65 @@ const addAnimal = async (request, response, error) => {
 
   try {
     const datos = body
-    console.log((body.edad == '') ? undefined : body.edad)
-    console.log(file == undefined)
+    console.log(datos);
+    // console.log(body);
+    // console.log(file);
     const animal = new Animal({
             nombre: body.nombre,
             tipo: body.tipo,
             raza: body.raza,
             edad: (body.edad == '') ? undefined : body.edad,
             genero: body.genero,
+            historial: (body.historial == '') ? undefined : body.historial,
             descripcion: (body.descripcion == '') ? undefined : body.descripcion,
             image: (file == undefined) ? file : file.filename,
+            protectora: user.user._id
         })
-        const savedUser = await animal.save()
+
+    const savedAnimal = await animal.save()
+
+    const userfound = await User.findById(user.user._id).populate('user')
+
+    const protectoraf = await Protectora.findById(userfound.user._id)
+
+    protectoraf.animales = await protectoraf.animales.concat(savedAnimal._id)  
+
+    const protectoraUpdates = await protectoraf.save()
+
     request.flash('success_msg', 'Añadido con éxito')
-    response.redirect('/animales/add')
+    return response.redirect('/animales/animal/'+ savedAnimal._id )
   } catch (error) {
     response.render('animales/add')
   }
 }
+
 const renderAnimal = async (request, response) => {
   const { id } = request.params
-
-  Animal.findById(id)
-    .then(animal => {
-      if (animal) 
-      response.render('animales/animal', {animal})
-    })
-    .catch(err => next(err))
-
+  const animal = await Animal.findById(id).populate('protectora').populate([{
+    path: 'protectora',
+    model: 'User',
+    populate: {
+      path: 'user',
+      model: 'Protectora'
+    }
+  }])
+  if (animal) {
+    if (request.user !== undefined) {
+      const {user} = request.user
+      console.log(user._id);
+      console.log(animal.protectora._id.toString());
+      let canEdit = false
+      if (user._id === animal.protectora._id.toString()) {
+        canEdit = true
+      }
+      const solicitado = await Solicitud.find({adoptante: user._id, animal: id})
+      return response.render('animales/animal', {animal, solicitado, canEdit})
+    }
+    return response.render('animales/animal', {animal})
+  }
+   else{
+    response.redirect('/animales')
+  }
 }
 
 const solicitudAnimal = async (request, response) => {

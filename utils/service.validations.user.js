@@ -46,5 +46,4 @@ function validateUser(params) {
 
 }
 
-
 module.exports = { validateUser, validatePassword,validateEmail}

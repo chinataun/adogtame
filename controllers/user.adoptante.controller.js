@@ -1,5 +1,6 @@
 const Adoptante = require('../models/Adoptante')
 const User = require('../models/User')
+const Solicitud = require('../models/Solicitud')
 const {validateAdoptante} = require('../utils/service.validations.user.adoptante')
 
 const renderRegistroAdoptante =  (request, response) => {
@@ -43,4 +44,19 @@ const renderAdoptante = async (request, response) => {
   response.render('users/adoptante', {adoptante: userAdoptante})
 }
 
-module.exports = {renderRegistroAdoptante, registroAdoptante,renderAdoptante}
+const renderSolicitudesAdoptante = async (request, response) => {
+  const {user} = request.user
+  const solicitudes = await Solicitud.find({adoptante: user._id}).populate('animal protectora').populate([{
+    path: 'protectora',
+    model: 'User',
+    populate: {
+      path: 'user',
+      model: 'Protectora'
+    }
+  }])
+  console.log(solicitudes);
+  response.render('users/solicitudes_adoptante', {solicitudes})
+
+}
+
+module.exports = {renderRegistroAdoptante, registroAdoptante,renderAdoptante, renderSolicitudesAdoptante}
