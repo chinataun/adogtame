@@ -1,7 +1,6 @@
 <div class="row">
   <div class="col-md-4 mx-auto">
-    <div class="card mt-4 text-center">
-      {{> messages }}
+    <div class="card mt-4">
       <div class="card-header">
         <h1>
           Registro Protectora
@@ -9,32 +8,51 @@
       </div>
         <img class="rounded-circle mx-auto d-block logo m-4" src="/images/logo.png" alt="Logo">
       <div class="card-body">
-              <form action="/users/registro/protectora" method="POST">
-          <div class="form-group">
-            <input type="text" class="form-control" name="nombre" placeholder="nombre" value="">
+              <form action="/users/registro/protectora" method="POST" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label class="form-label" for="inputNombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre" placeholder="Nombre" value="{{nombre}}">
           </div>
 
-          <div class="form-group">
-            <input type="text" class="form-control" name="cif" placeholder="nif" value="">
+          <div class="mb-3">
+            <label class="form-label" for="inputCif">Cif</label>
+            <input type="text" class="form-control" name="cif" placeholder="Cif" value="{{cif}}">
+
           </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="telefono" placeholder="telefono" value="">
+          <div class="mb-3">
+            <label class="form-label" for="inputTelefono">Telefono</label>
+            <input type="text" class="form-control" name="telefono" placeholder="Telefono" value="{{telefono}}">
+ 
           </div>
-          <div class="form-group">
-            <input type="password" hidden class="form-control" name="password" placeholder="Password" value="<%= password %>">
+          <div class="mb-3">
+            <label class="form-label" for="inputCiudad">Ciudad</label>
+            <input type="text" class="form-control" name="ciudad" placeholder="Ciudad" value="{{ciudad}}">
+
           </div>
-          <div class="form-group">
-            <input type="text" hidden class="form-control" name="email" placeholder="email" value="<%= email %>">
+          <div class="mb-3">
+            <input type="password" hidden class="form-control" name="password" placeholder="Password" value="{{ password }}">
           </div>
-              <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a description" id="floatingDescripcion" name="descripcion" style="height: 100px"></textarea>
-                <label for="floatingDescripcion">Descripción</label>
-              </div>
-              <div>
-                <button class="btn btn-primary btn-block">
-                  Registrar protectora 
-                </button>
-              </div>
+          <div class="mb-3">
+            <input type="text" hidden class="form-control" name="email" placeholder="email" value="{{ email }}">
+          </div>
+          <div class="mb-3">
+            <input type="text" hidden class="form-control" name="role" placeholder="role" value="{{ role }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputImage">Imagen</label>
+            <input class="form-control" type="file" name="image" id="inputImage">
+
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Descripción</label>
+            <textarea class="form-control" name="descripcion" id="inlineDescription" placeholder="Descripcion de la protectora">{{descripcion}}</textarea>
+
+          </div>
+          <div>
+            <button class="btn btn-primary btn-block">
+              Registrar protectora 
+            </button>
+          </div>
 
         </form>
       </div>
