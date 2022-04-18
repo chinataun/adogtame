@@ -1,44 +1,48 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark navegacion">
-    <div class="container">
-      <a class="navbar-brand " href="/"><img class="circle_logo" src="/images/logo.png" alt=""></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/animales">Animales</a>
-            </li>
-             <li class="nav-item">
-              <a class="nav-link" href="/users/protectoras">Protectoras</a>
-            </li>
-            {{#if user }} 
-            <li class="nav-item">
-              <a class="nav-link" href="/animales/add">Añadir animales</a>
-            </li>
-            <!-- <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Notes 
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/notes">All Notes</a>
-                <a class="dropdown-item" href="/notes/add">Add A Note</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/users/logout">Logout</a>
-              </div>
-            </li> -->
-            {{/if}}
-            {{^ user}}
-            <li class="nav-item">
-              <a class="nav-link" href="/users/login">Iniciar sesion</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/users/registro">Registrarse</a>
-            </li>
-            {{/ user}}
-        </ul> 
-      </div>
-  </nav>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand " href="/"><img class="circle_logo" src="/images/logo.png" alt=""></a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/animales">Animales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/protectoras">Protectoras</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav ms-auto">
+
+
+                    {{#if user}}
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Usuario</a>
+                        {{# protectora }}
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="/animales/add" class="dropdown-item">Añadir animales</a>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        {{/ protectora}}
+                        
+                    </li>
+                    {{/if}}
+                    {{^ user}}
+                    <li class="nav-item">
+                    <a class="nav-link" href="/users/login">Iniciar sesion</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="/users/registro">Registrarse</a>
+                    </li>
+                    {{/ user}}
+
+                </ul>
+            </div>
+        </div>
+    </nav>    
+
+
+  
   </header>

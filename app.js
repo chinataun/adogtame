@@ -16,6 +16,7 @@ const Handlebars = require('handlebars')
 const expressHandlebars = require('express-handlebars');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const dotenv = require('dotenv')
+const {cookieJwtAuth, authenticateToken} = require('./utils/cookieJwtAuth')
 dotenv.config({ path: './.env' });
 
 //Inicializaiones
@@ -78,11 +79,11 @@ app.use((req, res, next) => {
 //Routes
 
 
-app.get('/', (request, response) => {  
+app.get('/', cookieJwtAuth,(request, response) => {  
   response.render('index')
 })
-app.use('/animales', animalsRouter)
-app.use('/users', usersRouter)
+app.use('/animales',cookieJwtAuth, animalsRouter)
+app.use('/users',cookieJwtAuth, usersRouter)
 
 // app.use(middleware.requestLogger)
 
