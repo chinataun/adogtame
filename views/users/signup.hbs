@@ -10,34 +10,36 @@
         <form action="/users/registro" method="POST" novalidate>
           <div class="mb-3">
             <label class="form-label" for="inputNombre">Email</label>
-            <input type="text" class="form-control" name="email" placeholder="Email" value="{{email}}">
+            <input type="text" class="form-control {{#errors.email}}is-invalid{{/errors.email}}" name="email" placeholder="Email" value="{{email}}">
             <div id="validationNombreFeedback" class="invalid-feedback">
               {{errors.email}}
             </div>
           </div>
           <div class="mb-3">
             <label class="form-label" for="inputNombre">Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Password" value="{{password}}">
+            <input type="password" class="form-control {{#errors.password}}is-invalid{{/errors.password}}" name="password" placeholder="Password" value="{{password}}">
             <div id="validationNombreFeedback" class="invalid-feedback">
               {{errors.password}}
             </div>
           </div>
           <div class="mb-3">
             <label class="form-label" for="inputNombre">Confirm Password</label>
-            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" value="{{confirm_password}}">
+            <input type="password" class="form-control {{#errors.password}}is-invalid{{/errors.password}}" name="confirm_password" placeholder="Confirm Password" value="{{confirm_password}}">
             <div id="validationNombreFeedback" class="invalid-feedback">
               {{errors.password}}
             </div>
           </div>
           <legend class="col-form-label">Rol</legend>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="role" id="inlineAdoptante" value="Adoptante" {{ checkedA }}>
+            <input class="form-check-input {{#errors.role}}is-invalid{{/errors.role}}" type="radio" name="role" id="inlineAdoptante" value="Adoptante" {{ checkedA }}>
             <label class="form-check-label" for="inlineAdoptante">Adoptante</label>
           </div>
           <div class="form-check mb-3">
-            <input class="form-check-input" type="radio" name="role" id="inlineProtectora" value="Protectora" {{ checkedP }}>
+            <input class="form-check-input {{#errors.role}}is-invalid{{/errors.role}}" type="radio" name="role" id="inlineProtectora" value="Protectora" {{ checkedP }}>
             <label class="form-check-label" for="inlineProtectora">Protectora</label>
-
+            <div id="validationTipoFeedback" class="invalid-feedback">
+              {{errors.role}}
+              </div>
           </div>
           <div>
             <button class="btn btn-primary btn-block">Registrar</button>
