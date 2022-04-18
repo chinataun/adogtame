@@ -6,6 +6,8 @@ const {renderRegistroAdoptante, registroAdoptante} = require('../controllers/use
 //USERS
 router.get("/registro", renderRegistro);
 router.post("/registro", registro);
+router.get("/login", renderLogin);
+router.post("/login", login);
 
 //PROTECTORAS
 router.get('/registro/protectora', renderRegistroProtectora)
@@ -17,8 +19,5 @@ router.get('/protectora/:id',renderProtectora)
 //ADOPTANTES
 router.get('/registro/adoptante', renderRegistroAdoptante)
 router.post('/registro/adoptante', registroAdoptante)
-
-router.get("/login", renderLogin);
-router.post("/login", login);
 
 module.exports =  router;
