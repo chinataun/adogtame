@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {renderRegistro, registro, renderLogin, login} = require('../controllers/users.controller')
+const {renderRegistro, registro, renderLogin, login,logout} = require('../controllers/users.controller')
 const {renderRegistroProtectora, registroProtectora, renderProtectoras, busquedaProtectoras, renderProtectora} = require('../controllers/user.protectora.controller')
 const {renderRegistroAdoptante, registroAdoptante} = require('../controllers/user.adoptante.controller')
 
@@ -8,6 +8,7 @@ router.get("/registro", renderRegistro);
 router.post("/registro", registro);
 router.get("/login", renderLogin);
 router.post("/login", login);
+router.get("/logout", logout);
 
 //PROTECTORAS
 router.get('/registro/protectora', renderRegistroProtectora)
