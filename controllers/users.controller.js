@@ -82,14 +82,14 @@ const renderLogin = (request, response) => {
   response.render('users/login')
 }
 
-/*const logout = (request, response) => {
+const logout = (request, response) => {
   try {
     response.clearCookie("token")
     return response.redirect('/')
   } catch (error) {
     response.status(500).send(error)
   }
-}*/
+}
 
 
-module.exports = {renderRegistro, registro,login,renderLogin}
+module.exports = {renderRegistro, registro,login,renderLogin,logout}
