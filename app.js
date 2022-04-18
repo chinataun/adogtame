@@ -12,6 +12,9 @@ const flash = require('connect-flash')
 const cookieParser = require('cookie-parser')
 const animalsRouter = require('./routes/animals.routes')
 const usersRouter = require('./routes/users.routes')
+const Handlebars = require('handlebars')
+const expressHandlebars = require('express-handlebars');
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const dotenv = require('dotenv')
 dotenv.config({ path: './.env' });
 
@@ -30,9 +33,20 @@ app.use('/js', express.static(__dirname + 'public/js'))
 
 //view engine
 app.set('views', path.join(__dirname, 'views'))
-app.use(expressLayouts)
-app.set('layout', './layouts/full-width')
-app.set('view engine', 'ejs')
+// app.use(expressLayouts)
+// app.set('layout', './layouts/full-width')
+// app.set('view engine', 'ejs')
+app.engine(
+  ".hbs",
+  expressHandlebars.engine({
+    defaultLayout: "full-width",
+    layoutsDir: path.join(app.get("views"), "layouts"),
+    partialsDir: path.join(app.get("views"), "partials"),
+    extname: ".hbs",
+    handlebars: allowInsecurePrototypeAccess(Handlebars)
+  })
+);
+app.set("view engine", ".hbs");
 
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -65,7 +79,7 @@ app.use((req, res, next) => {
 
 
 app.get('/', (request, response) => {  
-  response.render('pages/index')
+  response.render('index')
 })
 app.use('/animales', animalsRouter)
 app.use('/users', usersRouter)
