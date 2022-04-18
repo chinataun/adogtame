@@ -13,7 +13,7 @@ router.get("/logout", logout);
 
 //PROTECTORAS
 router.get('/registro/protectora', renderRegistroProtectora)
-router.post('/registro/protectora', registroProtectora)
+router.post('/registro/protectora', upload.single('image'),registroProtectora)
 router.get("/protectoras", renderProtectoras);
 router.post('/protectoras/buscar', busquedaProtectoras)
 router.get('/protectora/:id',renderProtectora)
