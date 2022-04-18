@@ -11,7 +11,8 @@ function obligatorio(param) {
 }
 
 function validLength(param, num) {
-  return param.length > num
+  var knownStringVar = "" +  param;
+  return knownStringVar.length > num
 }
 
 
