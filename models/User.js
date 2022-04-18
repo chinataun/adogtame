@@ -3,13 +3,18 @@ const bcrypt = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema(
   {
-    // nombre: String,
-    // email: String,
-    // tipo: String,
     email: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: true },
-    tipo: { type: String, required: true },
     date: { type: Date, default: Date.now },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      refPath: 'role'
+    },
+    role: {
+      type: String, 
+      enum: ['Adoptante', 'Protectora'],
+      required: true
+    }
   },
   {
     timestamps: true,

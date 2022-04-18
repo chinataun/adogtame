@@ -1,20 +1,18 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
 
-const ProtectoraSchema = new mongoose.Schema(
+const ProtectoraSchema = new Schema(
   {
     nombre: { type: String},
-    email:{ type: String},
-    tipo: { type: String},
     cif: { type: String},
     telefono: { type: String},
+    ciudad: {type: String},
     descripcion: { type: String },
-    password: { type: String, required: true },
-    // email: { type: String, required: true, unique: true, trim: true },
-    // password: { type: String, required: true },
-    // tipo: { type: String, required: true },
-    // date: { type: Date, default: Date.now },
-    date: { type: Date, default: Date.now },
+    animales: {
+      type: [Schema.Types.ObjectId], 
+      ref: 'Animal',
+    },
   },
   {
     timestamps: true,
