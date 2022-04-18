@@ -1,7 +1,7 @@
 const Protectora = require('../models/Protectora')
 const User = require('../models/User')
-const { validateProtectora} = require('../utils/service.validations.user.protectora')
-
+const Solicitud = require('../models/Solicitud')
+const {validateProtectora} = require('../utils/service.validations.user.protectora')
 
 const renderRegistroProtectora =  (request, response) => {
 

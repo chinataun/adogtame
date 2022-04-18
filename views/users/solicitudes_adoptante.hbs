@@ -1,0 +1,64 @@
+        {{> messages }}
+<div id="animal">
+
+  <div class="top">
+    <h1>
+      SOLICITUDES
+    </h1>
+  </div>
+  {{#if solicitudes}}
+  
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-elvq{background-color:#fffc9e;border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+@media screen and (max-width: 767px) {.tg {width: auto !important;}.tg col {width: auto !important;}.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}}</style>
+<div class="tg-wrap"><table class="tg">
+<thead>
+  <tr>
+    <th class="tg-elvq">ID de la solicitud</th>
+        <th class="tg-elvq">Animal</th>
+    <th class="tg-elvq">Protectora</th>
+    <th class="tg-elvq">Estado</th>
+    <th class="tg-elvq">Mensaje de la protectora</th>
+    
+  </tr>
+</thead>
+<tbody>
+  {{#each solicitudes}}
+  <tr>
+    <td class="tg-0pky">{{ _id }} </td>
+
+    <td class="tg-0pky"><div class="animal_image">
+        <img src="/uploads/{{ animal.image }}" alt="perrete">
+      </div>  
+    <p><span> Nombre:          </span> {{ animal.nombre }}         </p>
+        <p><span> Tipo:          </span> {{ animal.tipo  }}         </p>
+        <p><span><a href='/animales/animal/{{animal._id }}' class='button'>Ver ficha del animal</a>        </span>        </p>  
+    </td>
+    <td class="tg-0pky">
+      <p><span> Nombre:          </span> {{ protectora.user.nombre }}         </p>
+      <p><span><a href='/users/protectora/{{protectora._id }}' class='button'>Ver ficha de la protectora</a>        </span>        </p>  
+    </td>
+    <td class="tg-0pky">{{ estado }}  </td>
+    <td class="tg-0pky">     
+          <span>{{mensajeProtectora}}</span>    
+    </td>
+  </tr>
+ 
+   {{/each}}
+</tbody>
+
+</table>
+      </div>
+       {{/if}}
+         {{^solicitudes}}
+         <h2>No hay solicitudes</h2>
+        {{/solicitudes}}
+    </div>
+      
+</div>

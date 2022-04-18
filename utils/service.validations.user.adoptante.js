@@ -1,6 +1,5 @@
 const {obligatorio, validateNombre, validateImage, validateDescripcion,validateTelefono}  = require('./service.validations')
 
-
 function validateDni(dni) {
   // var str = cif.replace(/\s/g, '');
   if (obligatorio(dni)) {

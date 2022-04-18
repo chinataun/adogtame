@@ -5,7 +5,6 @@ function validatePassword(password) {
   return hasNumber && hasLetter && validLength
 }
 
-
 function obligatorio(param) {
   var knownStringVar = "" +  param;
   return knownStringVar.length == 0
