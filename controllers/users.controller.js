@@ -1,5 +1,5 @@
 const User = require('../models/User')
-const validator = require('../utils/service.validations')
+const {validateUser} = require('../utils/service.validations.user')
 const  passport = require('passport')
 
 const renderRegistro = (request, response) => {
@@ -29,7 +29,7 @@ const registro = async (request, response) => {
   let checkedA;
   let checkedP;
 
-  /*const validation = validateUser(request)
+  const validation = validateUser(request)
   if (Object.keys(validation).length !== 0) {
     if (role === "Adoptante") {
       checkedA = 'checked'
@@ -45,7 +45,7 @@ const registro = async (request, response) => {
       checkedP,
     });
   } 
-  else {*/
+  else {
     if (role === 'Protectora') {
       response.render("users/signup_protectora", {email, password, role});
       // res.redirect('registro/protectora')
@@ -54,7 +54,7 @@ const registro = async (request, response) => {
       // res.redirect('registro/protectora')
     }
   }
-// }
+ }
 
  const login = passport.authenticate('local', {
    successRedirect: "/",

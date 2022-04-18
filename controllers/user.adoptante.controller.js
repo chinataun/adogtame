@@ -1,6 +1,6 @@
 const Adoptante = require('../models/Adoptante')
 const User = require('../models/User')
-const validator = require('../utils/service.validations')
+const {validateAdoptante} = require('../utils/service.validations.user.adoptante')
 
 const renderRegistroAdoptante =  (request, response) => {
   response.redirect('/users/registro')
@@ -9,13 +9,11 @@ const renderRegistroAdoptante =  (request, response) => {
 const registroAdoptante = async (request, response) => {
   const { email, dni, telefono, descripcion, nombre, password, role } = request.body;
   const {file} = request
-  // if (!validatorAdoptante.validateNombreAdoptante(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
-  // validatorAdoptante.validateTelefonoAdoptante(telefono)
- 
-  /*const validation = validateAdoptante(request)
+
+  const validation = validateAdoptante(request)
   if (Object.keys(validation).length !== 0) {
     return response.render('users/signup_adoptante', {errors: validation, email, dni, telefono, descripcion, nombre, password})
-  }*/
+  }
 
   const newAdoptante = new Adoptante({ 
     nombre: nombre, 
