@@ -17,7 +17,7 @@ body{
   background-color: var(--primario);
   /*font-family: 'Krub', sans-serif;*/
   font-family: var(--fuenteParrafos);
-  padding-top: 6rem;
+
 }
 a{
   text-decoration: none;
@@ -43,7 +43,7 @@ width: 60px;
 height: 60px;
 border-radius: 60px;
 }
-
+/* 
 .navegacion{
   height: 8rem;
   width: 100%;
@@ -52,10 +52,10 @@ border-radius: 60px;
   right:0px;
   left:0px;
   max-width:100%;
-  height:70px;   /* Por darle un valor fijo para evitar conflictos con :auto */
+  height:70px;   // Por darle un valor fijo para evitar conflictos con :auto
   z-index:1000000
   
-}
+} */
 #logo_home{
   display:flex;
   flex-direction: column;
@@ -308,20 +308,17 @@ background-color: #bc9b94;
 
 .Buscador
 {
-  color: white;
-  background: #fff;
-  border: #ccc 1px solid;
-  border-bottom: #ccc 2px solid;
-  padding: 5px;
-  width: 100%;
-  color: #000000;
-  margin-top: 0px;
-  font-size: 1em;
-  border-radius: 50px;
+  width: 580px;
+  height: 25px;
+  margin: 1px auto;
+  text-align: left;
+  color: #2e4146;
+  border-radius: 10px;
 }
 
 /* animales */
-#animales {
+#animales #avatar_animal{
+  text-transform: lowercase;
 }
 
 
@@ -358,3 +355,67 @@ display: flex;
 width: 400px;
 border-radius: 50px;
 }
+
+
+#filtrado_tipo 
+{
+  width: 200px;
+  margin: 1px auto;
+  text-align: left;
+  color: #2e4146;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#filtrado_genero 
+{
+  width: 150px;
+  margin: 1px auto;
+  text-align: left;
+  color: #2e4146;
+  border-radius: 10px;
+  text-align: center;
+  }
+
+
+  
+#edad_minima_animal 
+{
+  width: 25px;
+  height: 25px;  
+  margin: 1px auto;
+  text-align: left;
+  color: #2e4146;
+  border-radius: 10px;
+  text-align: center;
+  }
+
+  #edad_maxima_animal 
+{
+  width: 25px;
+  height: 25px;
+  margin: 1px auto;
+  text-align: left;
+  color: #2e4146;
+  border-radius: 10px;
+  text-align: center;
+  }
+
+  #btnFiltrarAnimal
+  {
+    width: 225px;
+    height: 25px;
+    margin: 1px auto;
+    text-align: left;
+    color: #ffffff;
+    background-color: rgb(44, 44, 44);
+    border-radius: 18px;
+    text-align: center;
+
+  }
+
+  /* VALIDACIONES BOOTSTRAP */
+  /* .form-control.is-invalid:focus, .was-validated .form-control:invalid:focus {
+    border-color: unset;
+    box-shadow:unset;
+} */

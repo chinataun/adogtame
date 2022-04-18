@@ -1,6 +1,5 @@
 const {obligatorio, validLength, validateNombre, validateImage, validateDescripcion,validateTelefono}  = require('./service.validations')
 
-
 function validateCifProtectora(cif) {
   // var str = cif.replace(/\s/g, '');
   if (obligatorio(cif)) {

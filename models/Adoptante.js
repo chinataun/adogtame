@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs');
 
 const AdoptanteSchema = new mongoose.Schema(
   {
@@ -8,7 +7,6 @@ const AdoptanteSchema = new mongoose.Schema(
     telefono: {type: String},
     descripcion: { type: String },
     image: { type: String },
-
   },
   {
     timestamps: true,

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
-const bcrypt = require('bcryptjs');
 
 const ProtectoraSchema = new Schema(
   {
@@ -8,8 +7,8 @@ const ProtectoraSchema = new Schema(
     cif: { type: String},
     telefono: { type: String},
     ciudad: {type: String},
-    image: { type: String },
     descripcion: { type: String },
+    image: { type: String },
     animales: {
       type: [Schema.Types.ObjectId], 
       ref: 'Animal',
@@ -20,15 +19,6 @@ const ProtectoraSchema = new Schema(
     versionKey: false,
   }
 );
-
-ProtectoraSchema.methods.encryptPassword = async (password) => {
-  const salt = await bcrypt.genSalt(10);
-  return await bcrypt.hash(password, salt);
-};
-
-ProtectoraSchema.methods.matchPassword = async function (password) {
-  return await bcrypt.compare(password, this.password);
-};
 
 const Protectora = mongoose.model('Protectora', ProtectoraSchema)
 
