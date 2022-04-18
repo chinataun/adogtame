@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-md-4 mx-auto">
+    <div class="card mt-4">
+      <div class="card-header">
+        <h1>
+          Registro Adoptante
+        </h1>
+      </div>
+      <div class="card-body">
+        <form action="/users/registro/adoptante" method="POST" enctype="multipart/form-data" novalidate>
+          <div class="mb-3">
+            <label class="form-label" for="inputEmail">Nombre</label>
+            <input type="text" class="form-control {{#errors.nombre}}is-invalid{{/errors.nombre}}" name="nombre" placeholder="Nombre" value="{{nombre}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.nombre}}
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="inputEmail">Dni</label>
+            <input type="text" class="form-control {{#errors.dni}}is-invalid{{/errors.dni}}" name="dni" placeholder="Dni" value="{{dni}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.dni}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputEmail">Telefono</label>
+            <input type="text" class="form-control {{#errors.telefono}}is-invalid{{/errors.telefono}}" name="telefono" placeholder="Telefono" value="{{telefono}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.telefono}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Descripción</label>
+            <textarea class="form-control {{#errors.descripcion}}is-invalid{{/errors.descripcion}}" name="descripcion" id="inlineDescription" placeholder="Descripcion del adoptante">{{descripcion}}</textarea>
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.descripcion}}
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-primary btn-block">
+              Registrar Adoptante 
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
