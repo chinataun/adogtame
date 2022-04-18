@@ -21,7 +21,7 @@ dotenv.config({ path: './.env' });
 //Inicializaiones
 const app = express()
 require('./mongo')
-require('./utils/passport')
+// require('./utils/passport')
 app.use(cors())
 
 // static files
@@ -60,8 +60,8 @@ app.use(session({
 	saveUninitialized: true,
   // store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
 }));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 app.use(flash())
 
 // Global Variables

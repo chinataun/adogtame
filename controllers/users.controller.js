@@ -1,11 +1,10 @@
 const User = require('../models/User')
 const {validateUser} = require('../utils/service.validations.user')
-const  passport = require('passport')
+const jwt = require('jsonwebtoken')
 
 const renderRegistro = (request, response) => {
   response.render('users/signup')
 }
-
 
 const registro = async (request, response) => {
   let errors = [];
@@ -48,21 +47,13 @@ const registro = async (request, response) => {
   else {
     if (role === 'Protectora') {
       response.render("users/signup_protectora", {email, password, role});
-      // res.redirect('registro/protectora')
     } else {
       response.render("users/signup_adoptante", {email, password, role});
-      // res.redirect('registro/protectora')
     }
   }
  }
 
- const login = passport.authenticate('local', {
-   successRedirect: "/",
-   failureRedirect: "/users/login",
-   failureFlash: true,
- })
-
-/*const login = async (request, response) => {
+const login = async (request, response) => {
   const {email, password} = request.body;
 
   const user = await User.findOne({ email: email })
@@ -85,7 +76,7 @@ const registro = async (request, response) => {
     }
   }
 
-}*/
+}
 
 const renderLogin = (request, response) => {
   response.render('users/login')
