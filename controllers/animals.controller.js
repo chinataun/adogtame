@@ -80,4 +80,21 @@ const renderAnimal = async (request, response) => {
 
 }
 
-module.exports = {renderAnimales, renderAddAnimal, addAnimal, busquedaAnimal, renderAnimal}
+const solicitudAnimal = async (request, response) => {
+  const {animal, mensaje} = request.body
+  const user = request.user
+  const animalfound = await Animal.findById(animal)
+  const protectora = await animalfound.populate('protectora')
+  const solicitud = new Solicitud({
+    animal: animalfound._id,
+    adoptante: user.user._id,
+    mensajeAdoptante: mensaje,
+    mesanjeProtectora: undefined,
+    protectora: protectora.protectora._id,
+    estado: 'En proceso'
+  })
+  const saved = await solicitud.save()
+  request.flash("success_msg", 'Solicitud enviada correctamente.')
+  response.redirect('/animales/animal/' + animal)
+}
+module.exports = {renderAnimales, solicitudAnimal, renderAddAnimal, addAnimal, busquedaAnimal, renderAnimal}
