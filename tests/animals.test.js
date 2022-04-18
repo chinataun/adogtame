@@ -1,13 +1,13 @@
 const express = require('express');
 const { check, validationResult } = require('express-validator');
 const validations = require('../utils/service.validations')
-const request = require('supertest.skip');
+const request = require('supertest');
 const mongoose = require('mongoose')
-const supertest = require('supertest.skip')
+const supertest = require('supertest')
 const { validateAddAnimal } = require('../utils/animal.validators')
 const animalValidator = require('../utils/animalValidator')
 const {app, server}  = require('../app');
-const api = supertest.skip(app)
+const api = supertest(app)
 
 
 
