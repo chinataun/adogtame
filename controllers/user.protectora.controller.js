@@ -12,5 +12,22 @@ const animales = {}
   response.render('users/protectora', {protectora: userProtectora, animales})
 
 }
+const busquedaProtectoras = async (request, response) => {
 
-module.exports = {renderProtectoras, renderProtectora}
+  const {busqueda} = request.body
+  console.log(busqueda);
+  Protectora.find({
+    'descripcion' : {$regex : busqueda}
+  })
+  .then(protectoras => {
+
+    if (protectoras)
+    response.render('users/protectoras', {protectoras})
+  })
+  .catch(err => next(err))
+
+
+
+
+}
+module.exports = {renderProtectoras, renderProtectora,busquedaProtectoras}
