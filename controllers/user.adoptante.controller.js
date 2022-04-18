@@ -37,4 +37,10 @@ const registroAdoptante = async (request, response) => {
   response.redirect('/users/login')
 }
 
-module.exports = {renderRegistroAdoptante, registroAdoptante}
+const renderAdoptante = async (request, response) => {
+  const { id } = request.params
+  const userAdoptante = await User.findById(id).populate('user')
+  response.render('users/adoptante', {adoptante: userAdoptante})
+}
+
+module.exports = {renderRegistroAdoptante, registroAdoptante,renderAdoptante}
