@@ -88,4 +88,21 @@ const renderSolicitudesProtectora = async (request, response) => {
 
 }
 
-module.exports = {renderRegistroProtectora,renderSolicitudesProtectora, registroProtectora, renderProtectoras, busquedaProtectoras, renderProtectora}
+const procesarSolicitudAdopcion = async (request, response) => {
+  const {idSolicitud, mensaje, submit} = request.body
+  const solicitud = await Solicitud.findById(idSolicitud);
+
+  solicitud.mensajeProtectora = mensaje
+  if (submit === 'rechazar') {
+    solicitud.estado = 'rechazada'
+  } else if (submit === 'aceptar'){
+    solicitud.estado = 'aceptada'
+  }
+
+  const solicitudSaved = await solicitud.save();
+
+  response.redirect('/users/solicitudesProtectora')
+
+}
+
+module.exports = {renderRegistroProtectora, registroProtectora, renderProtectoras,renderSolicitudesProtectora, busquedaProtectoras, renderProtectora,procesarSolicitudAdopcion}
