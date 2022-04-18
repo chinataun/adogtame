@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {renderRegistro, registro,renderRegistroProtectora, registroProtectora, renderLogin, login} = require('../controllers/users.controller')
-const {renderProtectoras} = require('../controllers/user.protectora.controller')
+const {renderProtectoras, renderProtectora} = require('../controllers/user.protectora.controller')
 router.get("/registro", renderRegistro);
 router.post("/registro", registro);
 
@@ -8,6 +8,8 @@ router.post("/registro", registro);
 router.get('/registro/protectora', renderRegistroProtectora)
 router.post('/registro/protectora', registroProtectora)
 router.get("/protectoras", renderProtectoras);
+router.get('/protectora/:id',renderProtectora)
+
 
 router.get("/login", renderLogin);
 router.post("/login", login);
