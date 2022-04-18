@@ -50,14 +50,14 @@
           <div class="mb-3">
             <label class="form-label" for="inputImage">Imagen</label>
             <input class="form-control {{#errors.file}}is-invalid{{/errors.file}}" type="file" name="image" id="inputImage">
-            <div id="validationNombreFeedback" class="invalid-feedback">
+            <div id="validationImageFeedback" class="invalid-feedback">
               {{errors.file}}
             </div>
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Descripción</label>
             <textarea class="form-control {{#errors.descripcion}}is-invalid{{/errors.descripcion}}" name="descripcion" id="inlineDescription" placeholder="Descripcion de la protectora">{{descripcion}}</textarea>
-            <div id="validationNombreFeedback" class="invalid-feedback">
+            <div id="validationDescriptionFeedback" class="invalid-feedback"> 
               {{errors.descripcion}}
             </div>
           </div>
