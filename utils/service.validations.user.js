@@ -5,7 +5,7 @@ function validatePassword(password, confirm_password) {
   let hasLetter = /[a-zA-Z]/g.test(password)
   let hasNumber = /[0-9]/g.test(password)
   if (obligatorio(password) && obligatorio(confirm_password)) {
-    return 'La constraseñas son obligatorias'
+    return 'Las constraseñas son obligatorias'
   } else if (password != confirm_password) {
     return 'Las contraseñas no coinciden'
   } else if (!hasLetter) {
@@ -46,4 +46,4 @@ function validateUser(params) {
 
 }
 
-module.exports = { validateUser, validatePassword,validateEmail}
+module.exports = { validateUser, validatePassword,validateRoleUser, validateEmail}
