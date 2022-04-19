@@ -32,10 +32,10 @@ const registroAdoptante = async (request, response) => {
     user: adoptantesaved._id,
   })
   newUser.password = await newUser.encryptPassword(password);
-  await newUser.save();
+  const userSaved =  await newUser.save();
 
   request.flash("success_msg", `Usuario ${role} con email: ${email} registrado`);
-  response.redirect('/users/login')
+  response.redirect('/')
 }
 
 const renderAdoptante = async (request, response) => {
