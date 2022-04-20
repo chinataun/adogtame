@@ -9,24 +9,42 @@ html{
 }
 
 body{
- 
-  font-size: 16px; /*1 rem = 10px */
-  /* background-image: url("/images/background.jpg"); */
-  /* background-repeat: no-repeat;
-  background-size: cover; */
-  background-color: var(--primario);
-  /*font-family: 'Krub', sans-serif;*/
-  font-family: var(--fuenteParrafos);
 
+  /* font-size: 16px; 1 rem = 10px */
+  padding-top: 100px; 
+  /*background-image: url("../images/firulais.png");  */
+  /* background-image: radial-gradient(circle at 50% -20.71%, #3fbea1 0, #29beab 5%, #00bfb5 10%, #00bebf 15%, #00bec9 20%, #00bdd2 25%, #00bcdb 30%, #00bbe2 35%, #00b9e9 40%, #1cb7ee 45%, #3cb5f2 50%, #53b2f5 55%, #68aff6 60%, #7bacf6 65%, #8ca9f5 70%, #9ca5f2 75%, #aba1ee 80%, #b99ee8 85%, #c59ae2 90%, #d096da 95%, #d993d2 100%);background-image: radial-gradient(circle at 87.5% 12.5%, #e1b234 0, #e7a62c 12.5%, #ec9a25 25%, #f08b20 37.5%, #f37b1f 50%, #f56922 62.5%, #f75728 75%, #f94130 87.5%, #fa253a 100%);background-repeat: no-repeat;  */
+  /* background-image: url("../images/37906-perros.jpg"); */
+
+  /* background-image: url("../images/683534.jpg"); */
+   background-image: url("../images/37959-perros.jpg"); 
+  background-position: center center; 
+  background-attachment: fixed; 
+ background-size:cover; 
+
+ 
+
+}
+.margenNav{
+  margin-left: 4.5rem;
+  margin-right: 2.5rem;
+}
+.logo{
+  padding: 20px 0 0 0
 }
 a{
   text-decoration: none;
+  color: #eaf1f8 !important;
 }
 h1 {
   text-align: center;
   font-size: 3.8rem;
+  color: #ffffff;
 
   
+}
+h2{
+  color: #ffffff;
 }
 img{
   max-width: 100%;
@@ -43,19 +61,7 @@ width: 60px;
 height: 60px;
 border-radius: 60px;
 }
-/* 
-.navegacion{
-  height: 8rem;
-  width: 100%;
-  position: fixed;
-  top: 0px;
-  right:0px;
-  left:0px;
-  max-width:100%;
-  height:70px;   // Por darle un valor fijo para evitar conflictos con :auto
-  z-index:1000000
-  
-} */
+
 #logo_home{
   display:flex;
   flex-direction: column;
@@ -70,8 +76,6 @@ width: 35%;
 .index .p-5 {
 border-radius: 40px !important;
 } 
-
-
 
 #formulario {
   display: flex;
@@ -90,7 +94,6 @@ border-radius: 40px !important;
   padding-right:3%;
   padding-bottom: 3%;
 }
-
 
 #cajaNombre, #cajaTipo, #cajaRaza{
   margin-top: 10px;
@@ -174,20 +177,6 @@ margin-top:0!important;
       padding: 0 !important;
   }
 
-
-
-  /* ANIMALES */
-/*     
-* {
-margin: 0;
-padding: 0;
-}
-
-html,
-body {
-height: 100%;
-} */
-
 .body2 {
 
 background-color: #5d4660;
@@ -214,7 +203,8 @@ width: 100%;
 margin-top: 50px  ;
 }
 
-li {list-style:none; font-size:12px;}
+li {list-style:none; 
+  font-size:15px;}
 
 ul li {
 float: left;
@@ -291,7 +281,6 @@ color: #ffffff;
 background-color: #bc9b94;
 }
 
-
 #box { 
   background-color : rgb(77, 128, 170); 
   margin-top: 5px; 
@@ -320,10 +309,6 @@ background-color: #bc9b94;
 #animales #avatar_animal{
   text-transform: lowercase;
 }
-
-
-
-
 
 /* animal */
 #animal {
@@ -412,6 +397,12 @@ border-radius: 50px;
     border-radius: 18px;
     text-align: center;
 
+  } 
+  p{
+    color: #ffffff;
+  }
+  .letraNegro{
+    color: #000000 !important;
   }
 
   /* VALIDACIONES BOOTSTRAP */
