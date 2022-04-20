@@ -15,7 +15,7 @@ const registroAdoptante = async (request, response) => {
   // validatorAdoptante.validateTelefonoAdoptante(telefono)
   const validation = validateAdoptante(request)
   if (Object.keys(validation).length !== 0) {
-    return response.render('users/signup_adoptante', {errors: validation, email, dni, telefono, descripcion, nombre, password})
+    return response.render('users/signup_adoptante', {errors: validation, email, dni, telefono, descripcion, nombre, password,role})
   }
   const newAdoptante = new Adoptante({ 
     nombre: nombre, 

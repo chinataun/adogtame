@@ -21,7 +21,6 @@ const cookieJwtAuth = (request, response, next) => {
 // const token = request.cookies.token;
 if (token = request.cookies.token) {
   const user = jwt.verify(token, 'SECRET')
-  console.log(user);
   request.user = user;
   if (user.user.role === 'Adoptante'){
     response.locals.user = request.user

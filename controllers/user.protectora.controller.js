@@ -12,12 +12,13 @@ const renderRegistroProtectora =  (request, response) => {
 
 const registroProtectora = async (request, response) => {
   const { email, cif, telefono, descripcion, nombre, password, role, ciudad } = request.body;
+  console.log(role);
   const {file} = request
   // if (!validatorProtectora.validateNombreProtectora(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
   // validatorProtectora.validateTelefonoProtectora(telefono)
   const validation = validateProtectora(request)
   if (Object.keys(validation).length !== 0) {
-    return response.render('users/signup_protectora', {errors: validation, email, cif, telefono, descripcion, nombre, ciudad, password})
+    return response.render('users/signup_protectora', {errors: validation, email, cif, telefono, descripcion, nombre, ciudad, password, role})
   }
   const newProtectora = new Protectora({ 
     nombre: nombre,
