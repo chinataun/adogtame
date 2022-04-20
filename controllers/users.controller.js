@@ -1,5 +1,5 @@
 const User = require('../models/User')
-const { validateUser } = require('../utils/service.validations.user')
+const { validateUser, validateLogin} = require('../utils/service.validations.user')
 const jwt = require('jsonwebtoken')
 
 const renderRegistro = (request, response) => {
@@ -8,29 +8,11 @@ const renderRegistro = (request, response) => {
 
 
 const registro = async (request, response) => {
-  let errors = [];
   const { email, password, confirm_password, role } = request.body;
-  // if (email.length <= 0 ) {
-  //   errors.email = ('Inserta email')
-  // }
-  // if (password != confirm_password) {
-  //   errors.push("Las contraseñas no coinciden");
-  // }
-  // if (password.length < 8 || password.length > 20) {
-  //   errors.push("La contraseña debe contener entre 8 y 20 caracteres");
-  // }
-  // const emailUser = await User.findOne({ email: email });
-  // if (emailUser) {
-  //   errors.push("Ya existe un usuario con ese email");
-  // }
-  // if (role == undefined) {
-  //   errors.push("Debe serleccionar un tipo de registro");
-  // }
-  let checkedA;
-  let checkedP;
-
   const validation = validateUser(request)
   if (Object.keys(validation).length !== 0) {
+    let checkedA;
+    let checkedP;
     if (role === "Adoptante") {
       checkedA = 'checked'
     } else if (role === "Protectora") {
@@ -48,10 +30,8 @@ const registro = async (request, response) => {
   else {
     if (role === 'Protectora') {
       response.render("users/signup_protectora", {email, password, role});
-      // res.redirect('registro/protectora')
     } else {
       response.render("users/signup_adoptante", {email, password, role});
-      // res.redirect('registro/protectora')
     }
   }
 }
@@ -65,28 +45,20 @@ const registro = async (request, response) => {
 const login = async (request, response) => {
   const {email, password} = request.body;
 
+  const pruebas = await validateLogin(request.body)
+  console.log(pruebas);
+  // const user = await User.findOne({ email: email })
+  // const validationEmail = validateEmailLogin(email, user)
+  if (Object.keys(pruebas).length !== 0) {
+    return response.render("users/login", {errors: pruebas,email})
+  } 
   const user = await User.findOne({ email: email })
-  if (!user) {
-      response.send('USuario no encontrado')  
-    } else {
-    // Match Password's User
-    const match = await  user.matchPassword(password);
+  const token = jwt.sign({user}, 'SECRET', {expiresIn: "24h"});
+  response.cookie('token', token, {
+    httpOnly: true
+  });
 
-    if (match) {
-      const token = jwt.sign({user}, 'SECRET', {expiresIn: "24h"});
-
-      response.cookie('token', token, {
-        httpOnly: true
-      });
-
-      return response.redirect('/')  
-    } else {
-      response.send('contraseña incorrecta')   
-    }
-  }
-
-
-
+  return response.redirect('/')  
 }
 
 const renderLogin = (request, response) => {

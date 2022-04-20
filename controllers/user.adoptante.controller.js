@@ -9,7 +9,7 @@ const renderRegistroAdoptante =  (request, response) => {
 }
 
 const registroAdoptante = async (request, response) => {
-  const { email, dni, telefono, descripcion, nombre, password, role } = request.body;
+  const { email, dni, telefono, descripcion, nombre, password, role} = request.body;
   const {file} = request
   // if (!validatorAdoptante.validateNombreAdoptante(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
   // validatorAdoptante.validateTelefonoAdoptante(telefono)
@@ -33,10 +33,14 @@ const registroAdoptante = async (request, response) => {
     user: adoptantesaved._id,
   })
   newUser.password = await newUser.encryptPassword(password);
-  await newUser.save();
+  const userSaved = await newUser.save();
+  const token = jwt.sign({user:userSaved}, 'SECRET', {expiresIn: "24h"});
+  response.cookie('token', token, {
+    httpOnly: true
+  });
 
   request.flash("success_msg", `Usuario ${role} con email: ${email} registrado`);
-  response.redirect('/users/login')
+  response.redirect('/')
 }
 
 
@@ -71,7 +75,6 @@ const renderSolicitudesAdoptante = async (request, response) => {
       model: 'Protectora'
     }
   }])
-  console.log(solicitudes);
   response.render('users/solicitudes_adoptante', {solicitudes})
 
 }

@@ -38,16 +38,7 @@
               {{errors.ciudad}}
             </div>
           </div>
-          <div class="mb-3">
-            <input type="password" hidden class="form-control" name="password" placeholder="Password" value="{{ password }}">
-          </div>
-          <div class="mb-3">
-            <input type="text" hidden class="form-control" name="email" placeholder="email" value="{{ email }}">
-          </div>
-          <div class="mb-3">
-            <input type="text" hidden class="form-control" name="role" placeholder="role" value="{{ role }}">
-          </div>
-          <div class="mb-3">
+           <div class="mb-3">
             <label class="form-label" for="inputImage">Imagen</label>
             <input class="form-control {{#errors.file}}is-invalid{{/errors.file}}" type="file" name="image" id="inputImage">
             <div id="validationNombreFeedback" class="invalid-feedback">
@@ -60,6 +51,15 @@
             <div id="validationNombreFeedback" class="invalid-feedback">
               {{errors.descripcion}}
             </div>
+          </div>
+          <div class="mb-3">
+            <input type="password" hidden class="form-control" name="password" placeholder="Password" value="{{ password }}">
+          </div>
+          <div class="mb-3">
+            <input type="text" hidden class="form-control" name="email" placeholder="email" value="{{ email }}">
+          </div>
+          <div class="mb-3">
+            <input type="text" hidden class="form-control" name="role" placeholder="role" value="{{ role }}">
           </div>
           <div>
             <button class="btn btn-primary btn-block">

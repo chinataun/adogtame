@@ -35,9 +35,13 @@ const registroProtectora = async (request, response) => {
     role: role,
     user: protectorasaved._id,
   })
+
   newUser.password = await newUser.encryptPassword(password);
   const userSaved = await newUser.save();
-  
+  const token = jwt.sign({user:userSaved}, 'SECRET', {expiresIn: "24h"});
+  response.cookie('token', token, {
+    httpOnly: true
+  });
 
   request.flash("success_msg", `Usuario ${role} con email: ${email} registrado`);
   response.redirect('/')

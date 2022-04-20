@@ -18,10 +18,10 @@ const cookieJwtAuth = (request, response, next) => {
 //     response.clearCookie("token")
 //     return response.redirect("/");
 //   }
-const token = request.cookies.token;
-if (token) {
+// const token = request.cookies.token;
+if (token = request.cookies.token) {
   const user = jwt.verify(token, 'SECRET')
-
+  console.log(user);
   request.user = user;
   if (user.user.role === 'Adoptante'){
     response.locals.user = request.user

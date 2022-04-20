@@ -1,5 +1,5 @@
 const {obligatorio, validLength}  = require('./service.validations')
-
+const User = require('../models/User')
 
 function validatePassword(password, confirm_password) {
   const validLength = password.length >= 8
@@ -47,5 +47,38 @@ function validateUser(params) {
 
 }
 
+const validateEmailLogin = (email, user) => {
+  const emailRegexp = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
+  const errores = {};
+  if (obligatorio(email)) {
+    return 'Introduce un email de usuario'
+  } else if (!emailRegexp.test(email)) {
+    return 'Formato de email invalido. Ej: aaa@aaa.com'
+  } else if (!user) {
+    return 'Usuario no encontrado'
+  }
+  return '';
+}
 
-module.exports = { validateUser, validatePassword,validateEmail}
+const validatePasswordLogin = (match) => {
+  const errores = {};
+  if (!match) {
+    return 'Contraseña incorrecta'
+  } 
+  return '';
+}
+
+  const validateLogin = async (params) => {
+  const {email, password} = params
+  const errores = {};
+  const user = await User.findOne({ email: email })
+  if (validateEmailLogin(email, user) !== '') return {email : (validateEmailLogin(email, user))};
+  const match = await  user.matchPassword(password);
+  if (validatePasswordLogin(match) !== '') return {password : (validatePasswordLogin(match))};
+
+  return errores;
+
+}
+
+
+module.exports = { validateUser, validatePassword,validateEmail,validateEmailLogin,validatePasswordLogin, validateLogin}
