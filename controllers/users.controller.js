@@ -6,6 +6,10 @@ const renderRegistro = (request, response) => {
   response.render('users/signup')
 }
 
+const nosotros = (request, response) => {
+  response.render('users/sobre_nosotros')
+}
+
 
 const registro = async (request, response) => {
   const { email, password, confirm_password, role } = request.body;
@@ -75,4 +79,5 @@ const logout = (request, response) => {
 }
 
 
-module.exports = {renderRegistro, registro,login,renderLogin, logout}
+
+module.exports = {renderRegistro, registro,login,renderLogin, logout,nosotros}

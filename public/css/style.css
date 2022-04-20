@@ -37,8 +37,10 @@ a{
   color: #eaf1f8 !important;
 }
 h1 {
+  /* font-family: 'Orelega One', cursive;  */
+  font-family: 'Playfair Display', serif;
   text-align: center;
-  font-size: 3.8rem;
+  font-size: 6rem;
   color: #ffffff;
 
   
