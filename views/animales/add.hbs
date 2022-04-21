@@ -47,12 +47,16 @@
             <label class="form-check-label" for="inlineFemenino">Hembra</label>
             <div id="validationTipoFeedback" class="invalid-feedback">
               {{errors.genero}}
-              </div>
+            </div>
           </div>
 
 
           <div class="mb-3">
             <label class="form-label" for="inputImage">Imagen</label>
+            {{#if imageUploaded}}
+            <img id="image" src="/uploads/{{ imageUploaded }}" width="60px" alt="image" /></br>
+            {{/if}}
+            <input class="form-control" type="text" hidden name="imageHidden" {{#if imageUploaded}}value="{{imageUploaded}}"{{/if}}  id="inputImage">
             <input class="form-control {{#errors.file}}is-invalid{{/errors.file}}" type="file" name="image" id="inputImage">
               <div id="validationTipoFeedback" class="invalid-feedback">
                 {{errors.file}}
@@ -62,7 +66,7 @@
             <label for="message-text" class="col-form-label">Historial médico</label>
             <textarea class="form-control {{#errors.historial}}is-invalid{{/errors.historial}}" name="historial" id="inlineHistorial" placeholder="Historial médico del animal.">{{body.historial}}</textarea>
             <div id="validationHistorialFeedback" class="invalid-feedback">
-              {{errors.descripcion}}
+              {{errors.historial}}
             </div>
           </div>
           <div class="mb-3">

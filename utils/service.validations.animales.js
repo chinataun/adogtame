@@ -19,7 +19,6 @@ function validateRazaAnimal(raza) {
 }
 
 function validateEdadAnimal(edad) {
-  console.log(edad)
   if (edad !== '' && edad == 0 ) {
     return 'La edad tiene que ser mayor que 0'
   }
