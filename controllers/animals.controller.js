@@ -54,7 +54,7 @@ const busquedaAnimal = async (request, response) =>
     {
       console.log("************************         filtrado general         ************************");
       console.log(busqueda);
-      
+
       if (busqueda[0].toLowerCase() === "todos los tipos") { busqueda[0] = ""; }
       if (busqueda[1].toLowerCase() === "todos los generos") { busqueda[1] = ""; }
 
@@ -64,10 +64,10 @@ const busquedaAnimal = async (request, response) =>
       Animal.find
       (
         {
-          'tipo': { "$regex" : '.*' +  busqueda[0].toLowerCase() + '.*'  , "$options": "i"  },
-          'genero':{ "$regex" : '.*' +  busqueda[1].toLowerCase() + '.*'  , "$options": "i"  },
-          'descripcion':{ "$regex" : '.*' +  busqueda[5].toLowerCase() + '.*'  , "$options": "i" }, 
-          'edad': { '$gt':busqueda[3] ,'$lt': busqueda[4] }
+          'tipo' : { "$regex" : '.*' +  busqueda[0].toLowerCase() + '.*'  , "$options": "i"  },
+          'genero' : { "$regex" : '.*' +  busqueda[1].toLowerCase() + '.*'  , "$options": "i"  },
+          'descripcion' : { "$regex" : '.*' +  busqueda[5].toLowerCase() + '.*'  , "$options": "i" }, 
+          'edad' : { '$gt':busqueda[3] ,'$lt': busqueda[4] }
         }
       )
       .then(animales => 
