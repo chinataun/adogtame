@@ -71,7 +71,15 @@ width: 35%;
 border-radius: 40px !important;
 } 
 
+#caja_busqueda_avanzada
+{
+  font-size: 13px;
+}
 
+#caja_busqueda_general
+{
+  font-size: 13px;
+}
 
 #formulario {
   display: flex;
