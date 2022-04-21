@@ -52,22 +52,30 @@ const registroProtectora = async (request, response) =>
 }
 
 
-const renderProtectoras = async (request, response) => {
+const renderProtectoras = async (request, response) => 
+{
   const protectoras = await User.find({role: 'Protectora'}).populate('user') 
   const protectora_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
 
-
-   console.log(protectoras)
-   console.log(protectora_filtrado_ciudad)
+  console.log(protectoras)
+  console.log(protectora_filtrado_ciudad)
   response.render('users/protectoras', {protectoras,protectora_filtrado_ciudad})
+
 }
 
-const busquedaProtectoras = async (request, response) => {
+const busquedaProtectoras = async (request, response) => 
+{
 
+  console.log("---------------------------------");
   const {busqueda} = request.body
   console.log(busqueda);
+
+
+
+
+
   Protectora.find({
-    'descripcion' : {$regex : busqueda}
+    'descripcion' : {$regex : busqueda[0]}
   })
   .then(protectoras => {
     if (protectoras)
@@ -80,9 +88,6 @@ const busquedaProtectoras = async (request, response) => {
 const renderProtectora = async (request, response) => {
   const { id } = request.params
   const userProtectora = await User.findById(id).populate('user')
-
-
-
   const animalsByProtectora = await userProtectora.user.populate('animales')
 
   response.render('users/protectora', {protectora: userProtectora, animales : animalsByProtectora.animales})

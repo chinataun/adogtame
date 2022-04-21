@@ -36,7 +36,13 @@ function AccionBusquedaGeneral()
     x.style.display = "initial";
 }
 
-
+function onBusquedaProtectora_Ciudad() 
+{
+  var e = document.getElementById("filtrado_ciudad");
+  var selectlista = e.options[e.selectedIndex].text;
+  document.getElementById("filtro_tipo_ciudad").value = selectlista;
+  
+}
   function onBusquedaAnimal_Tipo() 
   {
     var e = document.getElementById("filtrado_tipo");
