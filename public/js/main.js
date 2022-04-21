@@ -17,6 +17,26 @@ function onInput_BusquedaAnimal_Tipo() {
   }
 */
 
+function AccionBusquedaAvanzada()
+{
+
+  var x = document.getElementById("caja_busqueda_general");
+  var y = document.getElementById("caja_busqueda_avanzada");
+    x.style.display = "none";
+    y.style.display = "initial";
+}
+
+
+function AccionBusquedaGeneral()
+{
+
+  var x = document.getElementById("caja_busqueda_general");
+  var y = document.getElementById("caja_busqueda_avanzada");
+    y.style.display = "none";
+    x.style.display = "initial";
+}
+
+
   function onBusquedaAnimal_Tipo() 
   {
     var e = document.getElementById("filtrado_tipo");
