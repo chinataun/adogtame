@@ -143,6 +143,7 @@ const renderAnimal = async (request, response) => {
       model: 'Protectora'
     }
   }])
+  console.log(animal);
   if (animal) {
     if (request.user !== undefined) {
       const {user} = request.user
@@ -181,6 +182,13 @@ const renderAnimal = async (request, response) => {
   const deleteAnimal = async (request,response) => {
     const id = request.params.id
     const animaldeleted = await Animal.findByIdAndDelete(id).populate('protectora')
+    const protectoraf = await Protectora.findById(animaldeleted.protectora.user._id)
+    const index = protectoraf.animales.indexOf(animaldeleted._id);
+    if (index > -1) {
+      protectoraf.animales.splice(index, 1); // 2nd parameter means remove one item only
+    }
+    await protectoraf.save()
+
     response.redirect('/users/protectora/' + animaldeleted.protectora._id)
   }
 

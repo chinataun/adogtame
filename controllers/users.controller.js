@@ -1,4 +1,8 @@
 const User = require('../models/User')
+const Adoptante = require('../models/Adoptante')
+const Solicitud = require('../models/Solicitud')
+const Protectora = require('../models/Protectora')
+const Animal = require('../models/Animal')
 const { validateUser, validateLogin} = require('../utils/service.validations.user')
 const jwt = require('jsonwebtoken')
 
@@ -74,5 +78,23 @@ const logout = (request, response) => {
   }
 }
 
+const deleteUser = async (request, response) => {
+  const id = request.params.id
+  const {user} = request.user; 
 
-module.exports = {renderRegistro, registro,login,renderLogin, logout}
+  if(user.role === 'Adoptante') {
+  const solicitudDeleted = await Solicitud.findOneAndRemove({adoptante: user._id})
+  } else {
+    const protectora = await Protectora.findById(user.user)
+    protectora.animales.forEach(async (animal) => {
+      await Animal.findByIdAndDelete(animal)
+    });
+    const solicitudDeleted = await Solicitud.findOneAndRemove({protectora: user._id})
+  }
+  const userRoleDeleted = await Adoptante.findByIdAndDelete(user.user)
+  const userdeleted = await User.findByIdAndDelete(user._id)
+  response.redirect('/users/protectoras')
+}
+
+
+module.exports = {renderRegistro, registro,login,renderLogin, logout, deleteUser}

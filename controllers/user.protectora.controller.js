@@ -34,7 +34,7 @@ const registroProtectora = async (request, response) => {
     email: email,
     password: password,
     role: role,
-    user: protectorasaved._id,
+    user: protectorasaved,
   })
 
   newUser.password = await newUser.encryptPassword(password);

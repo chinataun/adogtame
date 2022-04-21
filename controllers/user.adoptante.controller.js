@@ -30,7 +30,7 @@ const registroAdoptante = async (request, response) => {
     email: email,
     password: password,
     role: role,
-    user: adoptantesaved._id,
+    user: adoptantesaved,
   })
   newUser.password = await newUser.encryptPassword(password);
   const userSaved = await newUser.save();
