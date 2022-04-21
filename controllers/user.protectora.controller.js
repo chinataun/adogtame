@@ -5,17 +5,20 @@ const {validateProtectora} = require('../utils/service.validations.user.protecto
 const token = require('../utils/generateToken')
 const jwt = require('jsonwebtoken')
 
-const renderRegistroProtectora =  (request, response) => {
-
+const renderRegistroProtectora =  (request, response) => 
+{
   response.redirect('/users/registro')
 }
 
-const registroProtectora = async (request, response) => {
+const registroProtectora = async (request, response) => 
+{
   const { email, cif, telefono, descripcion, nombre, password, role, ciudad } = request.body;
   console.log(role);
   const {file} = request
+
   // if (!validatorProtectora.validateNombreProtectora(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
   // validatorProtectora.validateTelefonoProtectora(telefono)
+
   const validation = validateProtectora(request)
   if (Object.keys(validation).length !== 0) {
     return response.render('users/signup_protectora', {errors: validation, email, cif, telefono, descripcion, nombre, ciudad, password, role})
@@ -51,7 +54,12 @@ const registroProtectora = async (request, response) => {
 
 const renderProtectoras = async (request, response) => {
   const protectoras = await User.find({role: 'Protectora'}).populate('user') 
-  response.render('users/protectoras', {protectoras})
+  const protectora_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
+
+
+   console.log(protectoras)
+   console.log(protectora_filtrado_ciudad)
+  response.render('users/protectoras', {protectoras,protectora_filtrado_ciudad})
 }
 
 const busquedaProtectoras = async (request, response) => {
@@ -62,21 +70,21 @@ const busquedaProtectoras = async (request, response) => {
     'descripcion' : {$regex : busqueda}
   })
   .then(protectoras => {
-
     if (protectoras)
     response.render('users/protectoras', {protectoras})
   })
   .catch(err => next(err))
-
-
-
 
 }
 
 const renderProtectora = async (request, response) => {
   const { id } = request.params
   const userProtectora = await User.findById(id).populate('user')
+
+
+
   const animalsByProtectora = await userProtectora.user.populate('animales')
+
   response.render('users/protectora', {protectora: userProtectora, animales : animalsByProtectora.animales})
 
   // User.findById(id).populate('user')
