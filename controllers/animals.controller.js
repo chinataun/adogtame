@@ -146,10 +146,8 @@ const renderAnimal = async (request, response) => {
   if (animal) {
     if (request.user !== undefined) {
       const {user} = request.user
-      console.log(user._id);
-      console.log(animal.protectora._id.toString());
       let canEdit = false
-      if (user._id === animal.protectora._id.toString()) {
+      if (animal.protectora && user._id === animal.protectora._id.toString()) {
         canEdit = true
       }
       const solicitado = await Solicitud.find({adoptante: user._id, animal: id})
@@ -178,6 +176,12 @@ const renderAnimal = async (request, response) => {
     const saved = await solicitud.save()
     request.flash("success_msg", 'Solicitud enviada correctamente.')
     response.redirect('/animales/animal/' + animal)
+  }
+
+  const deleteAnimal = async (request,response) => {
+    const id = request.params.id
+    const animaldeleted = await Animal.findByIdAndDelete(id).populate('protectora')
+    response.redirect('/users/protectora/' + animaldeleted.protectora._id)
   }
 
 
@@ -246,4 +250,4 @@ const renderAnimal = async (request, response) => {
   }
 
 
-module.exports = {renderAnimales, renderAddAnimal, addAnimal, busquedaAnimal, renderAnimal, solicitudAnimal,renderEditAnimal, editAnimal}
+module.exports = {renderAnimales, renderAddAnimal, addAnimal, busquedaAnimal, renderAnimal, solicitudAnimal,deleteAnimal, renderEditAnimal, editAnimal}

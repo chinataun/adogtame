@@ -39,6 +39,8 @@
                   <button type="submit" class="btn btn-primary">Editar animal</button>
               </form>
             </span>
+            <span><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarAnimal">
+          Eliminar</button> <span>
           {{/canEdit}} 
         {{/if}} 
         {{^if protectora}}  
@@ -75,4 +77,29 @@
     </div>
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="eliminarAnimal" tabindex="-1" aria-labelledby="eliminalAnimalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="solicitudLabel">Eliminar animal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <form action="/animales/animal/{{animal._id}}?_method=DELETE" method="post" >
+
+          <div class="mb-3">
+            ¿Estas seguro que quieres eliminar a {{animal.nombre}}?
+          </div>
+          <input type="text" class="form-control" id="recipient-name" name="animal" value="{{animal.id}}" hidden>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rechazar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
 </div>
