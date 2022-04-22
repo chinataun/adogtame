@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-md-4 mx-auto">
+    <div class="card mt-4">
+      <div class="card-header">
+        <h1>
+          Editar Protectora
+        </h1>
+      </div>
+      <div class="card-body">
+              <form action="/users/edit-protectora" method="POST" enctype="multipart/form-data" novalidate>
+          <div class="mb-3">
+            <label class="form-label" for="inputNombre">Nombre*</label>
+            <input type="text" class="form-control {{#errors.nombre}}is-invalid{{/errors.nombre}}" name="nombre" placeholder="Nombre" value="{{protectora.user.nombre}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.nombre}}
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="inputCif">Cif*</label>
+            <input type="text" class="form-control {{#errors.cif}}is-invalid{{/errors.cif}}" name="cif" placeholder="Cif" value="{{protectora.user.cif}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.cif}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputTelefono">Telefono*</label>
+            <input type="text" class="form-control {{#errors.telefono}}is-invalid{{/errors.telefono}}" name="telefono" placeholder="Telefono" value="{{protectora.user.telefono}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.telefono}}
+            </div>  
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputCiudad">Ciudad*</label>
+            <input type="text" class="form-control {{#errors.ciudad}}is-invalid{{/errors.ciudad}}" name="ciudad" placeholder="Ciudad" value="{{protectora.user.ciudad}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.ciudad}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Descripción</label>
+            <textarea class="form-control" name="descripcion" id="inlineDescription" placeholder="Descripcion del animal">{{protectora.user.descripcion}}</textarea>
+          </div>
+          <div>
+            
+            <button class="btn btn-primary btn-block">
+              Editar protectora 
+            </button>
+                        <span><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarCuenta">Eliminar cuenta</button>
+
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="eliminarCuenta" tabindex="-1" aria-labelledby="eliminalCuentaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="eliminalCuentaLabel">Eliminar Usuario {{protectora.role}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <form action="/users/delete/{{protectora._id}}?_method=DELETE" method="post" >
+
+          <div class="mb-3">
+            ¿Estas seguro que darte de baja del sistema, {{protectora.user.nombre}}? Perderas todas tus solicitudes en marcha y animales asociados. Esta acción es irrecuperable.
+          </div>
+          <input type="text" class="form-control" id="recipient-name" name="animal" value="{{protectora.id}}" hidden>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rechazar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
