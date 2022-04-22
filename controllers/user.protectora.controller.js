@@ -104,5 +104,44 @@ const procesarSolicitudAdopcion = async (request, response) => {
   response.redirect('/users/solicitudesProtectora')
 
 }
+const renderEditProtectora = async (request, response) => {
+  const {user} = request.user
+  const protectora = await User.findById(user._id).populate('user')
+  response.render('users/edit_protectora', {protectora})
+}
 
-module.exports = {renderRegistroProtectora, registroProtectora, renderProtectoras,renderSolicitudesProtectora, busquedaProtectoras, renderProtectora,procesarSolicitudAdopcion}
+const editProtectora = async (request, response, error) => {
+  const {user} = request.user
+  const { email, cif, telefono, descripcion, nombre, password, role, ciudad } = request.body;
+  const {file,body} = request
+  const validation = validateProtectora(request)
+  if (Object.keys(validation).length !== 0) {
+       const protectora = {
+      email: email,
+      user: {
+        nombre: nombre,
+        cif: cif, 
+        telefono: telefono, 
+        ciudad: ciudad,
+        descripcion: descripcion,
+      }
+    }
+    return response.render('users/edit_protectora', {errors: validation, protectora})
+  }
+  const newProtectora = { 
+    nombre: nombre,
+    cif: cif, 
+    telefono: telefono, 
+    ciudad: ciudad,
+    descripcion: (descripcion == '') ? undefined : descripcion,
+  };
+  const newUser = {
+    email: email
+  };
+  await User.findByIdAndUpdate(user._id, newUser);
+  await Protectora.findByIdAndUpdate(user.user, newProtectora);
+  response.redirect('/users/protectora/' + user._id)
+}
+
+
+module.exports = {renderRegistroProtectora, registroProtectora, renderProtectoras,renderSolicitudesProtectora, busquedaProtectoras, renderProtectora,procesarSolicitudAdopcion,renderEditProtectora,editProtectora}
