@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-md-4 mx-auto">
+    <div class="card mt-4 text-center">
+      <div class="card-header">
+        <h1 >
+          Editar animales
+        </h1>
+      </div>
+
+      <div class="card-body">
+        <form action="/animales/edit/{{animal.id}}" method="POST" enctype="multipart/form-data">
+          <div class="mb-3">
+              <label class="form-label" for="inputNombre">Nombre</label>
+              <input type="text" name="nombre" class="form-control {{#errors.nombre}}is-invalid{{/errors.nombre}}" id="inputNombre" placeholder="Nombre" value="{{animal.nombre}}">
+              <div id="validationNombreFeedback" class="invalid-feedback">
+                {{errors.nombre}}
+              </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputTipo">Tipo</label>
+            <input type="text" name="tipo" class="form-control {{#errors.tipo}}is-invalid{{/errors.tipo}}" id="inputTipo" placeholder="Tipo" value="{{animal.tipo}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.tipo}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputRaza">Raza</label>
+            <input type="text" name="raza" class="form-control {{#errors.raza}}is-invalid{{/errors.raza}}" id="inputRaza" placeholder="Raza" value="{{animal.raza}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.raza}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputEmail">Edad</label>
+            <input type="number" name="edad" class="form-control {{#errors.edad}}is-invalid{{/errors.edad}}" id="inputEdad" placeholder="Edad" value="{{animal.edad}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.edad}}
+            </div>
+          </div>
+          <legend class="col-form-label">Genero*</legend>
+          <div class="form-check">
+            <input class="form-check-input {{#errors.genero}}is-invalid{{/errors.genero}}" type="radio" name="genero" id="inlineMasculino" value="Macho" {{ checkedM }}>
+            <label class="form-check-label" for="inlineMasculino">Macho</label>
+          </div>
+          <div class="form-check mb-3">
+            <input class="form-check-input {{#errors.genero}}is-invalid{{/errors.genero}}" type="radio" name="genero" id="inlineFemenino" value="Hembra" {{ checkedH }}>
+            <label class="form-check-label" for="inlineFemenino">Hembra</label>
+            <div id="validationTipoFeedback" class="invalid-feedback">
+              {{errors.genero}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Descripción</label>
+            <textarea class="form-control" name="descripcion" id="inlineDescription" placeholder="Descripcion del animal">{{animal.descripcion}}</textarea>
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.descripcion}}
+            </div>
+          </div>
+          <button type="submit" name="editar" class="btn btn-primary">Editar animal</button>
+
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
