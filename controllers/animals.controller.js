@@ -131,4 +131,17 @@ const solicitudAnimal = async (request, response) => {
   request.flash("success_msg", 'Solicitud enviada correctamente.')
   response.redirect('/animales/animal/' + animal)
 }
-module.exports = {renderAnimales, solicitudAnimal, renderAddAnimal, addAnimal, busquedaAnimal, renderAnimal}
+
+const deleteAnimal = async (request,response) => {
+  const id = request.params.id
+  const animaldeleted = await Animal.findByIdAndDelete(id).populate('protectora')
+  const protectoraf = await Protectora.findById(animaldeleted.protectora.user._id)
+  const index = protectoraf.animales.indexOf(animaldeleted._id);
+  if (index > -1) {
+    protectoraf.animales.splice(index, 1); 
+  }
+  await protectoraf.save()
+
+  response.redirect('/users/protectora/' + animaldeleted.protectora._id)
+}
+module.exports = {renderAnimales, solicitudAnimal, renderAddAnimal, addAnimal, busquedaAnimal, renderAnimal,deleteAnimal}

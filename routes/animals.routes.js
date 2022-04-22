@@ -1,9 +1,10 @@
 const router = require('express').Router()
-const {renderAnimales,  renderAddAnimal,solicitudAnimal, addAnimal, busquedaAnimal, renderAnimal} = require('../controllers/animals.controller')
+const {renderAnimales,  renderAddAnimal,solicitudAnimal, addAnimal, busquedaAnimal, renderAnimal,deleteAnimal} = require('../controllers/animals.controller')
 const upload = require('../utils/handleUpload')
 
 router.get('/add', renderAddAnimal)
 router.get('/animal/:id',renderAnimal)
+router.delete('/animal/:id', deleteAnimal)
 router.post('/add', upload.single('image'), addAnimal)
 router.post('/buscar', busquedaAnimal)
 router.get('/', renderAnimales)
