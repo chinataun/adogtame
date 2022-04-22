@@ -3,13 +3,13 @@ const Schema = mongoose.Schema;
 
 const animalesSchema = new Schema(
   {
-    nombre: String,
-    tipo: String,
-    raza: String,
-    edad: Number,
-    genero: String,
-    descripcion: String,
-    historial: String,
+    nombre: {type:String},
+    tipo: {type:String},
+    raza: {type:String},
+    edad: {type:Number},
+    genero: {type:String},
+    descripcion: {type:String},
+    historial: {type:String},
     image: {type:String},
     protectora: {
       type: Schema.Types.ObjectId, 
