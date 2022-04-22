@@ -144,4 +144,58 @@ const deleteAnimal = async (request,response) => {
 
   response.redirect('/users/protectora/' + animaldeleted.protectora._id)
 }
-module.exports = {renderAnimales, solicitudAnimal, renderAddAnimal, addAnimal, busquedaAnimal, renderAnimal,deleteAnimal}
+const renderEditAnimal = async (request, response) => {
+  const { id } = request.query
+
+  const animal = await Animal.findById(id)
+
+    let checkedH;
+    let checkedM;
+    if (animal.genero === "Hembra") {
+      checkedH = 'checked'
+    } else if (animal.genero === "Macho") {
+      checkedM = 'checked'
+    }
+  // }
+  response.render('animales/edit', {animal, checkedH, checkedM})
+}
+
+const editAnimal = async (request, response, error) => {
+  const {file, body} = request
+  const {id} = request.params
+  const validation = validateAnimal(request)
+
+  if (Object.keys(validation).length !== 0) {
+    const animal = body
+    animal.id = id;
+
+    let checkedH;
+    let checkedM;
+    if (body.genero === "Hembra") {
+      checkedH = 'checked'
+    } else if (body.genero === "Macho") {
+      checkedM = 'checked'
+    }
+    return response.render('animales/edit', {errors: validation, animal, checkedH, checkedM})
+  }
+try {
+    const animal = {
+      nombre: body.nombre,
+      tipo: body.tipo,
+      raza: body.raza,
+      edad: body.edad,
+      genero: body.genero,
+      historial:body.descripcion,
+      descripcion:body.descripcion,
+
+  }
+  let animalUpdated = await Animal.findByIdAndUpdate(id, animal);
+
+    request.flash('success_msg', 'Editado con éxito')
+    response.redirect('/animales/animal/'+ animalUpdated._id )
+  } catch (error) {
+    response.render('animales/edit')
+  }
+}
+
+module.exports = {renderAnimales, solicitudAnimal, renderAddAnimal, addAnimal, busquedaAnimal, renderAnimal,deleteAnimal,renderEditAnimal,editAnimal}
