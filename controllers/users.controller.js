@@ -5,6 +5,9 @@ const Protectora = require('../models/Protectora')
 const Animal = require('../models/Animal')
 const { validateUser, validateLogin} = require('../utils/service.validations.user')
 const jwt = require('jsonwebtoken')
+const fs = require('fs')
+const {promisify} = require('util')
+const unlinkAsync = promisify(fs.unlink)
 
 const renderRegistro = (request, response) => {
   response.render('users/signup')
@@ -79,21 +82,33 @@ const logout = (request, response) => {
 }
 
 const deleteUser = async (request, response) => {
-  const id = request.params.id
   const {user} = request.user; 
 
-  if(user.role === 'Adoptante') {
-  const solicitudDeleted = await Solicitud.findOneAndRemove({adoptante: user._id})
+  if( user.role === 'Adoptante') {
+    await Solicitud.findOneAndRemove({adoptante: user._id})
+    const adoptanteDeleted = await Adoptante.findByIdAndDelete(user.user) 
+    try {
+      await unlinkAsync("public/uploads/" + adoptanteDeleted.image)
+    } catch (err) {
+      console.log(err);
+    } 
   } else {
     const protectora = await Protectora.findById(user.user)
     protectora.animales.forEach(async (animal) => {
-      await Animal.findByIdAndDelete(animal)
-    });
-    const solicitudDeleted = await Solicitud.findOneAndRemove({protectora: user._id})
+    await Animal.findByIdAndDelete(animal)
+  });
+  
+  await Solicitud.findOneAndRemove({protectora: user._id})
+  const protectoraDeleted = await Protectora.findByIdAndDelete(user.user)  
+    try {
+      await unlinkAsync("public/uploads/" + protectoraDeleted.image)
+    } catch (err) {
+      console.log(err);
+    } 
   }
-  const userRoleDeleted = await Adoptante.findByIdAndDelete(user.user)
-  const userdeleted = await User.findByIdAndDelete(user._id)
-  response.redirect('/users/protectoras')
+  
+  await User.findByIdAndDelete(user._id)
+  return response.clearCookie("token").redirect('/')
 }
 
 

@@ -89,9 +89,7 @@ const addAnimal = async (request, response, error) => {
 
   const {file, body, user} = request
   const validation = validateAnimal(request)
-  console.log(body);
-  let checkedH;
-  let checkedM;
+
   let imageUploaded = body.imageHidden;
   if (Object.keys(validation).length !== 0) {
       if (file && !validation.image) {
@@ -102,10 +100,9 @@ const addAnimal = async (request, response, error) => {
           console.log(err);
         }
         imageUploaded = file.filename;
-        // animalFound.image = file.filename;
-        // await animalFound.save();
       }
-
+    let checkedH;
+    let checkedM;
     if (body.genero === "Hembra") {
       checkedH = 'checked'
     } else if (body.genero === "Macho") {
@@ -116,7 +113,6 @@ const addAnimal = async (request, response, error) => {
 
   try {
     const datos = body
-    console.log(imageUploaded);
     const animal = new Animal({
             nombre: body.nombre,
             tipo: body.tipo,
@@ -128,7 +124,6 @@ const addAnimal = async (request, response, error) => {
             image: (file == undefined) ? imageUploaded : file.filename,
             protectora: user.user._id
         })
-        console.log(animal);
 
     const savedAnimal = await animal.save()
 

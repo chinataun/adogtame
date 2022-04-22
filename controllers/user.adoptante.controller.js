@@ -3,6 +3,9 @@ const User = require('../models/User')
 const Solicitud = require('../models/Solicitud')
 const {validateAdoptante} = require('../utils/service.validations.user.adoptante')
 const jwt = require('jsonwebtoken')
+const fs = require('fs')
+const {promisify} = require('util')
+const unlinkAsync = promisify(fs.unlink)
 
 const renderRegistroAdoptante =  (request, response) => {
   response.redirect('/users/registro')
@@ -10,19 +13,42 @@ const renderRegistroAdoptante =  (request, response) => {
 
 const registroAdoptante = async (request, response) => {
   const { email, dni, telefono, descripcion, nombre, password, role} = request.body;
-  const {file} = request
-  // if (!validatorAdoptante.validateNombreAdoptante(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
-  // validatorAdoptante.validateTelefonoAdoptante(telefono)
+  const {file,body} = request
+  let imageUploaded = body.imageHidden;
   const validation = validateAdoptante(request)
   if (Object.keys(validation).length !== 0) {
-    return response.render('users/signup_adoptante', {errors: validation, email, dni, telefono, descripcion, nombre, password,role})
+    if (file && !validation.image) {
+      try {
+        if (imageUploaded != ''){
+          await unlinkAsync("public/uploads/" + imageUploaded)
+        }
+      } catch (error) {
+        request.flash('success_msg', error)
+        return response.render('users/signup_protectora', {errors: validation, email, dni, telefono, descripcion, nombre, password, role, imageUploaded, error})
+      }
+
+      
+      imageUploaded = file.filename;
+    }
+    return response.render('users/signup_adoptante', {errors: validation, email, dni, telefono, descripcion, nombre, password,role,imageUploaded})
   }
+  if(file && imageUploaded != file.filename){
+       try {
+         if (imageUploaded != ''){
+           await unlinkAsync("public/uploads/" + imageUploaded)
+         }
+       } catch (error) {
+         request.flash('success_msg', error)
+         return response.render('users/signup_protectora', {errors: validation, email, dni, telefono, descripcion, nombre, password, role, imageUploaded, error})
+       }
+     }
+
   const newAdoptante = new Adoptante({ 
     nombre: nombre, 
     dni: dni, 
     telefono: telefono, 
     descripcion: (descripcion == '') ? undefined : descripcion,
-    image: (file == undefined) ? file : file.filename,
+    image: (file == undefined) ? imageUploaded : file.filename,
   });
   const adoptantesaved = await newAdoptante.save();
 
@@ -39,7 +65,7 @@ const registroAdoptante = async (request, response) => {
     httpOnly: true
   });
 
-  request.flash("success_msg", `Usuario ${role} con email: ${email} registrado`);
+  // request.flash("success_msg", `Usuario ${role} con email: ${email} registrado`);
   response.redirect('/')
 }
 
@@ -88,10 +114,23 @@ const renderEditAdoptante = async (request, response) => {
 const editAdoptante = async (request, response, error) => {
   const {user} = request.user
   const { email, dni, telefono, descripcion, nombre} = request.body;
-  const {file} = request
+  const {file,body} = request
   const validation = validateAdoptante(request)
   if (Object.keys(validation).length !== 0) {
-    const protectoraFound = await User.findById(user._id).populate('user')
+    const adoptanteBody = body
+    const adoptanteFound = await User.findById(user._id).populate('user')
+
+    if (file && !validation.image) {
+      try {
+        await unlinkAsync("public/uploads/" + adoptanteFound.user.image)
+
+      } catch (err) {
+        console.log(err);
+      }
+      adoptanteFound.user.image = file.filename;
+      await adoptanteFound.user.save();
+    }
+
     const adoptante = {
       email: email,
       user: {
@@ -99,17 +138,26 @@ const editAdoptante = async (request, response, error) => {
         dni: dni, 
         telefono: telefono, 
         descripcion: descripcion,
-        image: protectoraFound.user.image,
+        image: (file == undefined) ? adoptanteFound.user.image : file.filename,
       }
 
     }
     return response.render('users/edit_adoptante', {errors: validation, adoptante})
   }
+  if (file) {
+    const adoptanteFound = await User.findById(user._id).populate('user')
+    try {
+      await unlinkAsync("public/uploads/" + adoptanteFound.user.image)
+    } catch (err) {
+      console.log(err);
+    }
+    adoptanteFound.user.image = file.filename;
+    await adoptanteFound.user.save();
+  }
   const adoptanteUpdated = { 
     nombre: nombre,
-    cif: cif, 
-    telefono: telefono, 
-    ciudad: ciudad,
+    dni: dni, 
+    telefono: telefono,
     descripcion: (descripcion == '') ? undefined : descripcion,
     image: (file == undefined) ? file : file.filename,
   };   
@@ -117,7 +165,7 @@ const editAdoptante = async (request, response, error) => {
     email: email
   };
   await User.findByIdAndUpdate(user._id, newUser);
-  await Protectora.findByIdAndUpdate(user.user, adoptanteUpdated);
+  await Adoptante.findByIdAndUpdate(user.user, adoptanteUpdated);
 
 
   request.flash("success_msg", `Usuario actualizado`);

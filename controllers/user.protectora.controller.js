@@ -4,6 +4,9 @@ const Solicitud = require('../models/Solicitud')
 const {validateProtectora} = require('../utils/service.validations.user.protectora')
 const token = require('../utils/generateToken')
 const jwt = require('jsonwebtoken')
+const fs = require('fs')
+const {promisify} = require('util')
+const unlinkAsync = promisify(fs.unlink)
 
 const renderRegistroProtectora =  (request, response) => 
 {
@@ -13,23 +16,43 @@ const renderRegistroProtectora =  (request, response) =>
 const registroProtectora = async (request, response) => 
 {
   const { email, cif, telefono, descripcion, nombre, password, role, ciudad } = request.body;
-  console.log(role);
-  const {file} = request
-
-  // if (!validatorProtectora.validateNombreProtectora(nombre)) errors.push('El nombre debe ser superior a 4 caracteres'); 
-  // validatorProtectora.validateTelefonoProtectora(telefono)
-
+  const {file, body} = request
+  let imageUploaded = body.imageHidden;
   const validation = validateProtectora(request)
   if (Object.keys(validation).length !== 0) {
-    return response.render('users/signup_protectora', {errors: validation, email, cif, telefono, descripcion, nombre, ciudad, password, role})
+    if (file && !validation.image) {
+      try {
+        if (imageUploaded != ''){
+          await unlinkAsync("public/uploads/" + imageUploaded)
+        }
+      } catch (error) {
+        request.flash('success_msg', error)
+        return response.render('users/signup_protectora', {errors: validation, email, cif, telefono, descripcion, nombre, ciudad, password, role, imageUploaded, error})
+      }
+
+      
+      imageUploaded = file.filename;
+    }
+    return response.render('users/signup_protectora', {errors: validation, email, cif, telefono, descripcion, nombre, ciudad, password, role, imageUploaded})
   }
+
+  if(file && imageUploaded != file.filename){
+      try {
+        if (imageUploaded != ''){
+          await unlinkAsync("public/uploads/" + imageUploaded)
+        }
+      } catch (error) {
+        request.flash('success_msg', error)
+        return response.render('users/signup_protectora', {errors: validation, email, cif, telefono, descripcion, nombre, ciudad, password, role, imageUploaded, error})
+      }
+    }
   const newProtectora = new Protectora({ 
     nombre: nombre,
     cif: cif, 
     telefono: telefono, 
     ciudad: ciudad,
     descripcion: (descripcion == '') ? undefined : descripcion,
-    image: (file == undefined) ? file : file.filename,
+    image: (file == undefined) ? imageUploaded : file.filename,
   }); 
   const protectorasaved = await newProtectora.save();
   
@@ -47,7 +70,7 @@ const registroProtectora = async (request, response) =>
     httpOnly: true
   });
 
-  request.flash("success_msg", `Usuario ${role} con email: ${email} registrado`);
+  // request.flash("success_msg", `Usuario ${role} con email: ${email} registrado`);
   response.redirect('/')
 }
 
@@ -88,6 +111,7 @@ const busquedaProtectoras = async (request, response) =>
 const renderProtectora = async (request, response) => {
   const { id } = request.params
   const userProtectora = await User.findById(id).populate('user')
+  console.log(userProtectora);
   const animalsByProtectora = await userProtectora.user.populate('animales')
 
   response.render('users/protectora', {protectora: userProtectora, animales : animalsByProtectora.animales})
@@ -143,10 +167,24 @@ const renderEditProtectora = async (request, response) => {
 const editProtectora = async (request, response, error) => {
   const {user} = request.user
   const { email, cif, telefono, descripcion, nombre, password, role, ciudad } = request.body;
-  const {file} = request
+  const {file,body} = request
   const validation = validateProtectora(request)
   if (Object.keys(validation).length !== 0) {
+    const protectoraBody = body
     const protectoraFound = await User.findById(user._id).populate('user')
+
+    if (file && !validation.image) {
+      try {
+        await unlinkAsync("public/uploads/" + protectoraFound.user.image)
+
+      } catch (err) {
+        console.log(err);
+      }
+      protectoraFound.user.image = file.filename;
+      await protectoraFound.user.save();
+    }
+
+
     const protectora = {
       email: email,
       user: {
@@ -155,12 +193,22 @@ const editProtectora = async (request, response, error) => {
         telefono: telefono, 
         ciudad: ciudad,
         descripcion: descripcion,
-        image: protectoraFound.user.image,
+        image: (file == undefined) ? protectoraFound.user.image : file.filename,
       }
-
     }
     return response.render('users/edit_protectora', {errors: validation, protectora})
   }
+  if (file) {
+    const protectoraFound = await User.findById(user._id).populate('user')
+    try {
+      await unlinkAsync("public/uploads/" + protectoraFound.user.image)
+    } catch (err) {
+      console.log(err);
+    }
+    protectoraFound.user.image = file.filename;
+    await protectoraFound.user.save();
+  }
+
   const newProtectora = { 
     nombre: nombre,
     cif: cif, 
