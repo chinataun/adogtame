@@ -9,6 +9,7 @@ const renderAnimales = async (request, response) => {
   const animales_filtrado_tipo = await Animal.collection.distinct("tipo")
 const animales_filtrado_genero = await Animal.collection.distinct("genero")
 const animales_filtrado_raza = await Animal.collection.distinct("raza")
+
   response.render('animales/animales', {animales})
 }
 

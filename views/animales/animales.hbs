@@ -1,35 +1,11 @@
 <div id="animales">
     <section id="box">
-<table id="caja_busqueda_avanzada" style="display: none;" >
-<tr>
-                
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td> Ciudad &nbsp;&nbsp;&nbsp;&nbsp; </td>
-                <td> <!-- --------------------  Filtro busqueda por ciudad --------------------                      <option value="Todos"} ></option> --> 
-                    <select  id='filtrado_ciudad'  onclick='onBusquedaProtectora_Ciudad()'  style=" text-transform: lowercase;" > 
-                         <option value=""> Mostras todas las ciudades  </option> 
-                        {{#each protectora_filtrado_ciudad }} 
-                            <option value={{this}}> {{this}} </option> 
-                        {{/each}} 
-                    </select>
-                </td>
-            </tr>
-            </table>
-            <table id="caja_busqueda_general">
-            <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td> Busqueda general  &nbsp;&nbsp;&nbsp;&nbsp; </td>
-                <td  >
-                    <form name="frmBuscador" method="post" action="/animales/buscar">
-                        <input type="search" id="Buscado"           name="busqueda"  class="Buscador"  placeholder="Busqueda general..." />
-                        <input type="submit" id="btnFiltrarAnimal"  name="Buscar"    value="filtrado general"  title="aaaaaaaaa" >
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8" >
-                &nbsp;&nbsp;&nbsp;&nbsp; <button onclick="AccionBusquedaAvanzada()" id="linkAccionBusqueda" name="linkAccionBusqueda" title="Has clic aqui para realizar una busqueda avanzada..." >Has clic aqui para realizar una busqueda avanzada... </button>
-                </td>
-            </tr>
-        </table>
+        <p>
+            <form name="frmBuscador" method="post" action="/animales/buscar">
+                <input type="search" id="Buscado" name="busqueda" class="Buscador" placeholder="Buscar animal..." />
+            </form>
+    
+       </p>
     </section>
 <ul>
         {{#each animales}}
