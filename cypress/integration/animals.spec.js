@@ -33,4 +33,12 @@ describe('Animales', () =>{
       cy.contains('Tipo obligatorio')
     })
   })
+  describe('Cargar historial medico de animal', () =>{
+    it.skip('login form can be opened', () => {
+      cy.visit('http://localhost:4000/animales/add')
+      cy.get('[placeholder="Historial"]').type('')
+      cy.get('button[type="submit"]').click()
+      cy.contains('file')
+    })
+  })
 })
