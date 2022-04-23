@@ -58,5 +58,48 @@ const renderSolicitudesAdoptante = async (request, response) => {
   response.render('users/solicitudes_adoptante', {solicitudes})
 
 }
+const renderEditAdoptante = async (request, response) => {
+  const {user} = request.user
+  const adoptante = await User.findById(user._id).populate('user')
+  response.render('users/edit_adoptante', {adoptante})
+}
 
-module.exports = {renderRegistroAdoptante, registroAdoptante,renderAdoptante, renderSolicitudesAdoptante}
+const editAdoptante = async (request, response, error) => {
+  const {user} = request.user
+  const { email, dni, telefono, descripcion, nombre} = request.body;
+  const {file,body} = request
+  const validation = validateAdoptante(request)
+  if (Object.keys(validation).length !== 0) {
+    const adoptanteBody = body
+    const adoptanteFound = await User.findById(user._id).populate('user')
+
+    const adoptante = {
+      email: email,
+      user: {
+        nombre: nombre,
+        dni: dni, 
+        telefono: telefono, 
+        descripcion: descripcion,
+        image: (file == undefined) ? adoptanteFound.user.image : file.filename,
+      }
+
+    }
+    return response.render('users/edit_adoptante', {errors: validation, adoptante})
+  }
+const adoptanteUpdated = { 
+    nombre: nombre,
+    dni: dni, 
+    telefono: telefono,
+    descripcion: (descripcion == '') ? undefined : descripcion,
+    image: (file == undefined) ? file : file.filename,
+  };
+  const newUser = {
+    email: email
+  };
+  await User.findByIdAndUpdate(user._id, newUser);
+  await Adoptante.findByIdAndUpdate(user.user, adoptanteUpdated);
+
+  response.redirect('/users/adoptante/' + user._id)
+}
+
+module.exports = {renderRegistroAdoptante, registroAdoptante,renderAdoptante, renderSolicitudesAdoptante, renderEditAdoptante,editAdoptante}
