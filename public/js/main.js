@@ -83,6 +83,13 @@ function onBusquedaProtectora_Ciudad()
     document.getElementById("edad_maxima_animal").value = edad_maxima ;
 
   }
+  
+  function onBusquedaAnimal_Tipo() 
+  {
+    var e = document.getElementById("filtrado_tipo");
+    var selectlista = e.options[e.selectedIndex].text;
+    document.getElementById("filtro_tipo_animal").value = selectlista;
+  }
 
   jQuery(function($) {
     $('#solicitud').on('show.bs.modal', function (event) {
