@@ -1,11 +1,11 @@
 :root{
-  --primario: #b6d5e9;
+
   --fuenteParrafos: 'Open Sans', sans-serif;
 }
 html{
   box-sizing: border-box;/*par aque no afecte al ancho de nuestros elelmentos*/
   font-size: 62.5%;
-
+  background-image: url("https://i0.wp.com/medioambienteynaturaleza.com/wp-content/uploads/2015/08/Animales-tiernos-aa.jpg?ssl=1");
 }
 
 body{
@@ -210,17 +210,6 @@ body {
 height: 100%;
 } */
 
-.body2 {
-
-background-color: #5d4660;
-*zoom: 1;
-filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF5D4660', endColorstr='#FFF7EEC7');
-background-size: 100%;
-background-image: -webkit-gradient(linear, 100% 100%, 100% 100%, color-stop(0%, #5094cc), color-stop(100%, #eaf1f8));
-background-image: -moz-linear-gradient(top, #5094cc 100%, #eaf1f8 100%);
-background-image: -webkit-linear-gradient(top, #5094cc 100%, #eaf1f8 100%);
-background-image: linear-gradient(to bottom, #5094cc 100%, #dfbdbd 100%);
-}
 
 .wrap {
 width: 800px;
@@ -238,19 +227,41 @@ margin-top: 50px  ;
 
 li {list-style:none; font-size:12px;}
 
-ul li {
+
+#css_resultado_busqueda_animal li {
 float: left;
-width: 280px;
+width: 230px;
+height: 320px;
+padding: auto;
 text-align: center;
-border-left: 1px solid #dddcd8;
+border-left: 0px solid #dddcd8;
 margin: 30px 10px 10px 10px ;
+border-radius: 10px;
+background: -prefix-linear-gradient(top, rgb(0, 0, 0), white);
+background: linear-gradient(to bottom, rgb(0, 0, 0), white);
+opacity: 80%;
 }
+
+#css_resultado_busqueda_animal_individual {
+  float: left;
+  width: 230px;
+  height: 320px;
+  padding: auto;
+  text-align: center;
+  border-left: 0px solid #dddcd8;
+  margin: 30px 10px 10px 10px ;
+  border-radius: 10px;
+  background: -prefix-linear-gradient(top, rgb(0, 0, 0), white);
+  background: linear-gradient(to bottom, rgb(0, 0, 0), white);
+  opacity: 80%;
+  }
 
 .top {
 background-color: #535053;
 height: 65px;
 border-radius: 10px;
 color: #fff;
+
 }
 .top h1 {
 padding-top: 20px;
@@ -265,7 +276,7 @@ font-size: 13px;
 color: #fff;
 line-height: 60px;
 text-align: center;
-background: #ffffff;
+
 margin-left: 110px;
 margin-top: 10px;
 }
@@ -287,6 +298,7 @@ font-weight: bold;
 
 .sign {
 margin-top: 40px;
+
 }
 .sign .button {
 border: 1px solid #ffffff;
@@ -294,11 +306,12 @@ padding: 10px 40px;
 -webkit-border-radius: 6px;
 -moz-border-radius: 6px;
 border-radius: 6px;
-color: #ffffff;
+color: #2c2c2c;
 font-size: 14px;
 text-decoration: none;
 vertical-align: middle;
-font-size: 13px;
+font-size: 12px;
+
 }
 
 .purple {
@@ -315,17 +328,19 @@ background-color: #bc9b94;
 
 
 #box { 
-  background-color : rgb(77, 128, 170); 
-  margin-top: 5px; 
+  opacity: 80%;
+  background-color : rgb(10, 10, 10); 
+
   color: #fbffff;
   padding: 15px; 
-  -webkit-box-shadov: 10px 10px 20px 1px rgba(0, 0, 0, 0. 75); 
-  -moz-box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0. 75); 
   box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0. 75); 
   border-radius: 10px 10px 10px 10px; 
+  -webkit-box-shadov: 10px 10px 20px 1px rgba(0, 0, 0, 0. 75); 
+  -moz-box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0. 75); 
   -moz-border-radius: 10px 10px 10px 10px; 
   -webkit-border-radius: 10px 10px 10px 10px; 
   border: 0px solid #000000;
+
 }
 
 .Buscador
@@ -366,11 +381,13 @@ align-self: center;
   align-items: center;
 }
 
-.bottom .animal_image {
+.bottom .animal_image 
+{
 display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 12px;
+  top: 60px;
 }
 
 #animal .bottom img {

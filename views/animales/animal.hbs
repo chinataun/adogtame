@@ -1,12 +1,15 @@
 
 <div id="animal">
 
-  <div class="top">
+  <div class="top_individual">
     <h1>
         {{animal.nombre}}
     </h1>
   </div>
           {{> messages }}
+<div  id="css_resultado_busqueda_animal_individual" >
+
+
     <div class="bottom">
       <div class="animal_image">
         <img src="/uploads/{{ animal.image }}" alt="perrete">
@@ -47,7 +50,7 @@
           <span>Si desea solicitar la adopción de {{animal.nombre}} debe <a href="/users/registro">registrarse</a> como adoptante en nuestra página.
         {{/if}} 
       {{/if}} 
-      
+</div>   
 
 
 
