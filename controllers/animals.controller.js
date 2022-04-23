@@ -6,10 +6,6 @@ const {validateAnimal} = require('../utils/service.validations.animales')
 
 const renderAnimales = async (request, response) => {
   const animales = await Animal.find({}) 
-  const animales_filtrado_tipo = await Animal.collection.distinct("tipo")
-const animales_filtrado_genero = await Animal.collection.distinct("genero")
-const animales_filtrado_raza = await Animal.collection.distinct("raza")
-
   response.render('animales/animales', {animales})
 }
 
@@ -23,9 +19,11 @@ const busquedaAnimal = async (request, response) => {
 
   const {busqueda} = request.body
   console.log(busqueda);
-  Animal.find({
-    'descripcion' : {$regex : busqueda}
-  })
+  Animal.find(
+    {
+    'descripcion' : {$regex : busqueda},
+    'edad' : { '$gt':busqueda[3] ,'$lt': busqueda[4] }
+    })
   .then(animales => {
 
     if (animales)
