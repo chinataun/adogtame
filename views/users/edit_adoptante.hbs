@@ -1,0 +1,84 @@
+<div class="row">
+  <div class="col-md-4 mx-auto">
+    <div class="card mt-4">
+      <div class="card-header">
+        <h1>
+          Editar Adoptante
+        </h1>
+
+      </div>
+              
+      <div class="card-body">
+        <form action="/users/edit-adoptante" method="POST" enctype="multipart/form-data" novalidate>
+          <div class="mb-3">
+            <label class="form-label" for="inputEmail">Nombre</label>
+            <input type="text" class="form-control {{#errors.nombre}}is-invalid{{/errors.nombre}}" name="nombre" placeholder="Nombre" value="{{adoptante.user.nombre}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.nombre}}
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="inputEmail">Dni</label>
+            <input type="text" class="form-control {{#errors.dni}}is-invalid{{/errors.dni}}" name="dni" placeholder="Dni" value="{{adoptante.user.dni}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.dni}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputEmail">Telefono</label>
+            <input type="text" class="form-control {{#errors.telefono}}is-invalid{{/errors.telefono}}" name="telefono" placeholder="Telefono" value="{{adoptante.user.telefono}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.telefono}}
+            </div>
+          </div>
+         
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Descripción</label>
+            <textarea class="form-control {{#errors.descripcion}}is-invalid{{/errors.descripcion}}" name="descripcion" id="inlineDescription" placeholder="Descripcion de la protectora">{{adoptante.user.descripcion}}</textarea>
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.descripcion}}
+            </div>
+          </div>
+
+          <div>
+            
+            <button class="btn btn-primary btn-block">
+              Editar adoptante 
+            </button>
+            <span><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarCuenta">Eliminar cuenta</button>
+          </div>
+
+        </form>
+        
+
+      </div>
+              
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="eliminarCuenta" tabindex="-1" aria-labelledby="eliminalCuentaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="eliminalCuentaLabel">Eliminar Usuario {{adoptante.role}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <form action="/users/delete/{{adoptante._id}}?_method=DELETE" method="post" >
+
+          <div class="mb-3">
+            ¿Estas seguro que darte de baja del sistema, {{adoptante.user.nombre}}? Perderás todas tus solicitudes de adopción en marcha. Esta acción es irrecuperable.
+          </div>
+          <input type="text" class="form-control" id="recipient-name" name="animal" value="{{adoptante.id}}" hidden>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rechazar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
