@@ -11,7 +11,7 @@ html{
 body{
 
   /* font-size: 16px; 1 rem = 10px */
-  padding-top: 100px; 
+  padding-top: 65px; 
   /*background-image: url("../images/firulais.png");  */
   /* background-image: radial-gradient(circle at 50% -20.71%, #3fbea1 0, #29beab 5%, #00bfb5 10%, #00bebf 15%, #00bec9 20%, #00bdd2 25%, #00bcdb 30%, #00bbe2 35%, #00b9e9 40%, #1cb7ee 45%, #3cb5f2 50%, #53b2f5 55%, #68aff6 60%, #7bacf6 65%, #8ca9f5 70%, #9ca5f2 75%, #aba1ee 80%, #b99ee8 85%, #c59ae2 90%, #d096da 95%, #d993d2 100%);background-image: radial-gradient(circle at 87.5% 12.5%, #e1b234 0, #e7a62c 12.5%, #ec9a25 25%, #f08b20 37.5%, #f37b1f 50%, #f56922 62.5%, #f75728 75%, #f94130 87.5%, #fa253a 100%);background-repeat: no-repeat;  */
   /* background-image: url("../images/37906-perros.jpg"); */
@@ -20,11 +20,14 @@ body{
    background-image: url("../images/37959-perros.jpg"); 
   background-position: center center; 
   background-attachment: fixed; 
- background-size:cover; 
-
- 
-
+  background-size:cover;
 }
+.card-header,.card-body{
+  background-color: rgba(0,0,0,.6);
+  border-bottom: 1px solid rgba(0,0,0,.6);
+}
+
+
 .margenNav{
   margin-left: 4.5rem;
   margin-right: 2.5rem;
@@ -208,20 +211,73 @@ margin-top: 50px  ;
 li {list-style:none; 
   font-size:15px;}
 
-ul li {
-float: left;
+.topPlus ul li {
+display: flex;
+flex-direction: column;
 width: 280px;
+height: 380px;
 text-align: center;
-border-left: 1px solid #dddcd8;
+
+
 margin: 30px 10px 10px 10px ;
+background-color: #151515;
+  border: 1px solid;
+  
+  
+  border-image:
+  linear-gradient(#1c64ff,
+      #1c64ff,
+      #000000,
+      #000000) 1;
+      border-radius: 10px;
 }
 
+.sign {
+  margin-top: 40px;
+  }
+  .sign .button {
+  border: 3px solid #ffffff;
+  color: #ffffff;
+  padding: 10px 40px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 14px;
+  text-decoration: none;
+  vertical-align: middle;
+  font-size: 13px;
+  }
+  .button:hover{
+      animation: pulsate 1s
+      ease-in-out;
+    }
+    @keyframes pulsate {
+      0%{
+        box-shadow: 
+        0 0 25px #66d2ec,
+        0 0 50px #5094cc;
+      }
+    }
+    
+
+
 .top {
-background-color: #535053;
-height: 65px;
+background-color: #407093;
+
 border-radius: 10px;
 color: #fff;
 }
+
+ul li {
+  float: left;
+  width: 280px;
+  text-align: center;
+  border-left: 1px solid #dddcd8;
+  margin: 30px 10px 10px 10px ;
+  }
+  
+
 .top h1 {
 padding-top: 20px;
 font-size: 20px;
@@ -255,21 +311,7 @@ color: #000000;
 font-weight: bold;
 }
 
-.sign {
-margin-top: 40px;
-}
-.sign .button {
-border: 1px solid #ffffff;
-padding: 10px 40px;
--webkit-border-radius: 6px;
--moz-border-radius: 6px;
-border-radius: 6px;
-color: #ffffff;
-font-size: 14px;
-text-decoration: none;
-vertical-align: middle;
-font-size: 13px;
-}
+
 
 .purple {
 background-color: #5d4660;
@@ -280,11 +322,11 @@ color: #ffffff;
 }
 
 .pink {
-background-color: #bc9b94;
+background-color: #3f6f92;
 }
 
 #box { 
-  background-color : rgb(77, 128, 170); 
+  background-color : #407093; 
   margin-top: 5px; 
   color: #fbffff;
   padding: 15px; 
@@ -294,7 +336,7 @@ background-color: #bc9b94;
   border-radius: 10px 10px 10px 10px; 
   -moz-border-radius: 10px 10px 10px 10px; 
   -webkit-border-radius: 10px 10px 10px 10px; 
-  border: 0px solid #000000;
+  border: 0px solid #ffffff;
 }
 
 .Buscador
@@ -314,10 +356,12 @@ background-color: #bc9b94;
 
 /* animal */
 #animal {
+  
 display: flex;
 justify-content: center;
 align-items: stretch;
 flex-direction: column;
+margin: 0 auto;
 }
 
 #animal h1 {
@@ -407,8 +451,30 @@ border-radius: 50px;
     color: #000000 !important;
   }
 
-  /* VALIDACIONES BOOTSTRAP */
-  /* .form-control.is-invalid:focus, .was-validated .form-control:invalid:focus {
-    border-color: unset;
-    box-shadow:unset;
-} */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+  *{
+      margin: 0;
+      padding: 0;
+  }
+
+  .link{
+      color: #fff;
+      position: relative; 
+  }
+  .link::after{
+      content: ''; 
+      width: 100%;
+      height: 1px;
+      background-color: rgb(1, 117, 212);
+      border-radius: 4px; 
+      position: absolute;
+      left: 0; 
+      bottom: 0; 
+      transform: scaleX(0); 
+      transform-origin: left; 
+      transition: transform .25s ease; 
+  }
+  .link:hover::after{
+      transform: scaleX(1); 
+  }

@@ -10,28 +10,28 @@
             <div id="navbarCollapse" class="collapse navbar-collapse justify-content-end margenNav">
             
                     <li class="nav-item">
-                        <a class="nav-link" href="/animales">Animales</a>
+                        <a class="nav-link link" href="/animales">Animales</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/users/protectoras">Protectoras</a>
+                        <a class="nav-link link" href="/users/protectoras">Protectoras</a>
                     </li>
                
                     {{#if user}}
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Usuario</a>
+                        <a href="#" class="nav-link dropdown-toggle link" data-bs-toggle="dropdown">Usuario</a>
                         {{# protectora }}
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="/animales/add" class="dropdown-item letraNegro">Añadir animales</a>
-                                <a href="/users/solicitudesProtectora" class="dropdown-item letraNegro">Solicitudes</a>
+                                <a href="/animales/add" class="dropdown-item letraNegro  link">Añadir animales</a>
+                                <a href="/users/solicitudesProtectora" class="dropdown-item letraNegro link">Solicitudes</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="/users/logout" class="dropdown-item letraNegro">Logout</a>  
+                                <a href="/users/logout" class="dropdown-item letraNegro link">Logout</a>  
                             </div>
                         {{/ protectora}}
                         {{# adoptante }}
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="/users/solicitudesAdoptante" class="dropdown-item">Mis solicitudes</a>
+                                <a href="/users/solicitudesAdoptante" class="dropdown-item link">Mis solicitudes</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="/users/logout" class="dropdown-item">Logout</a>
+                                <a href="/users/logout" class="dropdown-item link">Logout</a>
                             </div>
                         {{/ adoptante}}
                         
@@ -39,14 +39,14 @@
                     {{/if}}
                     {{^ user}}
                     <li class="nav-item">
-                    <a class="nav-link" href="/users/login">Iniciar sesion</a>
+                    <a class="nav-link link" href="/users/login ">Iniciar sesion</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="/users/registro">Registrarse</a>
+                    <a class="nav-link link" href="/users/registro">Registrarse</a>
                     </li>
                     {{/ user}}
                      <li class="nav-item">
-                        <a class="nav-link" href="/users/sobreNosotros">Sobre Nosotros</a>
+                        <a class="nav-link link" href="/users/sobreNosotros">Sobre Nosotros</a>
                     </li>
             </div>
         </div>

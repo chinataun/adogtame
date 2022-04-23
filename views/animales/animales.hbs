@@ -36,30 +36,34 @@
                        </table> 
        </p>
     </section>
-    <ul>
-        {{#each animales}}
-            <p>
-                <li>
-                    <div class="top">
-                        <h1>
-                            {{nombre}}
-                        </h1>
-                        <div class=""><img id="avatar_animal" src="../images/{{tipo}}.png" width="60" height="60"></div>
-                    </div>
-                    <div class="bottom">
-                        <br>
-                        <p><span> Tipo:          </span> {{ tipo }}         </p>
-                        <p><span> Raza:          </span> {{ raza }}         </p>
-                        <p><span> Genero:        </span> {{ genero}}       </p>
-                        <div class="sign">
-                        <a href='/animales/animal/{{id }}' class='button'>Ver mas detalles..</a>
+
+    <div class="topPlus">
+
+        <ul>
+            {{#each animales}}
+                    <li>
+                        <div class="top">
+                            <h1>
+                                {{nombre}}
+                            </h1>
+                            <div class=""><img id="avatar_animal" src="../images/{{tipo}}.png" width="60" height="60"></div>
                         </div>
-                    </div>
+                        <div class="bottom">
+                            <br>
+                            <p><span> Tipo:          </span> {{ tipo }}         </p>
+                            <p><span> Raza:          </span> {{ raza }}         </p>
+                            <p><span> Genero:        </span> {{ genero}}       </p>
+                            <div class="sign">
+                            <a href='/animales/animal/{{id }}' class='button'>Ver mas detalles..</a>
+                            </div>
+                        </div>
                     </li>
-            </p>
-        {{/each}}
-       
-    </ul>
+            
+            {{/each}}
+        
+        </ul>
+
+    </div>
     
     </div>
 
