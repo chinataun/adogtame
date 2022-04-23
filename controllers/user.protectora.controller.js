@@ -35,9 +35,6 @@ const registroProtectora = async (request, response) =>
     }
     return response.render('users/signup_protectora', {errors: validation, email, cif, telefono, descripcion, nombre, ciudad, password, role, imageUploaded})
   }
-<<<<<<< HEAD
-  const newProtectora = new Protectora ({ 
-=======
 
   if(file && imageUploaded != file.filename){
       try {
@@ -50,7 +47,6 @@ const registroProtectora = async (request, response) =>
       }
     }
   const newProtectora = new Protectora({ 
->>>>>>> c000ddc7cd0a5ce6efaa8aa79141bd8a96fab9ca
     nombre: nombre,
     cif: cif, 
     telefono: telefono, 
