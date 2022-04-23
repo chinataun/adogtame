@@ -3,6 +3,9 @@ const Protectora = require('../models/Protectora')
 const Solicitud = require('../models/Solicitud')
 const User = require('../models/User')
 const {validateAnimal} = require('../utils/service.validations.animales')
+const fs = require('fs')
+const {promisify} = require('util')
+const unlinkAsync = promisify(fs.unlink)
 
 const renderAnimales = async (request, response) => {
   const animales = await Animal.find({}) 
@@ -167,6 +170,18 @@ const editAnimal = async (request, response, error) => {
   if (Object.keys(validation).length !== 0) {
     const animal = body
     animal.id = id;
+    const animalFound = await Animal.findById(id)
+
+    animal.image = (file == undefined) ? animalFound.image : file.filename;
+    if (file && !validation.image) {
+      try {
+        await unlinkAsync("public/uploads/" + animalFound.image)
+      } catch (err) {
+        console.log(err);
+      }
+      animalFound.image = file.filename;
+      await animalFound.save();
+    }
 
     let checkedH;
     let checkedM;
@@ -177,17 +192,29 @@ const editAnimal = async (request, response, error) => {
     }
     return response.render('animales/edit', {errors: validation, animal, checkedH, checkedM})
   }
-try {
+
+  if (file) {
+    const animalFound = await Animal.findById(id)
+    try {
+      await unlinkAsync("public/uploads/" + animalFound.image)
+    } catch (err) {
+      console.log(err);
+    }
+    animalFound.image = file.filename;
+    await animalFound.save();
+  }
+  try {
     const animal = {
       nombre: body.nombre,
       tipo: body.tipo,
       raza: body.raza,
       edad: body.edad,
       genero: body.genero,
-      historial:body.descripcion,
+      image: (file == undefined) ? file: file.filename,
       descripcion:body.descripcion,
 
   }
+  
   let animalUpdated = await Animal.findByIdAndUpdate(id, animal);
 
     request.flash('success_msg', 'Editado con éxito')
