@@ -50,6 +50,13 @@
             </div>
           </div>
           <div class="mb-3">
+            <label for="message-text" class="col-form-label">Historial médico</label>
+            <textarea class="form-control {{#errors.historial}}is-invalid{{/errors.historial}}" name="historial" id="inlineHistorial" placeholder="Historial médico del animal.">{{animal.historial}}</textarea>
+            <div id="validationHistorialFeedback" class="invalid-feedback">
+              {{errors.historial}}
+            </div>
+          </div>
+          <div class="mb-3">
             <label for="message-text" class="col-form-label">Descripción</label>
             <textarea class="form-control" name="descripcion" id="inlineDescription" placeholder="Descripcion del animal">{{animal.descripcion}}</textarea>
             <div id="validationNombreFeedback" class="invalid-feedback">
