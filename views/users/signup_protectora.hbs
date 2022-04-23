@@ -5,8 +5,14 @@
         <h1>
           Registro Protectora
         </h1>
+        {{error}}
       </div>
-        <img class="rounded-circle mx-auto d-block logo m-4" src="/images/logo.png" alt="Logo">
+      {{#if imageUploaded}}
+      <img id="image" src="/uploads/{{ imageUploaded }}" alt="logo" title="Logo protectora"/></br>
+      {{/if}}
+      {{^if imageUploaded}}
+      <img class="rounded-circle mx-auto d-block logo m-4" src="/images/logo.png" alt="Logo">
+      {{/if}}
       <div class="card-body">
               <form action="/users/registro/protectora" method="POST" enctype="multipart/form-data" novalidate>
           <div class="mb-3">
@@ -40,6 +46,10 @@
           </div>
            <div class="mb-3">
             <label class="form-label" for="inputImage">Imagen</label>
+            {{#if imageUploaded}}
+              <img id="image" src="/uploads/{{ imageUploaded }}" width="60px" alt="image" /></br>
+            {{/if}}
+            <input class="form-control" type="text" hidden name="imageHidden" {{#if imageUploaded}}value="{{imageUploaded}}"{{/if}}  id="inputImage">
             <input class="form-control {{#errors.file}}is-invalid{{/errors.file}}" type="file" name="image" id="inputImage">
             <div id="validationNombreFeedback" class="invalid-feedback">
               {{errors.file}}

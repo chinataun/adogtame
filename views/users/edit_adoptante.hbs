@@ -8,9 +8,14 @@
 
       </div>
               
-            <div class="animal_image text-center">
-                <img class="" src="/uploads/{{ adoptante.user.image }}" alt="Logo">
-            </div>
+      <div class="animal_image text-center">
+        {{#if adoptante.user.image}}
+          <img id="image" src="/uploads/{{ adoptante.user.image }}" alt="logo" title="Logo adoptante"/></br>
+        {{/if}}
+        {{^if adoptante.user.image}}
+            <img class="rounded-circle mx-auto d-block logo m-4" src="/images/logo.png" alt="Logo">
+        {{/if}}            
+      </div>
       <div class="card-body">
         <form action="/users/edit-adoptante" method="POST" enctype="multipart/form-data" novalidate>
           <div class="mb-3">
@@ -37,6 +42,8 @@
           </div>
           <div class="mb-3">
             <label class="form-label" for="inputImage">Imagen</label>
+            <input class="form-control" type="text" hidden name="imageUploaded" {{#if adoptante.user.image }}value="{{adoptante.user.image }}"{{/if}}  id="inputImage">
+
             <input class="form-control {{#errors.file}}is-invalid{{/errors.file}}" type="file" name="image" id="inputImage">
             <div id="validationNombreFeedback" class="invalid-feedback">
               {{errors.file}}
