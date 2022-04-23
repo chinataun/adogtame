@@ -6,7 +6,14 @@
           Editar animales
         </h1>
       </div>
-
+      <div class="animal_image text-center">
+        {{#if adoptante.user.image}}
+          <img id="image" src="/uploads/{{ adoptante.user.image }}" alt="logo" title="Logo adoptante"/></br>
+        {{/if}}
+        {{^if adoptante.user.image}}
+            <img class="rounded-circle mx-auto d-block logo m-4" src="/images/logo.png" alt="Logo">
+        {{/if}}
+      </div>
       <div class="card-body">
         <form action="/animales/edit/{{animal.id}}" method="POST" enctype="multipart/form-data">
           <div class="mb-3">
@@ -49,6 +56,15 @@
               {{errors.genero}}
             </div>
           </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputImage">Imagen</label>
+            <input class="form-control" type="text" hidden name="imageUploaded" {{#if adoptante.user.image }}value="{{adoptante.user.image }}"{{/if}}  id="inputImage">
+
+            <input class="form-control {{#errors.file}}is-invalid{{/errors.file}}" type="file" name="image" id="inputImage">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.file}}
+            </div>
+          </div>          
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Historial médico</label>
             <textarea class="form-control {{#errors.historial}}is-invalid{{/errors.historial}}" name="historial" id="inlineHistorial" placeholder="Historial médico del animal.">{{animal.historial}}</textarea>
