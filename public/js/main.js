@@ -43,27 +43,7 @@ function onBusquedaProtectora_Ciudad()
   document.getElementById("filtro_tipo_ciudad").value = selectlista;
   
 }
-  function onBusquedaAnimal_Tipo() 
-  {
-    var e = document.getElementById("filtrado_tipo");
-    var selectlista = e.options[e.selectedIndex].text;
-    document.getElementById("filtro_tipo_animal").value = selectlista;
-  }
 
-  function onBusquedaAnimal_Genero() 
-  {
-    var e = document.getElementById("filtrado_genero");
-    var selectlista = e.options[e.selectedIndex].text;
-    document.getElementById("filtro_genero_animal").value = selectlista;
-  }
-
-  function onBusquedaAnimal_Raza() 
-  {
-    var e = document.getElementById("filtrado_raza");
-    var selectlista = e.options[e.selectedIndex].text;
-    document.getElementById("filtro_raza_animal").value = selectlista;
-  }
-  
   function onBusquedaAnimal_Edad_Minima() 
   {
     var edad_minima = document.getElementById("filtrado_edad_minima").value;
