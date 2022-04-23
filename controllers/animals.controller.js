@@ -9,7 +9,8 @@ const unlinkAsync = promisify(fs.unlink)
 
 const renderAnimales = async (request, response) => {
   const animales = await Animal.find({}) 
-  response.render('animales/animales', {animales})
+  const animales_filtrado_tipo = await Animal.collection.distinct("tipo")
+  response.render('animales/animales', {animales,animales_filtrado_tipo})
 }
 
 const renderAddAnimal = async (request, response) => {
@@ -19,19 +20,20 @@ const renderAddAnimal = async (request, response) => {
 const busquedaAnimal = async (request, response) => {
   console.log(request.query);
   console.log(request.body);
-
+  const animales_filtrado_tipo = await Animal.collection.distinct("tipo")
   const {busqueda} = request.body
   console.log(busqueda);
   Animal.find(
     {
     'descripcion' : {$regex : busqueda},
+    'tipo' : { "$regex" : '.' +  busqueda[0].toLowerCase() + '.'  , "$options": "i"  },
     'edad' : { '$gt':busqueda[3] ,'$lt': busqueda[4] }
     })
   .then(animales => {
 
     if (animales)
     console.log(animales);
-    response.render('animales/animales', {animales})
+    response.render('animales/animales', {animales,animales_filtrado_tipo})
   })
   .catch(err => next(err))
 
