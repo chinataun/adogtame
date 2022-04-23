@@ -1,11 +1,54 @@
 <div id="animales">
     <section id="box">
-        <p>
-            <form name="frmBuscador" method="post" action="protectoras/buscar">
-                <input type="search" id="Buscado" name="busqueda" class="Buscador" placeholder="Buscar protectora..." />
-            </form>
-    
-       </p>
+        <table id="caja_busqueda_avanzada" style="display: none;" >
+        <form name="frmBuscador" method="post" action="protectoras/buscar">
+            <tr>
+                
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td> Ciudad &nbsp;&nbsp;&nbsp;&nbsp; </td>
+                <td> <!-- --------------------  Filtro busqueda por ciudad --------------------                      <option value="Todos"} ></option> --> 
+                    <select  id='filtrado_ciudad'  onclick='onBusquedaProtectora_Ciudad()'  style=" text-transform: lowercase;" > 
+                         <option value=""> Mostras todas las ciudades  </option> 
+                        {{#each protectora_filtrado_ciudad }} 
+                            <option value={{this}}> {{this}} </option> 
+                        {{/each}} 
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                 <td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td> Descripcion &nbsp;&nbsp;&nbsp;&nbsp; </td>
+                 <td>
+
+                       <input type="search" id="Buscado"           name="busqueda"  class="Buscador"  placeholder="Busqueda por descripción.. " />
+                </td>
+                <td colspan="8"> 
+                                      <input type="hidden"   id = "filtro_tipo_ciudad"   name="busqueda" value=""   />
+                    &nbsp;&nbsp;&nbsp; <input type="submit" id="btnFiltrarAnimal"  name="Buscar"    value="Busqueda avanzada"  title="aaaaaaaaa" >
+        </form>
+                </td>
+            </tr>
+             <tr>
+                <td colspan="8" >
+                &nbsp;&nbsp;&nbsp;&nbsp; <button onclick="AccionBusquedaGeneral()" id="linkAccionBusqueda" name="linkAccionBusqueda" title="Has clic aqui para realizar una busqueda general..." >Has clic aqui para realizar una busqueda avanzada... </button>
+                </td>
+            </tr>
+
+        </table>
+        <table id="caja_busqueda_general">
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td> Busqueda general  &nbsp;&nbsp;&nbsp;&nbsp; </td>
+                <td  >
+                    <form name="frmBuscador" method="post" action="protectoras/buscar">
+                        <input type="search" id="Buscado"           name="busqueda"  class="Buscador"  placeholder="Busqueda general protectora... Ej: Nombre protectora, ciudad, tipo animal.. " />
+                        <input type="submit" id="btnFiltrarAnimal"  name="busqueda"    value="Busqueda general"  title="aaaaaaaaa" >
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8" >
+                &nbsp;&nbsp;&nbsp;&nbsp; <button onclick="AccionBusquedaAvanzada()" id="linkAccionBusqueda" name="linkAccionBusqueda" title="Has clic aqui para realizar una busqueda avanzada..." >Has clic aqui para realizar una busqueda avanzada... </button>
+                </td>
+            </tr>
+        </table>
     </section>
     <ul>
         {{#each protectoras}}
