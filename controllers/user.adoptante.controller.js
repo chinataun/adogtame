@@ -1,25 +1,25 @@
 const Adoptante = require('../models/Adoptante')
 const User = require('../models/User')
 const Solicitud = require('../models/Solicitud')
-const {validateAdoptante} = require('../utils/service.validations.user.adoptante')
+const { validateAdoptante } = require('../utils/service.validations.user.adoptante')
 
-const renderRegistroAdoptante =  (request, response) => {
+const renderRegistroAdoptante = (request, response) => {
   response.redirect('/users/registro')
 }
 
 const registroAdoptante = async (request, response) => {
   const { email, dni, telefono, descripcion, nombre, password, role } = request.body;
-  const {file} = request
+  const { file } = request
 
   const validation = validateAdoptante(request)
   if (Object.keys(validation).length !== 0) {
-    return response.render('users/signup_adoptante', {errors: validation, email, dni, telefono, descripcion, nombre, password})
+    return response.render('users/signup_adoptante', { errors: validation, email, dni, telefono, descripcion, nombre, password })
   }
 
-  const newAdoptante = new Adoptante({ 
-    nombre: nombre, 
-    dni: dni, 
-    telefono: telefono, 
+  const newAdoptante = new Adoptante({
+    nombre: nombre,
+    dni: dni,
+    telefono: telefono,
     descripcion: (descripcion == '') ? undefined : descripcion,
     image: (file == undefined) ? file : file.filename,
   });
@@ -32,7 +32,7 @@ const registroAdoptante = async (request, response) => {
     user: adoptantesaved._id,
   })
   newUser.password = await newUser.encryptPassword(password);
-  const userSaved =  await newUser.save();
+  const userSaved = await newUser.save();
 
   request.flash("success_msg", `Usuario ${role} con email: ${email} registrado`);
   response.redirect('/')
@@ -41,12 +41,12 @@ const registroAdoptante = async (request, response) => {
 const renderAdoptante = async (request, response) => {
   const { id } = request.params
   const userAdoptante = await User.findById(id).populate('user')
-  response.render('users/adoptante', {adoptante: userAdoptante})
+  response.render('users/adoptante', { adoptante: userAdoptante })
 }
 
 const renderSolicitudesAdoptante = async (request, response) => {
-  const {user} = request.user
-  const solicitudes = await Solicitud.find({adoptante: user._id}).populate('animal protectora').populate([{
+  const { user } = request.user
+  const solicitudes = await Solicitud.find({ adoptante: user._id }).populate('animal protectora').populate([{
     path: 'protectora',
     model: 'User',
     populate: {
@@ -55,51 +55,74 @@ const renderSolicitudesAdoptante = async (request, response) => {
     }
   }])
   console.log(solicitudes);
-  response.render('users/solicitudes_adoptante', {solicitudes})
+  response.render('users/solicitudes_adoptante', { solicitudes })
 
 }
 const renderEditAdoptante = async (request, response) => {
-  const {user} = request.user
+  const { user } = request.user
   const adoptante = await User.findById(user._id).populate('user')
-  response.render('users/edit_adoptante', {adoptante})
+  response.render('users/edit_adoptante', { adoptante })
 }
 
 const editAdoptante = async (request, response, error) => {
-  const {user} = request.user
-  const { email, dni, telefono, descripcion, nombre} = request.body;
-  const {file,body} = request
+  const { user } = request.user
+  const { email, dni, telefono, descripcion, nombre } = request.body;
+  const { file, body } = request
   const validation = validateAdoptante(request)
   if (Object.keys(validation).length !== 0) {
-    const adoptanteBody = body
     const adoptanteFound = await User.findById(user._id).populate('user')
+    if (file && !validation.image) {
+      try {
+        await unlinkAsync("public/uploads/" + adoptanteFound.user.image)
+
+      } catch (err) {
+        console.log(err);
+      }
+      adoptanteFound.user.image = file.filename;
+      await adoptanteFound.user.save();
+    }
 
     const adoptante = {
       email: email,
       user: {
         nombre: nombre,
-        dni: dni, 
-        telefono: telefono, 
+        dni: dni,
+        telefono: telefono,
         descripcion: descripcion,
         image: (file == undefined) ? adoptanteFound.user.image : file.filename,
       }
 
     }
-    return response.render('users/edit_adoptante', {errors: validation, adoptante})
+    return response.render('users/edit_adoptante', { errors: validation, adoptante })
   }
-const adoptanteUpdated = { 
+
+  if (file) {
+    const adoptanteFound = await User.findById(user._id).populate('user')
+    try {
+      await unlinkAsync("public/uploads/" + adoptanteFound.user.image)
+    } catch (err) {
+      console.log(err);
+    }
+    adoptanteFound.user.image = file.filename;
+    await adoptanteFound.user.save();
+  }
+
+  const adoptanteUpdated = {
     nombre: nombre,
-    dni: dni, 
+    dni: dni,
     telefono: telefono,
     descripcion: (descripcion == '') ? undefined : descripcion,
     image: (file == undefined) ? file : file.filename,
   };
+
   const newUser = {
     email: email
   };
+  
   await User.findByIdAndUpdate(user._id, newUser);
   await Adoptante.findByIdAndUpdate(user.user, adoptanteUpdated);
 
   response.redirect('/users/adoptante/' + user._id)
 }
 
-module.exports = {renderRegistroAdoptante, registroAdoptante,renderAdoptante, renderSolicitudesAdoptante, renderEditAdoptante,editAdoptante}
+module.exports = { renderRegistroAdoptante, registroAdoptante, renderAdoptante, renderSolicitudesAdoptante, renderEditAdoptante, editAdoptante }
