@@ -44,7 +44,11 @@ const registroProtectora = async (request, response) => {
 
 const renderProtectoras = async (request, response) => {
   const protectoras = await User.find({role: 'Protectora'}).populate('user') 
-  response.render('users/protectoras', {protectoras})
+  const protectora_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
+
+  console.log(protectoras)
+  console.log(protectora_filtrado_ciudad)
+  response.render('users/protectoras', {protectoras,protectora_filtrado_ciudad})
 }
 
 const busquedaProtectoras = async (request, response) => {
@@ -52,7 +56,8 @@ const busquedaProtectoras = async (request, response) => {
   const {busqueda} = request.body
   console.log(busqueda);
   Protectora.find({
-    'descripcion' : {$regex : busqueda}
+    'descripcion' : {$regex : busqueda},
+    'ciudad' : {$regex : busqueda}
   })
   .then(protectoras => {
 
