@@ -23,7 +23,7 @@ const registroProtectora = async (request, response) =>
   if (Object.keys(validation).length !== 0) {
     return response.render('users/signup_protectora', {errors: validation, email, cif, telefono, descripcion, nombre, ciudad, password, role})
   }
-  const newProtectora = new Protectora({ 
+  const newProtectora = new Protectora ({ 
     nombre: nombre,
     cif: cif, 
     telefono: telefono, 
@@ -43,7 +43,9 @@ const registroProtectora = async (request, response) =>
   newUser.password = await newUser.encryptPassword(password);
   const userSaved = await newUser.save();
   const token = jwt.sign({user:userSaved}, 'SECRET', {expiresIn: "24h"});
-  response.cookie('token', token, {
+
+  response.cookie('token', token, 
+  {
     httpOnly: true
   });
 
@@ -54,43 +56,76 @@ const registroProtectora = async (request, response) =>
 
 const renderProtectoras = async (request, response) => 
 {
-  const protectoras = await User.find({role: 'Protectora'}).populate('user') 
+  const protectoras = await Protectora.find({}) 
+  //const protectoras = await User.find({role: 'Protectora'}).populate('user') 
   const protectora_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
-
-  console.log(protectoras)
-  console.log(protectora_filtrado_ciudad)
   response.render('users/protectoras', {protectoras,protectora_filtrado_ciudad})
-
 }
 
 const busquedaProtectoras = async (request, response) => 
 {
-
-  console.log("---------------------------------");
+  const protectoras = await User.find({role: 'Protectora'}).populate('user') 
+  const protectora_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
   const {busqueda} = request.body
-  console.log(busqueda);
+  const {buscar} = request.body
 
+  if (buscar.toLowerCase() === "busqueda general") 
+  {
+    console.log("************************         filtrado general         ************************");
+    console.log(busqueda);
 
+    Protectora.find
+    ({
+        "$or": 
+        [
+          {'nombre': { "$regex" : '.*' +  busqueda.toLowerCase() + '.*' , "$options": "i"  } },
+          {'ciudad': { "$regex" : '.*' +  busqueda.toLowerCase() + '.*' , "$options": "i"  } },
+        ]  
+    })
+    .then(protectoras => 
+    {
+        if (protectoras)
+        {
+          response.render('users/protectoras', {protectoras, protectora_filtrado_ciudad})
+        }
+        
+    })
+    .catch(err => next(err))
 
+  } 
+  else 
+  {
+    console.log("************************         filtrado avanzada         ************************");
+    
+    if (busqueda[0].toLowerCase() === "mostras todas las ciudades") { busqueda[0] = ""; }
 
+    Protectora.find
+    ({
+      'descripcion' : { "$regex" : '.*' +  busqueda[1].toLowerCase() + '.*'  , "$options": "i" }, 
+      'ciudad' : { "$regex" : '.*' +  busqueda[0].toLowerCase() + '.*'  , "$options": "i"  }    
+    })
+    .then(protectoras => 
+    {
+      if (protectoras)
+      {
+        response.render('users/protectoras', {protectoras, protectora_filtrado_ciudad })
+      }   
+    })
+    .catch(err => next(err)) 
+  }
 
-  Protectora.find({
-    'descripcion' : {$regex : busqueda[0]}
-  })
-  .then(protectoras => {
-    if (protectoras)
-    response.render('users/protectoras', {protectoras})
-  })
-  .catch(err => next(err))
-
+  
 }
+
+
+
 
 const renderProtectora = async (request, response) => {
   const { id } = request.params
   const userProtectora = await User.findById(id).populate('user')
   const animalsByProtectora = await userProtectora.user.populate('animales')
 
-  response.render('users/protectora', {protectora: userProtectora, animales : animalsByProtectora.animales})
+  response.render('users/', {protectora: userProtectora, animales : animalsByProtectora.animales})
 
   // User.findById(id).populate('user')
   //   .then(protectora => {

@@ -398,8 +398,15 @@ border-radius: 50px;
   border-radius: 10px;
   text-align: center;
   }
-
-
+#filtrado_ciudad
+{
+  width: 200px;
+  margin: 1px auto;
+  text-align: left;
+  color: #2e4146;
+  border-radius: 10px;
+  text-align: center;
+  }
   
 #edad_minima_animal 
 {
