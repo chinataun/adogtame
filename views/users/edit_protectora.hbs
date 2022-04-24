@@ -6,6 +6,15 @@
           Editar Protectora
         </h1>
       </div>
+      <div class="animal_image text-center">
+      {{#if protectora.user.image}}
+        <img id="image" src="/uploads/{{ protectora.user.image }}" alt="logo" title="Logo protectora"/></br>
+      {{/if}}
+      {{^if protectora.user.image}}
+          <img class="rounded-circle mx-auto d-block logo m-4" src="/images/logo.png" alt="Logo">
+      {{/if}}
+
+      </div>
       <div class="card-body">
               <form action="/users/edit-protectora" method="POST" enctype="multipart/form-data" novalidate>
           <div class="mb-3">
@@ -36,6 +45,13 @@
             <div id="validationNombreFeedback" class="invalid-feedback">
               {{errors.ciudad}}
             </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputImage">Imagen</label>
+            <input class="form-control" type="text" hidden name="imageUploaded" {{#if protectora.user.image }}value="{{protectora.user.image }}"{{/if}}  id="inputImage">
+
+            <input class="form-control" type="file" name="image" id="inputImage">
+
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Descripción</label>
