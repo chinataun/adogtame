@@ -41,4 +41,11 @@ describe('Animales', () =>{
       cy.contains('file')
     })
   })
+  describe('Eliminar animal', () =>{
+    it.skip('login form can be opened', () => {
+      cy.visit('http://localhost:4000//animales/animal/:id?_method=DELETE')
+      cy.get('button[type="submit"]').click()
+      cy.contains('file')
+    })
+  })
 })
