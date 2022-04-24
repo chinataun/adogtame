@@ -19,14 +19,16 @@ const cookieJwtAuth = (request, response, next) => {
 //     return response.redirect("/");
 //   }
 // const token = request.cookies.token;
-if (token = request.cookies.token) {
+
+const token = request.cookies.token
+if (token != undefined) {
   const user = jwt.verify(token, 'SECRET')
-  request.user = user;
+  request.user = user.user;
   if (user.user.role === 'Adoptante'){
-    response.locals.user = request.user
+    response.locals.user = user.user
     response.locals.adoptante = user.user.role
   } else if (user.user.role === 'Protectora') {
-    response.locals.user = request.user
+    response.locals.user = user.user
     response.locals.protectora = user.user.role
   } 
 } 

@@ -56,14 +56,12 @@ const registroProtectora = async (request, response) =>
   }); 
 
   const protectorasaved = await newProtectora.save();
-  console.log(protectorasaved);
   const newUser = new User({
     email: email,
     password: password,
     role: role,
     user: protectorasaved,
   })
-  console.log(newUser);
   newUser.password = await newUser.encryptPassword(password);
   const userSaved = await newUser.save();
   const token = jwt.sign({user:userSaved}, 'SECRET', {expiresIn: "24h"});
@@ -73,15 +71,13 @@ const registroProtectora = async (request, response) =>
     httpOnly: true
   });
 
-  // request.flash("success_msg", `Usuario ${role} con email: ${email} registrado`);
   response.redirect('/')
 }
 
 
 const renderProtectoras = async (request, response) => 
 {
-  const protectoras = await Protectora.find({}) 
-  //const protectoras = await User.find({role: 'Protectora'}).populate('user') 
+  const protectoras = await User.find({role: 'Protectora'}).populate('user')
   const protectora_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
   response.render('users/protectoras', {protectoras,protectora_filtrado_ciudad})
 }
@@ -141,26 +137,12 @@ const busquedaProtectoras = async (request, response) =>
   
 }
 
-
-
-
 const renderProtectora = async (request, response) => {
   const { id } = request.params
-  const userProtectora = await User.findById(id).populate('user')
-  console.log(userProtectora);
-  const animalsByProtectora = await userProtectora.user.populate('animales')
+  const protectora = await User.findById(id).populate('user')
+  let animales = protectora.user.animales;
 
-  response.render('users/', {protectora: userProtectora, animales : animalsByProtectora.animales})
-
-  // User.findById(id).populate('user')
-  //   .then(protectora => {
-  //     if (protectora)
-  //     console.log(protectora.user.populate('animales'));
-
-  //     response.render('users/protectora', {protectora, animales})
-  //   })
-  //   .catch(err => next(err))
-
+  response.render('users/protectora', {protectora, animales})
 }
 
 const renderSolicitudesProtectora = async (request, response) => {

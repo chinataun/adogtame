@@ -119,7 +119,6 @@ const addAnimal = async (request, response, error) => {
     }
     return response.render('animales/add', { errors: validation, body, checked, imageUploaded, historialUploaded })
   }
-
   try {
     const animal = new Animal({
       nombre: body.nombre,
@@ -130,14 +129,14 @@ const addAnimal = async (request, response, error) => {
       historial: (!files.historial) ? historialUploaded : files.historial[0].filename,
       descripcion: body.descripcion,
       image: (!files.image) ? imageUploaded : files.image[0].filename,
-      protectora: user.user.user._id,
-      ciudad: user.user.user.ciudad,
+      protectora: user.user._id,
+      ciudad: user.user.ciudad,
     })
     const savedAnimal = await animal.save()
-    const userfound = await User.findById(user.user._id).populate('user')
-    const protectoraf = await Protectora.findById(userfound.user._id)
-    protectoraf.animales = await protectoraf.animales.concat(savedAnimal._id)
-    await protectoraf.save()
+    const userFound = await User.findById(user.id).populate('user')
+    const protectoraFound = await Protectora.findById(userFound.user._id)
+    protectoraFound.animales = await protectoraFound.animales.concat(savedAnimal._id)
+    await protectoraFound.save()
     return response.redirect('/animales/animal/' + savedAnimal._id)
   } catch (error) {
     response.render('animales/add')
@@ -146,20 +145,16 @@ const addAnimal = async (request, response, error) => {
 
 const renderAnimal = async (request, response) => {
   const { id } = request.params
-  const { user } = request.user
+  const {user} = request.user
   const animal = await Animal.findById(id).populate('protectora')
-  if (animal) {
-    if (!user) {
-      response.redirect('/animales')
-    } else {
-      let canEdit = (user.user._id === animal.protectora.id)
-        ? true
-        : false;
-      const solicitado = await Solicitud.find({ adoptante: user._id, animal: id })
-      return response.render('animales/animal', { animal, solicitado, canEdit })
-    }
-    return response.render('animales/animal', { animal })
+  let solicitado = undefined;
+  if (!user) {
+    canEdit = false;
+  } else {
+    canEdit = (user._id === animal.protectora.id)
+    solicitado = await Solicitud.find({ adoptante: user._id, animal: id })
   }
+  return response.render('animales/animal', { animal, solicitado, canEdit })
 }
 
 const solicitudAnimal = async (request, response) => {
