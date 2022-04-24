@@ -111,5 +111,9 @@ const deleteUser = async (request, response) => {
   return response.clearCookie("token").redirect('/')
 }
 
+const nosotros = (request, response) => {
+  response.render('users/sobre_nosotros')
+}
 
-module.exports = {renderRegistro, registro,login,renderLogin, logout, deleteUser}
+
+module.exports = {renderRegistro, registro,login,renderLogin, logout, deleteUser,nosotros}
