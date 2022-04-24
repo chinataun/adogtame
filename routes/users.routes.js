@@ -10,8 +10,7 @@ router.post("/registro", registro);
 router.get("/login", renderLogin);
 router.post("/login", login);
 router.get("/logout", logout);
-router.get('/edit-protectora',renderEditProtectora)
-router.post('/edit-protectora',upload.single('image'), editProtectora)
+
 
 //PROTECTORAS
 router.get('/registro/protectora', renderRegistroProtectora)
@@ -21,6 +20,8 @@ router.post('/protectoras/buscar', busquedaProtectoras)
 router.get('/protectora/:id',renderProtectora)
 router.get('/solicitudesProtectora/',renderSolicitudesProtectora)
 router.post('/protectora/procesarSolicitud/',procesarSolicitudAdopcion)
+router.get('/edit-protectora',renderEditProtectora)
+router.post('/edit-protectora',upload.single('image'), editProtectora)
 
 //ADOPTANTES
 router.get('/registro/adoptante', renderRegistroAdoptante)

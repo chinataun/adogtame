@@ -121,7 +121,22 @@ const editProtectora = async (request, response, error) => {
   const {file,body} = request
   const validation = validateProtectora(request)
   if (Object.keys(validation).length !== 0) {
-       const protectora = {
+    const protectoraBody = body
+    const protectoraFound = await User.findById(user._id).populate('user')
+
+    if (file && !validation.image) {
+      try {
+        await unlinkAsync("public/uploads/" + protectoraFound.user.image)
+
+      } catch (err) {
+        console.log(err);
+      }
+      protectoraFound.user.image = file.filename;
+      await protectoraFound.user.save();
+    }
+
+
+    const protectora = {
       email: email,
       user: {
         nombre: nombre,
@@ -129,24 +144,40 @@ const editProtectora = async (request, response, error) => {
         telefono: telefono, 
         ciudad: ciudad,
         descripcion: descripcion,
+        image: (file == undefined) ? protectoraFound.user.image : file.filename,
       }
     }
     return response.render('users/edit_protectora', {errors: validation, protectora})
   }
+
+  if (file) {
+    const protectoraFound = await User.findById(user._id).populate('user')
+    try {
+      await unlinkAsync("public/uploads/" + protectoraFound.user.image)
+    } catch (err) {
+      console.log(err);
+    }
+    protectoraFound.user.image = file.filename;
+    await protectoraFound.user.save();
+  }
+
   const newProtectora = { 
     nombre: nombre,
     cif: cif, 
     telefono: telefono, 
     ciudad: ciudad,
     descripcion: (descripcion == '') ? undefined : descripcion,
+    image: (file == undefined) ? file : file.filename,
   };
+
   const newUser = {
     email: email
   };
+
   await User.findByIdAndUpdate(user._id, newUser);
   await Protectora.findByIdAndUpdate(user.user, newProtectora);
+
   response.redirect('/users/protectora/' + user._id)
 }
-
 
 module.exports = {renderRegistroProtectora, registroProtectora, renderProtectoras,renderSolicitudesProtectora, busquedaProtectoras, renderProtectora,procesarSolicitudAdopcion,renderEditProtectora,editProtectora}
