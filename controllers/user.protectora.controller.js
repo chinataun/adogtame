@@ -54,15 +54,16 @@ const registroProtectora = async (request, response) =>
     descripcion: (descripcion == '') ? undefined : descripcion,
     image: (file == undefined) ? imageUploaded : file.filename,
   }); 
+
   const protectorasaved = await newProtectora.save();
-  
+  console.log(protectorasaved);
   const newUser = new User({
     email: email,
     password: password,
     role: role,
     user: protectorasaved,
   })
-
+  console.log(newUser);
   newUser.password = await newUser.encryptPassword(password);
   const userSaved = await newUser.save();
   const token = jwt.sign({user:userSaved}, 'SECRET', {expiresIn: "24h"});

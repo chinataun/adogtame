@@ -1,13 +1,30 @@
 {{> messages }}
 <div id="animales">
     <section id="box">
+        <div id="busqueda_avanzada">
+            <select name="tipo" id='filtrado_tipo' onclick='onBusquedaAnimal_Tipo()'  style=" text-transform: lowercase;" > 
+                <option value=""> Tipo de animal </option> 
+                {{#each animales_filtrado_ciudad }} 
+                    <option value={{this}}> {{this}} </option> 
+                {{/each}} 
+            </select>   
+        </div>
         <table id="caja_busqueda_avanzada" style="display: none;" >
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td> Tipo &nbsp;&nbsp;&nbsp;&nbsp; </td>
                 <td> <!-- --------------------  Filtro busqueda por tipo --------------------                      <option value="Todos"} ></option> --> 
                     <select id='filtrado_tipo' onclick='onBusquedaAnimal_Tipo()'  style=" text-transform: lowercase;" > 
-                         <option value=""> Todos los tipos </option> 
+                        <option value=""> Todos los tipos </option> 
                         {{#each animales_filtrado_tipo }} 
+                            <option value={{this}}> {{this}} </option> 
+                        {{/each}} 
+                    </select>
+                </td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td> Tipo &nbsp;&nbsp;&nbsp;&nbsp; </td>
+                <td> <!-- --------------------  Filtro busqueda por tipo --------------------                      <option value="Todos"} ></option> --> 
+                    <select id='filtrado_ciudad' onclick='onBusquedaAnimal_Ciudad()'  style=" text-transform: lowercase;" > 
+                        <option value=""> Todos las ciudades </option> 
+                        {{#each animales_filtrado_ciudad }} 
                             <option value={{this}}> {{this}} </option> 
                         {{/each}} 
                     </select>

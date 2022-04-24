@@ -6,8 +6,12 @@ router.get('/add', renderAddAnimal)
 router.get('/animal/:id',renderAnimal)
 router.delete('/animal/:id', deleteAnimal)
 router.get('/edit-animal/',renderEditAnimal)
-router.post('/edit/:id',upload.single('image'), editAnimal)
-router.post('/add', upload.single('image'), addAnimal)
+router.post('/edit/:id',editAnimal)
+router.post('/add', upload.fields([{
+  name: 'image', maxCount: 1
+}, {
+  name: 'historial', maxCount: 1
+}]), addAnimal)
 router.post('/buscar', busquedaAnimal)
 router.get('/', renderAnimales)
 router.post('/solicitud', solicitudAnimal)
