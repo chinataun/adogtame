@@ -91,6 +91,20 @@ function onBusquedaProtectora_Ciudad()
     document.getElementById("filtro_tipo_animal").value = selectlista;
   }
 
+  function onBusquedaAnimal_Tipo() 
+  {
+    var e = document.getElementById("filtrado_tipo");
+    var selectlista = e.options[e.selectedIndex].text;
+    document.getElementById("filtro_tipo_animal").value = selectlista;
+  }
+
+  function onBusquedaAnimal_Raza() 
+  {
+    var e = document.getElementById("filtrado_raza");
+    var selectlista = e.options[e.selectedIndex].text;
+    document.getElementById("filtro_raza_animal").value = selectlista;
+  }
+
   jQuery(function($) {
     $('#solicitud').on('show.bs.modal', function (event) {
       var myVal = $(event.relatedTarget).data('id');
