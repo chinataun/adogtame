@@ -172,7 +172,15 @@ const solicitudAnimal = async (request, response) => {
 
 const deleteAnimal = async (request, response) => {
   const id = request.params.id
-  const animaldeleted = await Animal.findByIdAndDelete(id).populate('protectora')
+  const animaldeleted = await Animal.findByIdAndDelete(id).populate([{
+    path: 'protectora',
+    model: 'User',
+  }])
+  try {
+    await unlinkAsync("public/uploads/" + animaldeleted.image)
+  } catch (err) {
+    console.log(err);
+  }
   const protectoraf = await Protectora.findById(animaldeleted.protectora.user._id)
   const index = protectoraf.animales.indexOf(animaldeleted._id);
   if (index > -1) {
@@ -182,6 +190,7 @@ const deleteAnimal = async (request, response) => {
 
   response.redirect('/users/protectora/' + animaldeleted.protectora._id)
 }
+
 const renderEditAnimal = async (request, response) => {
   const { id } = request.query
 
