@@ -92,8 +92,9 @@ const renderAdoptante = async (request, response) => {
 }
 
 const renderSolicitudesAdoptante = async (request, response) => {
-  const {user} = request.user
-  const solicitudes = await Solicitud.find({adoptante: user._id}).populate('animal protectora').populate([{
+  const user = request.user
+  console.log(user);
+  const solicitudes = await Solicitud.find({adoptante: user.id}).populate('animal protectora').populate([{
     path: 'protectora',
     model: 'User',
     populate: {
@@ -101,6 +102,7 @@ const renderSolicitudesAdoptante = async (request, response) => {
       model: 'Protectora'
     }
   }])
+  console.log(solicitudes);
   response.render('users/solicitudes_adoptante', {solicitudes})
 
 }

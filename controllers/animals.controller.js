@@ -89,6 +89,9 @@ const addAnimal = async (request, response, error) => {
   const validation = validateAnimal(request)
   let imageUploaded = body.imageUploaded;
   let historialUploaded = body.historialUploaded;
+
+
+
   if (Object.keys(validation).length !== 0) {
 
     if (files.image && !validation.image) {
@@ -120,6 +123,15 @@ const addAnimal = async (request, response, error) => {
     return response.render('animales/add', { errors: validation, body, checked, imageUploaded, historialUploaded })
   }
   try {
+
+    const userFound = await User.findById(user.id).populate([{
+      path: 'user',
+      model: 'Protectora',
+      populate: {
+        path: 'animales',
+        model: 'Animal',
+      }
+    }])
     const animal = new Animal({
       nombre: body.nombre,
       tipo: body.tipo,
@@ -129,11 +141,10 @@ const addAnimal = async (request, response, error) => {
       historial: (!files.historial) ? historialUploaded : files.historial[0].filename,
       descripcion: body.descripcion,
       image: (!files.image) ? imageUploaded : files.image[0].filename,
-      protectora: user.user._id,
-      ciudad: user.user.ciudad,
+      protectora: user.id,
+      ciudad: userFound.user.ciudad,
     })
     const savedAnimal = await animal.save()
-    const userFound = await User.findById(user.id).populate('user')
     const protectoraFound = await Protectora.findById(userFound.user._id)
     protectoraFound.animales = await protectoraFound.animales.concat(savedAnimal._id)
     await protectoraFound.save()
@@ -145,14 +156,17 @@ const addAnimal = async (request, response, error) => {
 
 const renderAnimal = async (request, response) => {
   const { id } = request.params
-  const {user} = request.user
-  const animal = await Animal.findById(id).populate('protectora')
+  const user = request.user
+  const animal = await Animal.findById(id).populate([{
+    path: 'protectora',
+    model: 'User',
+  }])
   let solicitado = undefined;
   if (!user) {
     canEdit = false;
   } else {
-    canEdit = (user._id === animal.protectora.id)
-    solicitado = await Solicitud.find({ adoptante: user._id, animal: id })
+    canEdit = (user.id == animal.protectora._id)
+    solicitado = await Solicitud.find({ adoptante: user.id, animal: id })
   }
   return response.render('animales/animal', { animal, solicitado, canEdit })
 }
@@ -160,24 +174,30 @@ const renderAnimal = async (request, response) => {
 const solicitudAnimal = async (request, response) => {
   const { animal, mensaje } = request.body
   const user = request.user
-  const animalfound = await Animal.findById(animal)
-  const protectora = await animalfound.populate('protectora')
+  const animalfound = await Animal.findById(animal).populate([{
+    path: 'protectora',
+    model: 'User',
+  }])
   const solicitud = new Solicitud({
     animal: animalfound._id,
-    adoptante: user.user._id,
+    adoptante: user.id,
     mensajeAdoptante: mensaje,
     mesanjeProtectora: undefined,
-    protectora: protectora.protectora._id,
+    protectora: animalfound.protectora,
     estado: 'En proceso'
   })
-  const saved = await solicitud.save()
+  await solicitud.save()
   request.flash("success_msg", 'Solicitud enviada correctamente.')
   response.redirect('/animales/animal/' + animal)
 }
 
 const deleteAnimal = async (request, response) => {
   const id = request.params.id
-  const animaldeleted = await Animal.findByIdAndDelete(id).populate('protectora')
+  const animaldeleted = await Animal.findByIdAndDelete(id).populate([{
+    path: 'protectora',
+    model: 'User',
+  }])
+  console.log(animaldeleted);
   try {
     await unlinkAsync("public/uploads/" + animaldeleted.image)
   } catch (err) {

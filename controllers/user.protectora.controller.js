@@ -139,22 +139,28 @@ const busquedaProtectoras = async (request, response) =>
 
 const renderProtectora = async (request, response) => {
   const { id } = request.params
-  const protectora = await User.findById(id).populate('user')
-  let animales = protectora.user.animales;
-
-  response.render('users/protectora', {protectora, animales})
+  const protectoraRender = await User.findById(id).populate('user').populate([{
+    path: 'user',
+    model: 'Protectora',
+    populate: {
+      path: 'animales',
+      model: 'Animal'
+    }
+  }])
+  console.log(protectoraRender);
+  let animales = protectoraRender.user.animales;
+  console.log(animales);
+  response.render('users/protectora', {protectoraRender: protectoraRender, animales})
 }
 
 const renderSolicitudesProtectora = async (request, response) => {
-  const {user} = request.user
-  const solicitudes = await Solicitud.find({protectora: user._id}).populate('animal adoptante').populate([{
+  const user = request.user
+  console.log(user);
+  const solicitudes = await Solicitud.find({protectora: user.id}).populate('animal').populate([{
     path: 'adoptante',
     model: 'User',
-    populate: {
-      path: 'user',
-      model: 'Adoptante'
-    }
   }])
+  console.log(solicitudes);
   response.render('users/solicitudes_protectora', {solicitudes})
 
 }

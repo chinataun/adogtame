@@ -21,17 +21,19 @@
                         <a href="#" class="nav-link dropdown-toggle link" data-bs-toggle="dropdown">Usuario</a>
                         {{# protectora }}
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="/animales/add" class="dropdown-item letraNegro  link">Añadir animales</a>
-                                <a href="/users/solicitudesProtectora" class="dropdown-item letraNegro link">Solicitudes</a>
+                                <a href="/animales/add" class="dropdown-item letraNegro link" style="color: black;">Añadir animales</a>
+                                <a href="/users/solicitudesProtectora" class="dropdown-item link" style="color: black;">Solicitudes</a>
+                                <a href="/users/edit-protectora" class="dropdown-item link" style="color: black;">Mi perfil</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="/users/logout" class="dropdown-item letraNegro link">Logout</a>  
+                                <a href="/users/logout" class="dropdown-item letraNegro link" style="color: black;">Logout</a>  
                             </div>
                         {{/ protectora}}
                         {{# adoptante }}
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="/users/solicitudesAdoptante" class="dropdown-item link">Mis solicitudes</a>
+                                <a href="/users/solicitudesAdoptante" class="dropdown-item link" style="color: black;">Mis solicitudes</a>
+                                <a href="/users/edit-adoptante" class="dropdown-item" style="color: black;">Mi perfil</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="/users/logout" class="dropdown-item link">Logout</a>
+                                <a href="/users/logout" class="dropdown-item link" style="color: black;">Logout</a>
                             </div>
                         {{/ adoptante}}
                         
