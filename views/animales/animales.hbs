@@ -20,12 +20,24 @@
                     <input type="text"   id = "edad_maxima_animal"      name="busqueda" value="50" />
                 </td>
             </tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td> Genero  &nbsp;&nbsp;&nbsp;&nbsp; </td>
+                <td> <!-- --------------------  Filtro busqueda por genero --------------------                    <option value="Todos"} ></option> --> 
+                    <select id='filtrado_genero' onclick='onBusquedaAnimal_Genero()'  style=" text-transform: lowercase;" > 
+                            <option value=""> Todos los generos </option> 
+                        {{#each animales_filtrado_genero }} 
+                            <option value={{this}}> {{this}} </option> 
+                        {{/each}}
+                    </select>
+                </td>
             <tr>
                 <td> &nbsp;&nbsp;&nbsp;&nbsp;</td><td> Descripcion:&nbsp;&nbsp;&nbsp;&nbsp; </td>
                 <td colspan="8"> <!-- --------------------  Filtro busqueda por descripcion -------------------- --> 
                     <form name="frmBuscador" method="post" action="/animales/buscar">
                         <input type="hidden"   id = "filtro_edad_minima_animal"  name="busqueda" value="0"  />
                         <input type="hidden"   id = "filtro_edad_maxima_animal"  name="busqueda" value="50" />
+                        <input type="hidden"   id = "filtro_tipo_animal"         name="busqueda" value=""   />
+                        <input type="hidden"   id = "filtro_genero_animal"       name="busqueda" value=""   />
+                        <input type="hidden"   id = "filtro_raza_animal"         name="busqueda" value=""   />
                         <input type="search"   id = "Buscado"                    name="busqueda" value=""       class="Buscador"        placeholder="Busqueda por descripcion..." />
                         <input type="submit"   id = "btnFiltrarAnimal"           name="Buscar"   value="filtrar busqueda avanzada"  title="" > 
                     </form>
@@ -83,3 +95,4 @@
 
 
     <!--        <!-- --------------------  Filtro busqueda por raza --------------------                       <option value="Todos"} ></option>  <select id='filtrado_raza' onclick='onBusquedaAnimal_Raza()'  style=" text-transform: lowercase;" > {{#each animales_filtrado_raza }} <option value={{this}}> {{this}} </option> {{/each}} </select> -->  
+
