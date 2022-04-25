@@ -1,11 +1,12 @@
 :root{
 
-  --fuenteParrafos: 'Open Sans', sans-serif;
+  --fuenteParrafos: 'Montserrat', sans-serif;
 }
 html{
   box-sizing: border-box;/*par aque no afecte al ancho de nuestros elelmentos*/
   font-size: 62.5%;
   /* background-image: url("https://i0.wp.com/medioambienteynaturaleza.com/wp-content/uploads/2015/08/Animales-tiernos-aa.jpg?ssl=1"); */
+  font-family: 'Montserrat', sans-serif;
 }
 
 body{
@@ -768,3 +769,18 @@ ul.animales-protectora_wrapper{
   align-items: center;
   justify-content: center;
 }
+
+/* SOLICITUDES */
+.solicitudes_content {
+  display: flex;
+  justify-content: center;
+  padding: 32px;
+}
+
+.solicitudes_content .tg {
+background-color: white;
+}
+
+.solicitudes_content thead tr th {
+  color: white ;
+  }
