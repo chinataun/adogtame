@@ -419,3 +419,101 @@ border-radius: 50px;
     border-color: unset;
     box-shadow:unset;
 } */
+
+* HEADER */
+header {
+  min-height: 10vh;
+    height: auto !important;
+    height: 100%;
+}
+
+
+main {
+  min-height: 80vh;
+  height: auto !important;
+  height: 100%;
+}
+
+.wrapper-content .jumbotron{
+  color: #fff;
+  padding-top: 16px;
+  }
+
+/* BUSCADOR */
+.buscador {
+  background-color: #407093;
+  color: #fbffff;
+  padding: 16px;
+
+}
+
+.buscador .buttonCustom{
+  border: 1px solid #000000;
+    color: #ffffff;
+    /* padding: 10px 40px; */
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 10px;
+    color: #000000;
+    font-size: 14px;
+    text-decoration: none;
+    vertical-align: middle;
+    font-size: 16px;
+    margin-left: 12px;
+}
+.buscador .busqueda_basica{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.busqueda_basica form {
+  display: flex;
+  align-items: center;
+}
+
+#buscadorBasico {
+  width: auto;
+  height: 28px;
+  text-align: left;
+  color: #2e4146;
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 0 8px;
+}
+
+.buttonCustom:hover{
+  animation: pulsate 1s
+  ease-in-out;
+}
+@keyframes pulsate {
+  0%{
+    box-shadow: 
+    0 0 25px #66d2ec,
+    0 0 50px #5094cc;
+  }
+}
+
+#busqueda_avanzada form {
+  display: flex;
+  align-items: center;
+}
+#busqueda_avanzada select{
+
+  margin-right:8px;
+  text-align: center;
+  padding: 4px;
+  text-align: center;
+}
+
+#busqueda_avanzada .inputEdad  {
+  display: flex;
+}
+
+#busqueda_avanzada .inputEdad  input {
+  margin-right: 8px;
+}
+
+#protectoras .buscadorBasico {
+  width: 300px;
+}
