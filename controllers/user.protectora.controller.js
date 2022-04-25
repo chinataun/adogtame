@@ -43,32 +43,55 @@ const registroProtectora = async (request, response) => {
 
 
 const renderProtectoras = async (request, response) => {
-  const protectoras = await User.find({role: 'Protectora'}).populate('user') 
-  const protectora_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
-
-  console.log(protectoras)
-  console.log(protectora_filtrado_ciudad)
-  response.render('users/protectoras', {protectoras,protectora_filtrado_ciudad})
+  const protectoras = await User.find({role: 'Protectora'}).populate('user')
+  const protectoras_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
+  response.render('users/protectoras', {protectoras,protectoras_filtrado_ciudad, activeProtectora:'active'})
 }
 
 const busquedaProtectoras = async (request, response) => {
+  const protectoras_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
+  const {body} = request
 
-  const {busqueda} = request.body
-  console.log(busqueda);
-  Protectora.find({
-    'descripcion' : {$regex : busqueda},
-    'ciudad' : {$regex : busqueda}
-  })
-  .then(protectoras => {
+  if (body.submit === 'filtrar') {
+    const {ciudad} = request.body
+    let usersProtectorar = [];
+    const protectoras = await User.find().populate('user').populate([{
+      path: 'user',
+      model: 'Protectora',
+      match: {
+        ciudad: ciudad
+      }}])
 
-    if (protectoras)
-    response.render('users/protectoras', {protectoras})
-  })
-  .catch(err => next(err))
+      const userProtectoras = protectoras.filter(function(user) {
 
+            return user.user; 
+          });
+    return response.render('users/protectoras', { protectoras: userProtectoras, activeAnimales:'active', protectoras_filtrado_ciudad})
 
+  } 
 
+  if (body.submit === 'Buscar') {
+    console.log(body);
+    const {busqueda} = request.body
+    console.log(busqueda);
+    const protectoras = await User.find({role: 'Protectora'}).populate({
+      path: 'user',
+      model: 'Protectora',
+      match: 
+      {
+        "$or": [
+          { 'nombre': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
+          { 'descripcion': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
+          { 'ciudad': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
+        ]
+      }})
+      const userProtectoras = protectoras.filter(function(user) {
+            return user.user; 
+          });
 
+    return response.render('users/protectoras', { protectoras: userProtectoras, activeAnimales:'active', protectoras_filtrado_ciudad})
+
+  }  
 }
 
 const renderProtectora = async (request, response) => {
