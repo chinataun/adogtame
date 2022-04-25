@@ -10,6 +10,7 @@ router.post("/login", login);
 router.get("/registro", renderRegistro);
 router.post("/registro", registro);
 router.get("/logout", logout);
+router.delete("/delete/:id", deleteUser);
 
 //PROTECTORAS
 router.get('/registro/protectora', renderRegistroProtectora)
