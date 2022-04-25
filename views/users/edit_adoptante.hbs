@@ -1,3 +1,4 @@
+
 <div class="row">
   <div class="col-md-4 mx-auto">
     <div class="card mt-4">
@@ -7,16 +8,15 @@
         </h1>
 
       </div>
-      
+              
       <div class="animal_image text-center">
         {{#if adoptante.user.image}}
           <img id="image" src="/uploads/{{ adoptante.user.image }}" alt="logo" title="Logo adoptante"/></br>
         {{/if}}
         {{^if adoptante.user.image}}
             <img class="rounded-circle mx-auto d-block logo m-4" src="/images/logo.png" alt="Logo">
-        {{/if}}
+        {{/if}}            
       </div>
-
       <div class="card-body">
         <form action="/users/edit-adoptante" method="POST" enctype="multipart/form-data" novalidate>
           <div class="mb-3">
@@ -41,8 +41,7 @@
               {{errors.telefono}}
             </div>
           </div>
-         
-         <div class="mb-3">
+          <div class="mb-3">
             <label class="form-label" for="inputImage">Imagen</label>
             <input class="form-control" type="text" hidden name="imageUploaded" {{#if adoptante.user.image }}value="{{adoptante.user.image }}"{{/if}}  id="inputImage">
 
@@ -51,7 +50,6 @@
               {{errors.file}}
             </div>
           </div>
-
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Descripción</label>
             <textarea class="form-control {{#errors.descripcion}}is-invalid{{/errors.descripcion}}" name="descripcion" id="inlineDescription" placeholder="Descripcion de la protectora">{{adoptante.user.descripcion}}</textarea>
@@ -65,7 +63,7 @@
             <button class="btn btn-primary btn-block">
               Editar adoptante 
             </button>
-
+            <span><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarCuenta">Eliminar cuenta</button>
           </div>
 
         </form>
@@ -73,6 +71,31 @@
 
       </div>
               
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="eliminarCuenta" tabindex="-1" aria-labelledby="eliminalCuentaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="eliminalCuentaLabel">Eliminar Usuario {{adoptante.role}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <form action="/users/delete/{{adoptante._id}}?_method=DELETE" method="post" >
+
+          <div class="mb-3">
+            ¿Está seguro que desea eliminar la cuenta del sistema, {{adoptante.user.nombre}}? Perderás todas tus solicitudes de adopción en marcha. Esta acción es irrecuperable.
+          </div>
+          <input type="text" class="form-control" id="recipient-name" name="animal" value="{{adoptante.id}}" hidden>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rechazar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>
+        </form>
+      </div>
+
     </div>
   </div>
 </div>
