@@ -1,43 +1,43 @@
-<div id="animal">
-
-  <div class="top">
-    <h1>
-        {{protectoraRender.user.nombre}}
-    </h1>
-            {{> messages }}
-  </div>
-    <div class="bottom">
-      <div class="animal_image">
-        <img src="/uploads/{{ protectoraRender.user.image }}" alt="perrete">
-      </div>
-              <p><span> Email:          </span> {{ protectoraRender.email }}         </p>
-        <p><span> Telefono:          </span> {{ protectoraRender.user.telefono }}         </p>
-                <p><span> Ciudad:          </span> {{ protectoraRender.user.ciudad }}         </p>
-                <p><span> CIF:        </span> {{ protectoraRender.user.cif }}       </p>
-        <p><span> Descripción:        </span> {{ protectoraRender.user.descripcion }}       </p>
+<div id="car-protectora">
+    <div class="card-protectora_titulo">
+        <h1>
+            {{protectoraRender.user.nombre}}
+        </h1>
+    </div>
+    <div class="card-protectora_content">
+        <div class="card-protectora-datos_image">
+            <img src="/uploads/{{  protectoraRender.user.image }}" alt="protectora">
+        </div>
+        <div class="card-protectora_datos">
+            <p><span> Email: </span> {{ protectoraRender.email }} </p>
+            <p><span> Telefono: </span> {{ protectoraRender.user.telefono }} </p>
+            <p><span> Ciudad: </span> {{ protectoraRender.user.ciudad }} </p>
+            <p><span> CIF: </span> {{ protectoraRender.user.cif }} </p>
+            <p><span> Descripción: </span> {{ protectoraRender.user.descripcion }} </p>
+        </div>
     </div>
 </div>
 <ul>
-        {{#each protectoraRender.user.animales}}
-            <p>
-                <li>
-                    <div class="top">
-                        <h1>
-                            {{nombre}}
-                        </h1>
-                        <div class=""><img id="avatar_animal" src="../../images/{{tipo}}.png" width="60" height="60"></div>
-                    </div>
-                    <div class="bottom">
-                        <br>
-                        <p><span> Tipo:          </span> {{ tipo }}         </p>
-                        <p><span> Raza:          </span> {{ raza }}         </p>
-                        <p><span> Genero:        </span> {{ genero}}       </p>
-                        <div class="sign">
-                        <a href='/animales/animal/{{id }}' class='button'>Ver mas detalles..</a>
-                        </div>
-                    </div>
-                    </li>
-            </p>
-        {{/each}}
-       
-    </ul>
+    {{#each protectoraRender.user.animales}}
+    <p>
+        <li>
+            <div class="top">
+                <h1>
+                    {{nombre}}
+                </h1>
+                <div class=""><img id="avatar_animal" src="../../images/{{tipo}}.png" width="60" height="60"></div>
+            </div>
+            <div class="bottom">
+                <br>
+                <p><span> Tipo: </span> {{ tipo }} </p>
+                <p><span> Raza: </span> {{ raza }} </p>
+                <p><span> Genero: </span> {{ genero}} </p>
+                <div class="sign">
+                    <a href='/animales/animal/{{id }}' class='button'>Ver mas detalles..</a>
+                </div>
+            </div>
+        </li>
+    </p>
+    {{/each}}
+
+</ul>

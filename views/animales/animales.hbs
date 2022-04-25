@@ -1,112 +1,164 @@
 {{> messages }}
 <div id="animales">
     <section id="box">
-        <div id="busqueda_avanzada">
-            <select name="tipo" id='filtrado_tipo' onclick='onBusquedaAnimal_Tipo()'  style=" text-transform: lowercase;" > 
-                <option value=""> Tipo de animal </option> 
-                {{#each animales_filtrado_ciudad }} 
-                    <option value={{this}}> {{this}} </option> 
-                {{/each}} 
-            </select>   
+        <div id="busqueda_avanzada" style="display: none;">
+            <form name="frmBuscador" method="post" action="/animales/buscar">
+            <select name="tipo" id='filtrado_tipo' onclick='onBusquedaAnimal_Tipo()'
+                style=" text-transform: lowercase;">
+                <option value=""> Tipo de animal </option>
+                {{#each animales_filtrado_tipo }}
+                    <option value={{this}}> {{this}} </option>
+                {{/each}}
+            </select>
+            <select name="raza" id='filtrado_raza' onclick='onBusquedaAnimal_Tipo()'
+                style=" text-transform: lowercase;">
+                <option value=""> Raza de animal </option>
+                {{#each animales_filtrado_raza }}
+                    <option value={{this}}> {{this}} </option>
+                {{/each}}
+            </select>
+            <select name="ciudad" id='filtrado_ciudad' onclick='onBusquedaAnimal_Tipo()'
+                style=" text-transform: lowercase;">
+                <option value=""> Ciudad de animal </option>
+                {{#each animales_filtrado_ciudad }}
+                    <option value={{this}}> {{this}} </option>
+                {{/each}}
+            </select>
+            <input type="text" id="edad_minima_animal" name="busqueda" value="0" />
+            <input type="range" id="filtrado_edad_minima" onclick="onBusquedaAnimal_Edad_Minima()" value="0"
+                        min="0" max="50">
+            <input type="range" id="filtrado_edad_maxima" onclick="onBusquedaAnimal_Edad_Maxima()" value="50"
+                        min="0" max="50">
+            <input type="text" id="edad_maxima_animal" name="busqueda" value="50" />
+            
+            <div class="btn">
+                  <button type="submit" name="submit" value="filtrar" class="btn btn-primary">filtrar</button>
+                </div>
+
+                    </form>
         </div>
-        <table id="caja_busqueda_avanzada" style="display: none;" >
+        <table id="caja_busqueda_avanzada" style="display: none;">
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td> Tipo &nbsp;&nbsp;&nbsp;&nbsp; </td>
-                <td> <!-- --------------------  Filtro busqueda por tipo --------------------                      <option value="Todos"} ></option> --> 
-                    <select id='filtrado_tipo' onclick='onBusquedaAnimal_Tipo()'  style=" text-transform: lowercase;" > 
-                        <option value=""> Todos los tipos </option> 
-                        {{#each animales_filtrado_tipo }} 
-                            <option value={{this}}> {{this}} </option> 
-                        {{/each}} 
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td> Tipo &nbsp;&nbsp;&nbsp;&nbsp; </td>
+                <td>
+                    <!-- --------------------  Filtro busqueda por tipo --------------------                      <option value="Todos"} ></option> -->
+                    <select id='filtrado_tipo' onclick='onBusquedaAnimal_Tipo()' style=" text-transform: lowercase;">
+                        <option value=""> Todos los tipos </option>
+                        {{#each animales_filtrado_tipo }}
+                        <option value={{this}}> {{this}} </option>
+                        {{/each}}
                     </select>
                 </td>
-                                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td> Tipo &nbsp;&nbsp;&nbsp;&nbsp; </td>
-                <td> <!-- --------------------  Filtro busqueda por tipo --------------------                      <option value="Todos"} ></option> --> 
-                    <select id='filtrado_ciudad' onclick='onBusquedaAnimal_Ciudad()'  style=" text-transform: lowercase;" > 
-                        <option value=""> Todos las ciudades </option> 
-                        {{#each animales_filtrado_ciudad }} 
-                            <option value={{this}}> {{this}} </option> 
-                        {{/each}} 
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td> Tipo &nbsp;&nbsp;&nbsp;&nbsp; </td>
+                <td>
+                    <!-- --------------------  Filtro busqueda por tipo --------------------                      <option value="Todos"} ></option> -->
+                    <select id='filtrado_ciudad' onclick='onBusquedaAnimal_Ciudad()'
+                        style=" text-transform: lowercase;">
+                        <option value=""> Todos las ciudades </option>
+                        {{#each animales_filtrado_ciudad }}
+                        <option value={{this}}> {{this}} </option>
+                        {{/each}}
                     </select>
                 </td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td> Genero  &nbsp;&nbsp;&nbsp;&nbsp; </td>
-                <td> <!-- --------------------  Filtro busqueda por genero --------------------                    <option value="Todos"} ></option> --> 
-                    <select id='filtrado_genero' onclick='onBusquedaAnimal_Genero()'  style=" text-transform: lowercase;" > 
-                            <option value=""> Todos los generos </option> 
-                        {{#each animales_filtrado_genero }} 
-                            <option value={{this}}> {{this}} </option> 
-                        {{/each}}  
-                    </select>   
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td> Genero &nbsp;&nbsp;&nbsp;&nbsp; </td>
+                <td>
+                    <!-- --------------------  Filtro busqueda por genero --------------------                    <option value="Todos"} ></option> -->
+                    <select id='filtrado_genero' onclick='onBusquedaAnimal_Genero()'
+                        style=" text-transform: lowercase;">
+                        <option value=""> Todos los generos </option>
+                        {{#each animales_filtrado_genero }}
+                        <option value={{this}}> {{this}} </option>
+                        {{/each}}
+                    </select>
                 </td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td> Edad  &nbsp;&nbsp;&nbsp;&nbsp; </td>
-                <td> <!-- --------------------  Filtro busqueda por edad -------------------- --> 
-                    <input type="text"   id = "edad_minima_animal"      name="busqueda" value="0" />
-                    <input type="range"  id="filtrado_edad_minima"      onclick="onBusquedaAnimal_Edad_Minima()"  value="0"  min="0" max="50" >
-                    <input type="range"  id="filtrado_edad_maxima"      onclick="onBusquedaAnimal_Edad_Maxima()"  value="50" min="0" max="50"  >
-                    <input type="text"   id = "edad_maxima_animal"      name="busqueda" value="50" />
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td> Edad &nbsp;&nbsp;&nbsp;&nbsp; </td>
+                <td>
+                    <!-- --------------------  Filtro busqueda por edad -------------------- -->
+                    <input type="text" id="edad_minima_animal" name="busqueda" value="0" />
+                    <input type="range" id="filtrado_edad_minima" onclick="onBusquedaAnimal_Edad_Minima()" value="0"
+                        min="0" max="50">
+                    <input type="range" id="filtrado_edad_maxima" onclick="onBusquedaAnimal_Edad_Maxima()" value="50"
+                        min="0" max="50">
+                    <input type="text" id="edad_maxima_animal" name="busqueda" value="50" />
                 </td>
             </tr>
             <tr>
-                <td> &nbsp;&nbsp;&nbsp;&nbsp;</td><td> Descripcion:&nbsp;&nbsp;&nbsp;&nbsp; </td>
-                <td colspan="8"> <!-- --------------------  Filtro busqueda por descripcion -------------------- --> 
+                <td> &nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td> Descripcion:&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                <td colspan="8">
+                    <!-- --------------------  Filtro busqueda por descripcion -------------------- -->
                     <form name="frmBuscador" method="post" action="/animales/buscar">
-                        <input type="hidden"   id = "filtro_tipo_animal"         name="busqueda" value=""   />
-                        <input type="hidden"   id = "filtro_genero_animal"       name="busqueda" value=""   />
-                        <input type="hidden"   id = "filtro_raza_animal"         name="busqueda" value=""   />
-                        <input type="hidden"   id = "filtro_edad_minima_animal"  name="busqueda" value="0"  />
-                        <input type="hidden"   id = "filtro_edad_maxima_animal"  name="busqueda" value="50" />
-                        <input type="search"   id = "Buscado"                    name="busqueda" value=""       class="Buscador"        placeholder="Busqueda por descripcion..." />
-                        <input type="submit"   id = "btnFiltrarAnimal"           name="Buscar"   value="filtrar busqueda avanzada"  title="" > 
+                        <input type="hidden" id="filtro_tipo_animal" name="busqueda" value="" />
+                        <input type="hidden" id="filtro_genero_animal" name="busqueda" value="" />
+                        <input type="hidden" id="filtro_raza_animal" name="busqueda" value="" />
+                        <input type="hidden" id="filtro_edad_minima_animal" name="busqueda" value="0" />
+                        <input type="hidden" id="filtro_edad_maxima_animal" name="busqueda" value="50" />
+                        <input type="search" id="Buscado" name="busqueda" value="" class="Buscador"
+                            placeholder="Busqueda por descripcion..." />
+                        <input type="submit" id="btnFiltrarAnimal" name="Buscar" value="filtrar busqueda avanzada"
+                            title="">
                     </form>
                 </td>
             </tr>
-             <tr>
-                <td colspan="8" >
-                &nbsp;&nbsp;&nbsp;&nbsp; <button onclick="AccionBusquedaGeneral()" id="linkAccionBusqueda" name="linkAccionBusqueda" title="Has clic aqui para realizar una busqueda general..." >Has clic aqui para realizar una busqueda avanzada... </button>
+            <tr>
+                <td colspan="8">
+                    &nbsp;&nbsp;&nbsp;&nbsp; <button onclick="AccionBusquedaGeneral()" id="linkAccionBusqueda"
+                        name="linkAccionBusqueda" title="Has clic aqui para realizar una busqueda general...">Has clic
+                        aqui para realizar una busqueda avanzada... </button>
                 </td>
             </tr>
         </table>
         <table id="caja_busqueda_general">
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td> Busqueda general  &nbsp;&nbsp;&nbsp;&nbsp; </td>  
-                <td  >             
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td> Busqueda general &nbsp;&nbsp;&nbsp;&nbsp; </td>
+                <td>
                     <form name="frmBuscador" method="post" action="/animales/buscar">
-                        <input type="search" id="Buscado"           name="busqueda"  class="Buscador"  placeholder="Busqueda general..." />
-                        <input type="submit" id="btnFiltrarAnimal"  name="Buscar"    value="filtrado general"  title="aaaaaaaaa" >  
+                        <input type="search" id="Buscado" name="busqueda" class="Buscador"
+                            placeholder="Busqueda general..." />
+                        <input type="submit" id="btnFiltrarAnimal" name="Buscar" value="filtrado general"
+                            title="aaaaaaaaa">
                     </form>
                 </td>
             </tr>
             <tr>
-                <td colspan="8" >
-                &nbsp;&nbsp;&nbsp;&nbsp; <button onclick="AccionBusquedaAvanzada()" id="linkAccionBusqueda" name="linkAccionBusqueda" title="Has clic aqui para realizar una busqueda avanzada..." >Has clic aqui para realizar una busqueda avanzada... </button>
+                <td colspan="8">
+                    
+                    <button onclick="AccionBusquedaAvanzada()" id="linkAccionBusqueda"
+                        name="linkAccionBusqueda" title="Has clic aqui para realizar una busqueda avanzada...">
+                        Busqueda avanzada... </button>
                 </td>
             </tr>
-        </table> 
+        </table>
     </section>
     <ul id="css_resultado_busqueda_animal">
         {{#each animales}}
-                <li>
-                    <div class="top">
-                        <h1>
-                            {{nombre}}
-                        </h1>
-                        <div class=""><img id="avatar_animal" src="../images/{{tipo}}.png" width="60" height="60"></div>
-                    </div>
-                    <div class="bottom">
-                        <br>
-                        <p><span> Tipo:          </span> {{ tipo }}         </p>
-                        <p><span> Raza:          </span> {{ raza }}         </p>
-                        <p><span> Genero:        </span> {{ genero}}       </p>
-                        <div class="sign">
-                        <a href='/animales/animal/{{id}}' class='button'>Ver mas detalles..</a>
-                        </div>
-                    </div>
-                    </li>
+        <li>
+            <div class="top">
+                <h1>
+                    {{nombre}}
+                </h1>
+                <div class=""><img id="avatar_animal" src="../images/{{tipo}}.png" width="60" height="60"></div>
+            </div>
+            <div class="bottom">
+                <br>
+                <p><span> Tipo: </span> {{ tipo }} </p>
+                <p><span> Raza: </span> {{ raza }} </p>
+                <p><span> Genero: </span> {{ genero}} </p>
+                <div class="sign">
+                    <a href='/animales/animal/{{id}}' class='button'>Ver mas detalles..</a>
+                </div>
+            </div>
+        </li>
         {{/each}}
-       
+
     </ul>
-    
-    </div>
+
+</div>
 
 
-    <!--        <!-- --------------------  Filtro busqueda por raza --------------------                       <option value="Todos"} ></option>  <select id='filtrado_raza' onclick='onBusquedaAnimal_Raza()'  style=" text-transform: lowercase;" > {{#each animales_filtrado_raza }} <option value={{this}}> {{this}} </option> {{/each}} </select> -->  
+<!--        <!-- --------------------  Filtro busqueda por raza --------------------                       <option value="Todos"} ></option>  <select id='filtrado_raza' onclick='onBusquedaAnimal_Raza()'  style=" text-transform: lowercase;" > {{#each animales_filtrado_raza }} <option value={{this}}> {{this}} </option> {{/each}} </select> -->

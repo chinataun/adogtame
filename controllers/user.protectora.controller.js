@@ -79,7 +79,7 @@ const renderProtectoras = async (request, response) =>
 {
   const protectoras = await User.find({role: 'Protectora'}).populate('user')
   const protectora_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
-  response.render('users/protectoras', {protectoras,protectora_filtrado_ciudad})
+  response.render('users/protectoras', {protectoras,protectora_filtrado_ciudad, activeProtectora:'active'})
 }
 
 const busquedaProtectoras = async (request, response) => 
@@ -106,7 +106,7 @@ const busquedaProtectoras = async (request, response) =>
     {
         if (protectoras)
         {
-          response.render('users/protectoras', {protectoras, protectora_filtrado_ciudad})
+          response.render('users/protectoras', {protectoras,activeProtectora:'active', protectora_filtrado_ciudad})
         }
         
     })
@@ -128,7 +128,7 @@ const busquedaProtectoras = async (request, response) =>
     {
       if (protectoras)
       {
-        response.render('users/protectoras', {protectoras, protectora_filtrado_ciudad })
+        response.render('users/protectoras', {protectoras, activeProtectora:'active', protectora_filtrado_ciudad })
       }   
     })
     .catch(err => next(err)) 
@@ -161,7 +161,7 @@ const renderSolicitudesProtectora = async (request, response) => {
     model: 'User',
   }])
   console.log(solicitudes);
-  response.render('users/solicitudes_protectora', {solicitudes})
+  response.render('users/solicitudes_protectora', {solicitudes, activeProtectora:'active'})
 
 }
 
@@ -183,19 +183,20 @@ const procesarSolicitudAdopcion = async (request, response) => {
 }
 
 const renderEditProtectora = async (request, response) => {
-  const {user} = request.user
-  const protectora = await User.findById(user._id).populate('user')
-  response.render('users/edit_protectora', {protectora})
+  const user = request.user
+  const protectora = await User.findById(user.id).populate('user')
+  console.log(protectora);
+  response.render('users/edit_protectora', {protectora, activeProtectora:'active'})
 }
 
 const editProtectora = async (request, response, error) => {
-  const {user} = request.user
+  const user = request.user
   const { email, cif, telefono, descripcion, nombre, password, role, ciudad } = request.body;
   const {file,body} = request
   const validation = validateProtectora(request)
   if (Object.keys(validation).length !== 0) {
     const protectoraBody = body
-    const protectoraFound = await User.findById(user._id).populate('user')
+    const protectoraFound = await User.findById(user.id).populate('user')
 
     if (file && !validation.image) {
       try {
@@ -220,10 +221,10 @@ const editProtectora = async (request, response, error) => {
         image: (file == undefined) ? protectoraFound.user.image : file.filename,
       }
     }
-    return response.render('users/edit_protectora', {errors: validation, protectora})
+    return response.render('users/edit_protectora', {errors: validation, protectora, activeProtectora:'active'})
   }
   if (file) {
-    const protectoraFound = await User.findById(user._id).populate('user')
+    const protectoraFound = await User.findById(user.id).populate('user')
     try {
       await unlinkAsync("public/uploads/" + protectoraFound.user.image)
     } catch (err) {
@@ -244,12 +245,12 @@ const editProtectora = async (request, response, error) => {
   const newUser = {
     email: email
   };
-  await User.findByIdAndUpdate(user._id, newUser);
+  await User.findByIdAndUpdate(user.id, newUser);
   await Protectora.findByIdAndUpdate(user.user, newProtectora);
 
 
   request.flash("success_msg", `Usuario actualizado`);
-  response.redirect('/users/protectora/' + user._id)
+  response.redirect('/users/protectora/' + user.id)
 }
 
 module.exports = {renderRegistroProtectora, registroProtectora, renderProtectoras, busquedaProtectoras, renderProtectora,renderSolicitudesProtectora,procesarSolicitudAdopcion,renderEditProtectora,editProtectora}

@@ -22,8 +22,10 @@ function AccionBusquedaAvanzada()
 
   var x = document.getElementById("caja_busqueda_general");
   var y = document.getElementById("caja_busqueda_avanzada");
+  var z = document.getElementById("busqueda_avanzada");
     x.style.display = "none";
     y.style.display = "initial";
+    z.style.display = "initial";
 }
 
 
@@ -32,8 +34,10 @@ function AccionBusquedaGeneral()
 
   var x = document.getElementById("caja_busqueda_general");
   var y = document.getElementById("caja_busqueda_avanzada");
+  var z = document.getElementById("busqueda_avanzada");
     y.style.display = "none";
     x.style.display = "initial";
+    z.style.display = "initial";
 }
 
 function onBusquedaProtectora_Ciudad() 

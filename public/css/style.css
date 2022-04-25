@@ -54,6 +54,10 @@ border-radius: 60px;
   margin-right: 2.5rem;
 }
 
+.wrapper-content{
+  padding-top: 80px;
+}
+
 /* 
 .navegacion{
   height: 8rem;
@@ -337,6 +341,7 @@ font-weight: bold;
       color: #fff;
       position: relative; 
   }
+  
   .link::after{
       content: ''; 
       width: 100%;
@@ -368,7 +373,7 @@ background-color: #bc9b94;
 
 #box { 
   opacity: 80%;
-  background-color : rgb(10, 10, 10); 
+  background-color : #407093; 
 
   color: #fbffff;
   padding: 15px; 
@@ -498,3 +503,76 @@ border-radius: 50px;
     border-color: unset;
     box-shadow:unset;
 } */
+
+/* ANIMAL */
+
+#card-animal, #card-protectora, #card-adoptante {
+
+}
+
+.card-animal_titulo,
+.card-protectora_titulo,
+.card-adoptante_titulo {
+  color: white;
+}
+
+.card-animal_content,
+.card-protectora_content,
+.card-adoptante_content {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border-radius: 50px;
+  background: linear-gradient(to bottom, rgb(0, 0, 0), white);
+}
+
+.card-animal-datos_image,
+.card-protectora-datos_image,
+.card-adoptante-datos_image {
+
+}
+
+.card-animal-datos_image img,
+.card-protectora-datos_image img,
+.card-adoptante-datos_image img {
+  border-radius: 50px 50px 0 0;
+}
+
+.card-animal_datos,
+.card-protectora_datos,
+.card-adoptante_datos {
+  padding: 12px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-animal_datos p span,
+.card-protectora_datos p span,
+.card-adoptante_datos p span {
+  font-weight: bold;
+}
+
+.card-animal_info-user,
+.card-protectora_info-user,
+.card-adoptante_info-user {
+  display: flex;
+  padding: 20px;
+}
+
+.bi.bi-person.link:hover{
+  color: #0a58ca;
+}
+
+#busqueda_avanzada select{
+  width: 200px;
+  margin: 1px auto;
+  text-align: left;
+  color: #2e4146;
+  border-radius: 10px;
+  text-align: center;
+}

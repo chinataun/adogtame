@@ -5,8 +5,12 @@ const upload = require('../utils/handleUpload')
 router.get('/add', renderAddAnimal)
 router.get('/animal/:id',renderAnimal)
 router.delete('/animal/:id', deleteAnimal)
-router.get('/edit-animal/',renderEditAnimal)
-router.post('/edit/:id',editAnimal)
+router.get('/edit-animal/:id',renderEditAnimal)
+router.post('/edit/:id',upload.fields([{
+  name: 'image', maxCount: 1
+}, {
+  name: 'historial', maxCount: 1
+}]),editAnimal)
 router.post('/add', upload.fields([{
   name: 'image', maxCount: 1
 }, {

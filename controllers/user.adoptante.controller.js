@@ -78,7 +78,7 @@ const renderAdoptantes = async (request, response) => {
 const renderAdoptante = async (request, response) => {
   const { id } = request.params
   const userAdoptante = await User.findById(id).populate('user')
-  response.render('users/adoptante', {adoptante: userAdoptante})
+  response.render('users/adoptante', {adoptante: userAdoptante, activeProtectora:'active'})
 
   // User.findById(id).populate('user')
   //   .then(protectora => {
@@ -103,14 +103,14 @@ const renderSolicitudesAdoptante = async (request, response) => {
     }
   }])
   console.log(solicitudes);
-  response.render('users/solicitudes_adoptante', {solicitudes})
+  response.render('users/solicitudes_adoptante', {solicitudes, activeAdoptante:'active'})
 
 }
 
 const renderEditAdoptante = async (request, response) => {
   const {user} = request.user
   const adoptante = await User.findById(user._id).populate('user')
-  response.render('users/edit_adoptante', {adoptante})
+  response.render('users/edit_adoptante', {adoptante, activeAdoptante:'active'})
 }
 
 const editAdoptante = async (request, response, error) => {
@@ -144,7 +144,7 @@ const editAdoptante = async (request, response, error) => {
       }
 
     }
-    return response.render('users/edit_adoptante', {errors: validation, adoptante})
+    return response.render('users/edit_adoptante', {errors: validation, adoptante, activeAdoptante:'active'})
   }
   if (file) {
     const adoptanteFound = await User.findById(user._id).populate('user')

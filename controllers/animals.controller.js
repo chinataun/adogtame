@@ -14,7 +14,7 @@ const renderAnimales = async (request, response) => {
   const animales_filtrado_genero = await Animal.collection.distinct("genero")
   const animales_filtrado_raza = await Animal.collection.distinct("raza")
   const animales_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
-  response.render('animales/animales', { animales, animales_filtrado_tipo, animales_filtrado_genero, animales_filtrado_raza, animales_filtrado_ciudad })
+  response.render('animales/animales', { animales, activeAnimales:'active', animales_filtrado_tipo, animales_filtrado_genero, animales_filtrado_raza, animales_filtrado_ciudad })
 }
 
 const renderAddAnimal = async (request, response) => {
@@ -30,10 +30,35 @@ const busquedaAnimal = async (request, response) => {
 
   // Aqui finimos el tipo de busqueda y resultado a obtener:   console.log("Aqui definimos el tipo de busqueda"); console.log(Buscar);
   const { Buscar } = request.body
+  const {body} = request
+  console.log(body);
 
   // Aqui obtenemos los valores del formulario:   console.log("Aqui obtenemos los datos de registro de busqueda");
   const { busqueda } = request.body //console.log(busqueda);console.log(busqueda[0]);console.log(busqueda[1]);console.log(busqueda[2]);console.log(busqueda[3]);console.log(busqueda[4]);console.log(busqueda[5]);
+  if (body.submit === 'filtrar') {
+    console.log('submit de filtrar');
 
+    const animales = await Animal.find({
+      // "$or": [
+      //   {tipo: body.tipo},
+      //   {raza: body.raza},
+      //   {ciudad: body.ciudad},
+      //   // { 'tipo': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
+      //   // { 'genero': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
+      //   // { 'raza': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
+      //   // { 'descripcion': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
+      //   // { 'ciudad': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
+      // ]
+      
+        'tipo': { "$regex": '.*' + body.raza.toLowerCase() + '.*', "$options": "i" },
+        'raza': { "$regex": '.*' + body.raza.toLowerCase() + '.*', "$options": "i" },
+        'edad': { '$gt': body.busqueda[0], '$lt': body.busqueda[1] }
+      
+    })
+    console.log(animales);
+    return response.render('animales/animales', { animales, activeAnimales:'active', animales_filtrado_tipo, animales_filtrado_genero, animales_filtrado_raza,animales_filtrado_ciudad })
+
+  }
   if (Buscar === "filtrado general") {
     console.log("************************         filtrado general         ************************");
     console.log(busqueda);
@@ -50,7 +75,7 @@ const busquedaAnimal = async (request, response) => {
       })
       .then(animales => {
         if (animales)
-          response.render('animales/animales', { animales, animales_filtrado_tipo, animales_filtrado_genero, animales_filtrado_raza })
+          response.render('animales/animales', { animales,activeAnimales:'active', animales_filtrado_tipo, animales_filtrado_genero, animales_filtrado_raza })
       })
       .catch(err => next(err))
   }
@@ -75,7 +100,7 @@ const busquedaAnimal = async (request, response) => {
       )
       .then(animales => {
         if (animales)
-          response.render('animales/animales', { animales, animales_filtrado_tipo, animales_filtrado_genero, animales_filtrado_raza })
+          response.render('animales/animales', { animales, activeAnimales:'active', animales_filtrado_tipo, animales_filtrado_genero, animales_filtrado_raza })
       })
       .catch(err => next(err))
   }
@@ -120,7 +145,7 @@ const addAnimal = async (request, response, error) => {
     } else if (body.genero === "Macho") {
       checked.checkedM = 'checked'
     }
-    return response.render('animales/add', { errors: validation, body, checked, imageUploaded, historialUploaded })
+    return response.render('animales/add', { errors: validation,activeProtectora:'active', body, checked, imageUploaded, historialUploaded })
   }
   try {
 
@@ -215,8 +240,7 @@ const deleteAnimal = async (request, response) => {
 
 
 const renderEditAnimal = async (request, response) => {
-  const { id } = request.query
-
+  const { id } = request.params
   const animal = await Animal.findById(id)
   // console.log(animal);
   // if (animal) {
@@ -235,26 +259,42 @@ const renderEditAnimal = async (request, response) => {
     checkedM = 'checked'
   }
   // }
-  response.render('animales/edit', { animal, checkedH, checkedM })
+  response.render('animales/edit', { animal, checkedH, checkedM,activeProtectora:'active' })
 }
 
 const editAnimal = async (request, response, error) => {
-  const { file, body } = request
+  const { files, body } = request
   const { id } = request.params
   const validation = validateAnimal(request)
+
+  let imageUploaded = body.imageUploaded;
+  let historialUploaded = body.historialUploaded;
 
   if (Object.keys(validation).length !== 0) {
     const animal = body
     const animalFound = await Animal.findById(id)
     animal.id = id;
-    animal.image = (file == undefined) ? animalFound.image : file.filename;
-    if (file && !validation.image) {
+    console.log(files.image);
+    console.log(files.historial);
+    console.log(files);
+      animal.image = (files.image == undefined) ? animalFound.image : files.image[0].filename;
+      animal.historial = (files.historial == undefined) ? animalFound.historial : files.historial[0].filename;  
+
+   
+    if (Object.keys(files).length !== 0 && !validation.image) {
       try {
-        await unlinkAsync("public/uploads/" + animalFound.image)
+          if (files.image) {
+            await unlinkAsync("public/uploads/" + animalFound.image)
+            animalFound.image = files.image[0].filename;
+          }
+          if (files.historial) {
+            await unlinkAsync("public/uploads/" + animalFound.historial)
+            animalFound.historial = files.historial[0].filename;
+          }
+
       } catch (err) {
         console.log(err);
-      }
-      animalFound.image = file.filename;
+      }   
       await animalFound.save();
     }
 
@@ -265,18 +305,27 @@ const editAnimal = async (request, response, error) => {
     } else if (body.genero === "Macho") {
       checkedM = 'checked'
     }
-    return response.render('animales/edit', { errors: validation, animal, checkedH, checkedM })
+    return response.render('animales/edit', { errors: validation, animal, checkedH, checkedM,activeProtectora:'active' })
   }
-  if (file) {
-    const animalFound = await Animal.findById(id)
+  const animalFound = await Animal.findById(id)
+  if (Object.keys(files).length !== 0) {
+
     try {
-      await unlinkAsync("public/uploads/" + animalFound.image)
+      if (files.image) {
+        await unlinkAsync("public/uploads/" + animalFound.image)
+        animalFound.image = files.image[0].filename;
+      }
+      if (files.historial) {
+        await unlinkAsync("public/uploads/" + animalFound.historial)
+        animalFound.historial = files.historial[0].filename;
+      }
     } catch (err) {
       console.log(err);
-    }
-    animalFound.image = file.filename;
-    await animalFound.save();
+    }   
+    const pedo = await animalFound.save();
+    console.log(pedo);
   }
+  
   try {
     const animal = {
       nombre: body.nombre,
@@ -284,15 +333,12 @@ const editAnimal = async (request, response, error) => {
       raza: body.raza,
       edad: body.edad,
       genero: body.genero,
-      historial: body.descripcion,
-      image: (file == undefined) ? file : file.filename,
+      image : (files.image == undefined) ? animalFound.image : files.image[0].filename,
+      historial: (files.historial == undefined) ? animalFound.historial : files.historial[0].filename,
       descripcion: body.descripcion,
-
     }
     let animalUpdated = await Animal.findByIdAndUpdate(id, animal);
-
-    request.flash('success_msg', 'Editado con éxito')
-    response.redirect('/animales/animal/' + animalUpdated._id)
+    response.redirect('/animales/animal/' + animalUpdated.id)
   } catch (error) {
     response.render('animales/edit')
   }
