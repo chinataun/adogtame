@@ -370,20 +370,6 @@ color: #ffffff;
 background-color: #bc9b94;
 }
 
-#box { 
-  opacity: 80%;
-  background-color : #407093; 
-
-  color: #fbffff;
-  padding: 15px; 
-  box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0. 75); 
-  border-radius: 10px 10px 10px 10px; 
-  -webkit-box-shadov: 10px 10px 20px 1px rgba(0, 0, 0, 0. 75); 
-  -moz-box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0. 75); 
-  -moz-border-radius: 10px 10px 10px 10px; 
-  -webkit-border-radius: 10px 10px 10px 10px; 
-  border: 0px solid #000000;
-}
 
 .Buscador
 {
@@ -645,6 +631,12 @@ main {
   padding: 20px;
 }
 
+.card-animal_info-user span,
+.card-protectora_info-user span,
+.card-adoptante_info-user span{
+text-align: center;
+}
+
 .bi.bi-person.link:hover{
   color: #0a58ca;
 }
@@ -688,7 +680,7 @@ footer {
 footer .container {
   width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     max-width: 100%;
 }
