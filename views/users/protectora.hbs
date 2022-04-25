@@ -6,8 +6,14 @@
     </div>
     <div class="card-protectora_content">
         <div class="card-protectora-datos_image">
-            <img src="/uploads/{{  protectoraRender.user.image }}" alt="protectora">
-        </div>
+                    {{#if protectoraRender.user.image}}
+                    <div class=""><img id="protectora_logo_card" class="circle_logo" src="../../uploads/{{protectoraRender.user.image}}"
+                            width="60" height="60"></div>
+                    {{/if}}
+                    {{^if protectoraRender.user.image}}
+                    <div class=""><img id="protectora_logo_card" class="circle_logo" src="../../images/logo.png" width="60"
+                            height="60"></div>
+                    {{/if}}        </div>
         <div class="card-protectora_datos">
             <p><span> Email: </span> {{ protectoraRender.email }} </p>
             <p><span> Telefono: </span> {{ protectoraRender.user.telefono }} </p>
@@ -17,27 +23,26 @@
         </div>
     </div>
 </div>
-<ul>
-    {{#each protectoraRender.user.animales}}
-    <p>
-        <li>
-            <div class="top">
-                <h1>
-                    {{nombre}}
-                </h1>
-                <div class=""><img id="avatar_animal" src="../../images/{{tipo}}.png" width="60" height="60"></div>
-            </div>
-            <div class="bottom">
-                <br>
-                <p><span> Tipo: </span> {{ tipo }} </p>
-                <p><span> Raza: </span> {{ raza }} </p>
-                <p><span> Genero: </span> {{ genero}} </p>
-                <div class="sign">
-                    <a href='/animales/animal/{{id }}' class='button'>Ver mas detalles..</a>
+<div class="animales-protectora">
+    <ul class="animales-protectora_wrapper">
+        {{#each protectoraRender.user.animales}}
+            <li class="animales-protectora_card">
+                <div class="animales-protectora-card_header">
+                    <h1 class="animales-protectora-card_header-title">
+                        {{nombre}}
+                    </h1>
+                    <div class="animales-protectora-card_header-img"><img id="avatar_animal" src="../../images/{{tipo}}.png" width="60" height="60"></div>
                 </div>
-            </div>
-        </li>
-    </p>
-    {{/each}}
+                <div class="animales-protectora-card_content">
+                    <p><span> Tipo: </span> {{ tipo }} </p>
+                    <p><span> Raza: </span> {{ raza }} </p>
+                    <p><span> Género: </span> {{ genero}} </p>
+                    <div class="sign">
+                        <a href='/animales/animal/{{id }}' class='button'>Ver más detalles..</a>
+                    </div>
+                </div>
+            </li>
+        {{/each}}
 
-</ul>
+    </ul>
+</div>

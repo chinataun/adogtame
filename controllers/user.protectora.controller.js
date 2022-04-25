@@ -20,6 +20,7 @@ const registroProtectora = async (request, response) =>
   let imageUploaded = body.imageHidden;
   const validation = validateProtectora(request)
   if (Object.keys(validation).length !== 0) {
+
     if (file && !validation.image) {
       try {
         if (imageUploaded != ''){
@@ -46,6 +47,8 @@ const registroProtectora = async (request, response) =>
         return response.render('users/signup_protectora', {errors: validation, email, cif, telefono, descripcion, nombre, ciudad, password, role, imageUploaded, error})
       }
     }
+    console.log(imageUploaded);
+    console.log(file);
   const newProtectora = new Protectora({ 
     nombre: nombre,
     cif: cif, 
@@ -74,67 +77,58 @@ const registroProtectora = async (request, response) =>
   response.redirect('/')
 }
 
-
 const renderProtectoras = async (request, response) => 
 {
   const protectoras = await User.find({role: 'Protectora'}).populate('user')
-  const protectora_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
-  response.render('users/protectoras', {protectoras,protectora_filtrado_ciudad, activeProtectora:'active'})
+  const protectoras_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
+  response.render('users/protectoras', {protectoras,protectoras_filtrado_ciudad, activeProtectora:'active'})
 }
 
 const busquedaProtectoras = async (request, response) => 
 {
-  const protectoras = await User.find({role: 'Protectora'}).populate('user') 
-  const protectora_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
-  const {busqueda} = request.body
-  const {buscar} = request.body
+  const protectoras_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
+  const {body} = request
 
-  if (buscar.toLowerCase() === "busqueda general") 
-  {
-    console.log("************************         filtrado general         ************************");
-    console.log(busqueda);
+  if (body.submit === 'filtrar') {
+    const {ciudad} = request.body
+    let usersProtectorar = [];
+    const protectoras = await User.find().populate('user').populate([{
+      path: 'user',
+      model: 'Protectora',
+      match: {
+        ciudad: ciudad
+      }}])
 
-    Protectora.find
-    ({
-        "$or": 
-        [
-          {'nombre': { "$regex" : '.*' +  busqueda.toLowerCase() + '.*' , "$options": "i"  } },
-          {'ciudad': { "$regex" : '.*' +  busqueda.toLowerCase() + '.*' , "$options": "i"  } },
-        ]  
-    })
-    .then(protectoras => 
-    {
-        if (protectoras)
-        {
-          response.render('users/protectoras', {protectoras,activeProtectora:'active', protectora_filtrado_ciudad})
-        }
-        
-    })
-    .catch(err => next(err))
+      const userProtectoras = protectoras.filter(function(user) {
+
+            return user.user; 
+          });
+    return response.render('users/protectoras', { protectoras: userProtectoras, activeAnimales:'active', protectoras_filtrado_ciudad})
 
   } 
-  else 
-  {
-    console.log("************************         filtrado avanzada         ************************");
-    
-    if (busqueda[0].toLowerCase() === "mostras todas las ciudades") { busqueda[0] = ""; }
 
-    Protectora.find
-    ({
-      'descripcion' : { "$regex" : '.*' +  busqueda[1].toLowerCase() + '.*'  , "$options": "i" }, 
-      'ciudad' : { "$regex" : '.*' +  busqueda[0].toLowerCase() + '.*'  , "$options": "i"  }    
-    })
-    .then(protectoras => 
-    {
-      if (protectoras)
+  if (body.submit === 'Buscar') {
+    console.log(body);
+    const {busqueda} = request.body
+    console.log(busqueda);
+    const protectoras = await User.find({role: 'Protectora'}).populate({
+      path: 'user',
+      model: 'Protectora',
+      match: 
       {
-        response.render('users/protectoras', {protectoras, activeProtectora:'active', protectora_filtrado_ciudad })
-      }   
-    })
-    .catch(err => next(err)) 
-  }
+        "$or": [
+          { 'nombre': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
+          { 'descripcion': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
+          { 'ciudad': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
+        ]
+      }})
+      const userProtectoras = protectoras.filter(function(user) {
+            return user.user; 
+          });
 
-  
+    return response.render('users/protectoras', { protectoras: userProtectoras, activeAnimales:'active', protectoras_filtrado_ciudad})
+
+  }  
 }
 
 const renderProtectora = async (request, response) => {
@@ -147,9 +141,8 @@ const renderProtectora = async (request, response) => {
       model: 'Animal'
     }
   }])
-  console.log(protectoraRender);
   let animales = protectoraRender.user.animales;
-  console.log(animales);
+
   response.render('users/protectora', {protectoraRender: protectoraRender, animales})
 }
 

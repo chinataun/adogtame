@@ -59,7 +59,7 @@
             <input class="form-control" type="text" hidden name="imageUploaded" {{#if imageUploaded}}value="{{imageUploaded}}"{{/if}}  id="inputImage">
             <input class="form-control {{#errors.file}}is-invalid{{/errors.file}}" type="file" name="image" id="inputImage">
               <div id="validationTipoFeedback" class="invalid-feedback">
-                {{errors.image}}
+                {{errors.file}}
               </div>
           </div>
 

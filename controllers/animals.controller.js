@@ -27,14 +27,8 @@ const busquedaAnimal = async (request, response) => {
   const animales_filtrado_genero = await Animal.collection.distinct("genero")
   const animales_filtrado_raza = await Animal.collection.distinct("raza")
   const animales_filtrado_ciudad = await Animal.collection.distinct("ciudad")
-
-  // Aqui finimos el tipo de busqueda y resultado a obtener:   console.log("Aqui definimos el tipo de busqueda"); console.log(Buscar);
-  const { Buscar } = request.body
   const {body} = request
-  console.log(body);
-
-  // Aqui obtenemos los valores del formulario:   console.log("Aqui obtenemos los datos de registro de busqueda");
-  const { busqueda } = request.body //console.log(busqueda);console.log(busqueda[0]);console.log(busqueda[1]);console.log(busqueda[2]);console.log(busqueda[3]);console.log(busqueda[4]);console.log(busqueda[5]);
+  const { busqueda } = request.body 
   if (body.submit === 'filtrar') {
     console.log('');
     let busqueda = {}
@@ -48,38 +42,18 @@ const busquedaAnimal = async (request, response) => {
       busqueda.ciudad = body.ciudad 
      }
      busqueda.edad =  { '$gt': body.busqueda[0], '$lt': body.busqueda[1] }
-     
 
     const animales = await Animal.find(busqueda)
-      // "$or": [
-      //   {tipo: body.tipo},
-      //   {raza: body.raza},
-      //   {ciudad: body.ciudad},
-      //   // { 'tipo': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
-      //   // { 'genero': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
-      //   // { 'raza': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
-      //   // { 'descripcion': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
-      //   // { 'ciudad': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
-      // ]
-      
-        // 'tipo': { "$regex": '.*' + body.raza.toLowerCase() + '.*', "$options": "i" },
-        // 'raza': { "$regex": '.*' + body.raza.toLowerCase() + '.*', "$options": "i" },
-        // 'edad': { '$gt': body.busqueda[0], '$lt': body.busqueda[1] }
-      
-    // })
-    console.log(animales);
     return response.render('animales/animales', { animales, activeAnimales:'active', animales_filtrado_tipo, animales_filtrado_genero, animales_filtrado_raza,animales_filtrado_ciudad })
 
   }
-  if (body.submit === 'buscar') {
+  if (body.submit === 'Buscar') {
     
     const animales = await Animal.find
     (
-      // {
-      //   'descripcion': { "$regex": '.*' + body.busqueda + '.*', "$options": "i" },
-      // }
       {
-        "$or": [
+        "$or": 
+        [
           { 'tipo': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
           { 'genero': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
           { 'raza': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
@@ -89,56 +63,9 @@ const busquedaAnimal = async (request, response) => {
       }
     )
     return response.render('animales/animales', { animales, activeAnimales:'active', animales_filtrado_tipo, animales_filtrado_genero, animales_filtrado_raza,animales_filtrado_ciudad })
-
-  }
-  if (Buscar === "filtrado general") {
-    console.log("************************         filtrado general         ************************");
-    console.log(busqueda);
-
-    Animal.find
-      ({
-        "$or": [
-          { 'tipo': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
-          { 'genero': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
-          { 'raza': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
-          { 'descripcion': { "$regex": '.*' + busqueda.toLowerCase() + '.*', "$options": "i" } },
-          { 'ciudad': { "$regex": '.*' + parseInt(busqueda) + '.*', "$options": "i" } },
-        ]
-      })
-      .then(animales => {
-        if (animales)
-          response.render('animales/animales', { animales,activeAnimales:'active', animales_filtrado_tipo, animales_filtrado_genero, animales_filtrado_raza })
-      })
-      .catch(err => next(err))
-  }
-  else {
-    console.log("************************         filtrado general         ************************");
-    console.log(busqueda);
-
-    if (busqueda[0].toLowerCase() === "todos los tipos") { busqueda[0] = ""; }
-    if (busqueda[1].toLowerCase() === "todos los generos") { busqueda[1] = ""; }
-
-    console.log("************************");
-    console.log(busqueda);
-
-    Animal.find
-      (
-        {
-          'tipo': { "$regex": '.*' + busqueda[0].toLowerCase() + '.*', "$options": "i" },
-          'genero': { "$regex": '.*' + busqueda[1].toLowerCase() + '.*', "$options": "i" },
-          'descripcion': { "$regex": '.*' + busqueda[5].toLowerCase() + '.*', "$options": "i" },
-          'edad': { '$gt': busqueda[3], '$lt': busqueda[4] }
-        }
-      )
-      .then(animales => {
-        if (animales)
-          response.render('animales/animales', { animales, activeAnimales:'active', animales_filtrado_tipo, animales_filtrado_genero, animales_filtrado_raza })
-      })
-      .catch(err => next(err))
-  }
+  }  
 }
 
-// {'descripcion' : {$regex : busqueda[0]}},
 
 const addAnimal = async (request, response, error) => {
 
@@ -146,8 +73,6 @@ const addAnimal = async (request, response, error) => {
   const validation = validateAnimal(request)
   let imageUploaded = body.imageUploaded;
   let historialUploaded = body.historialUploaded;
-
-
 
   if (Object.keys(validation).length !== 0) {
 
