@@ -420,7 +420,7 @@ border-radius: 50px;
     box-shadow:unset;
 } */
 
-* HEADER */
+/* HEADER */
 header {
   min-height: 10vh;
     height: auto !important;
@@ -516,4 +516,45 @@ main {
 
 #protectoras .buscadorBasico {
   width: 300px;
+}
+
+
+/* FOOTER */
+footer {
+  min-height: 10vh;
+    height: auto !important;
+    height: 100%;
+    display: flex;
+    position: relative;
+}
+
+footer .container {
+  width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 100%;
+}
+
+footer .btn-outline-light.facebook:hover {
+
+  color: #fff;
+  background-color: rgb(59, 89, 152);
+  border-color:  #fff;
+}
+
+footer .btn-outline-light.twitter:hover {
+  color: #fff;
+  background-color: rgb(85, 172, 238);
+  border-color: #fff;
+}
+footer .btn-outline-light.google:hover {
+  color: #fff;
+  background-color: rgb(221, 75, 57);
+  border-color: #fff;
+}
+footer .btn-outline-light.instagram:hover {
+  color: #fff;
+  background-color: #ac2bac;
+  border-color: #fff;
 }
