@@ -37,6 +37,14 @@
 
                     </form>
         </div>
+        <div class="busqueda_basica">
+            <form name="frmBuscador" method="post" action="/animales/buscar">
+                        <input type="search" id="Buscado" name="busqueda" class="Buscador"
+                            placeholder="Busqueda general..." />
+                        <input type="submit" id="btnFiltrarAnimal" name="submit" value="buscar"
+                            title="aaaaaaaaa">
+            </form>
+        </div>
         <table id="caja_busqueda_avanzada" style="display: none;">
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -155,6 +163,11 @@
             </div>
         </li>
         {{/each}}
+        {{^if animales}}
+        <div style="padding-top:12px;color: white;text-align:center;">
+            <h2>No se han encontrado resultados</h2>
+        </div>
+        {{/if}}
 
     </ul>
 
