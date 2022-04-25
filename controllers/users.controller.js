@@ -127,4 +127,4 @@ const deleteUser = async (request, response) => {
   return response.clearCookie("token").redirect('/')
 }
 
-module.exports = { renderRegistro, registro, login, renderLogin, logout, deleteUser, nosotros }
+module.exports = { renderRegistro, registro, login, renderLogin, logout, deleteUser}
