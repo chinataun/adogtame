@@ -47,13 +47,13 @@ const registro = async (request, response) => {
 const login = async (request, response) => {
   const { email, password } = request.body;
 
-  const pruebas = await validateLogin(request.body)
-  console.log(pruebas);
-  // const user = await User.findOne({ email: email })
-  // const validationEmail = validateEmailLogin(email, user)
-  if (Object.keys(pruebas).length !== 0) {
-    return response.render("users/login", { errors: pruebas, email })
-  }
+  // const pruebas = await validateLogin(request.body)
+  // console.log(pruebas);
+  // // const user = await User.findOne({ email: email })
+  // // const validationEmail = validateEmailLogin(email, user)
+  // if (Object.keys(pruebas).length !== 0) {
+  //   return response.render("users/login", { errors: pruebas, email })
+  // }
   const user = await User.findOne({ email: email })
   const token = jwt.sign({ user }, 'SECRET', { expiresIn: "24h" });
   response.cookie('token', token, {
