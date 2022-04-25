@@ -6,7 +6,7 @@ function validatePassword(password, confirm_password) {
   let hasLetter = /[a-zA-Z]/g.test(password)
   let hasNumber = /[0-9]/g.test(password)
   if (obligatorio(password) && obligatorio(confirm_password)) {
-    return 'Las contraseñas son obligatorias'
+    return 'La constraseñas son obligatorias'
   } else if (password != confirm_password) {
     return 'Las contraseñas no coinciden'
   } else if (!hasLetter) {
@@ -14,7 +14,7 @@ function validatePassword(password, confirm_password) {
   } else if (!hasNumber) {
     return 'La contraseña debe tener un número'
   } else if (!validLength) {
-    return 'La contraseña debe tener más de 8 caracteres'
+    return 'La contraseña debe tener mas de 8 caracteres'
   }
   return '';
 }
@@ -28,12 +28,10 @@ function validateRoleUser(role) {
 
 function validateEmail(email) {
   const emailRegexp = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
-  // const user = await User.findById({email})
-  // console.log(user);
   if (obligatorio(email)) {
     return 'Email obligatorio'
   } else if (!emailRegexp.test(email)) {
-    return 'Formato de email inválido. Ej: aaa@aaa.com'
+    return 'Formato de email invalido. Ej: aaa@aaa.com'
   }
   return '';
 }
@@ -49,4 +47,38 @@ function validateUser(params) {
 
 }
 
-module.exports = { validateUser, validatePassword,validateRoleUser, validateEmail}
+const validateEmailLogin = (email, user) => {
+  const emailRegexp = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
+  const errores = {};
+  if (obligatorio(email)) {
+    return 'Introduce un email de usuario'
+  } else if (!emailRegexp.test(email)) {
+    return 'Formato de email invalido. Ej: aaa@aaa.com'
+  } else if (!user) {
+    return 'Usuario no encontrado'
+  }
+  return '';
+}
+
+const validatePasswordLogin = (match) => {
+  const errores = {};
+  if (!match) {
+    return 'Contraseña incorrecta'
+  } 
+  return '';
+}
+
+  const validateLogin = async (params) => {
+  const {email, password} = params
+  const errores = {};
+  const user = await User.findOne({ email: email })
+  if (validateEmailLogin(email, user) !== '') return {email : (validateEmailLogin(email, user))};
+  const match = await  user.matchPassword(password);
+  if (validatePasswordLogin(match) !== '') return {password : (validatePasswordLogin(match))};
+
+  return errores;
+
+}
+
+
+module.exports = { validateUser, validatePassword,validateEmail,validateEmailLogin,validatePasswordLogin, validateLogin}

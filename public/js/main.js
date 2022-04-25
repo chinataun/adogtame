@@ -2,16 +2,17 @@
   {
     var edad_minima = document.getElementById("filtrado_edad_minima").value;
     var edad_maxima = document.getElementById("filtrado_edad_maxima").value;
-
+    console.log(edad_minima);
+    console.log(edad_maxima);
     if ( parseFloat(edad_minima)  < parseFloat(edad_maxima)  )
     {
-      document.getElementById("filtro_edad_minima_animal").value = edad_minima;
+      document.getElementById("edad_minima_animal").value = edad_minima;
     }
     else
     {
+      document.getElementById("edad_maxima_animal").value = "50";
       document.getElementById("filtrado_edad_maxima").value = "50";
-      document.getElementById("filtro_edad_maxima_animal").value = "50";
-      document.getElementById("filtro_edad_minima_animal").value = edad_minima;
+      document.getElementById("filtrado_edad_minima").value = edad_minima;
     }
     document.getElementById("edad_minima_animal").value = edad_minima;
   }
@@ -21,17 +22,18 @@
 
     var edad_minima = document.getElementById("filtrado_edad_minima").value;
     var edad_maxima = document.getElementById("filtrado_edad_maxima").value;
-
+    console.log(edad_minima);
+    console.log(edad_maxima);
     if ( parseFloat(edad_minima)  < parseFloat(edad_maxima)  )
     {
-        document.getElementById("filtro_edad_maxima_animal").value = edad_maxima ;
+        document.getElementById("edad_maxima_animal").value = edad_maxima ;
 
     }
     else
     {
-      document.getElementById("filtro_edad_minima_animal").value = "0";
+      document.getElementById("edad_minima_animal").value = "0";
       document.getElementById("filtrado_edad_minima").value = "0";
-      document.getElementById("filtro_edad_maxima_animal").value = edad_maxima ;
+      document.getElementById("edad_maxima_animal").value = edad_maxima ;
     }
 
     document.getElementById("edad_maxima_animal").value = edad_maxima ;
