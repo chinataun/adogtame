@@ -17,25 +17,6 @@ function onInput_BusquedaAnimal_Tipo() {
   }
 */
 
-function AccionBusquedaAvanzada()
-{
-
-  var x = document.getElementById("caja_busqueda_general");
-  var y = document.getElementById("caja_busqueda_avanzada");
-    x.style.display = "none";
-    y.style.display = "initial";
-}
-
-
-function AccionBusquedaGeneral()
-{
-
-  var x = document.getElementById("caja_busqueda_general");
-  var y = document.getElementById("caja_busqueda_avanzada");
-    y.style.display = "none";
-    x.style.display = "initial";
-}
-
 function onBusquedaProtectora_Ciudad() 
 {
   var e = document.getElementById("filtrado_ciudad");
@@ -43,7 +24,27 @@ function onBusquedaProtectora_Ciudad()
   document.getElementById("filtro_tipo_ciudad").value = selectlista;
   
 }
+  function onBusquedaAnimal_Tipo() 
+  {
+    var e = document.getElementById("filtrado_tipo");
+    var selectlista = e.options[e.selectedIndex].text;
+    document.getElementById("filtro_tipo_animal").value = selectlista;
+  }
 
+  function onBusquedaAnimal_Genero() 
+  {
+    var e = document.getElementById("filtrado_genero");
+    var selectlista = e.options[e.selectedIndex].text;
+    document.getElementById("filtro_genero_animal").value = selectlista;
+  }
+
+  function onBusquedaAnimal_Raza() 
+  {
+    var e = document.getElementById("filtrado_raza");
+    var selectlista = e.options[e.selectedIndex].text;
+    document.getElementById("filtro_raza_animal").value = selectlista;
+  }
+  
   function onBusquedaAnimal_Edad_Minima() 
   {
     var edad_minima = document.getElementById("filtrado_edad_minima").value;
@@ -83,27 +84,6 @@ function onBusquedaProtectora_Ciudad()
     document.getElementById("edad_maxima_animal").value = edad_maxima ;
 
   }
-  
-  function onBusquedaAnimal_Tipo() 
-  {
-    var e = document.getElementById("filtrado_tipo");
-    var selectlista = e.options[e.selectedIndex].text;
-    document.getElementById("filtro_tipo_animal").value = selectlista;
-  }
-
-  function onBusquedaAnimal_Tipo() 
-  {
-    var e = document.getElementById("filtrado_tipo");
-    var selectlista = e.options[e.selectedIndex].text;
-    document.getElementById("filtro_tipo_animal").value = selectlista;
-  }
-
-  function onBusquedaAnimal_Raza() 
-  {
-    var e = document.getElementById("filtrado_raza");
-    var selectlista = e.options[e.selectedIndex].text;
-    document.getElementById("filtro_raza_animal").value = selectlista;
-  }
 
   jQuery(function($) {
     $('#solicitud').on('show.bs.modal', function (event) {
@@ -111,6 +91,25 @@ function onBusquedaProtectora_Ciudad()
       $('input#idSolicitud').attr('value', myVal);
       console.log(myVal);
       console.log($('input#idSolicitud'));
+    });
+
+    $("#buttonFiltros").click(function(){
+      $("#busqueda_avanzada").toggle();
+    });
+
+    $("#buttonOcultarFiltros").click(function(){
+      $("#busqueda_avanzada").hide();
+      $('#buttonMostrarFiltros').show()
+      $('#buttonOcultarFiltros').hide()
+      $('#buscadorBasico').prop( "disabled", false );
+      $('#buscadorBasicoSubmit').prop( "disabled", false );
+    });
+    $("#buttonMostrarFiltros").click(function(){
+      $("#busqueda_avanzada").show();
+      $('#buttonOcultarFiltros').show()
+      $('#buttonMostrarFiltros').hide()
+      $('#buscadorBasico').prop( "disabled", true );
+      $('#buscadorBasicoSubmit').prop( "disabled", true );
     });
 
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
