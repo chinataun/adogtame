@@ -56,21 +56,6 @@ border-radius: 60px;
 }
 
 
-
-
-/* 
-.navegacion{
-  height: 8rem;
-  width: 100%;
-  position: fixed;
-  top: 0px;
-  right:0px;
-  left:0px;
-  max-width:100%;
-  height:70px;   // Por darle un valor fijo para evitar conflictos con :auto
-  z-index:1000000
-} */
-
 #logo_home{
   display:flex;
   flex-direction: column;
@@ -238,7 +223,7 @@ width: 100%;
 margin-top: 50px  ;
 }
 
-li {list-style:none; font-size:12px;}
+li {list-style:none; }
 
 
 #css_resultado_busqueda_animal li {
@@ -709,6 +694,8 @@ footer .btn-outline-light.instagram:hover {
   border-color: #fff;
 }
 
+
+
 /* //ANIMALES PROTECTORA */
 .animales-protectora{
   padding: 24px 12px;
@@ -716,7 +703,7 @@ footer .btn-outline-light.instagram:hover {
 ul.animales-protectora_wrapper{
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-around;
   padding: 0;
   flex-wrap: wrap;
@@ -726,6 +713,8 @@ ul.animales-protectora_wrapper{
   margin-bottom: 16px;
   background: linear-gradient(to bottom, rgb(0, 0, 0), white);
   border-radius: 15px;
+  margin: 0 8px 24px;
+  width: 350px;
 }
 .animales-protectora-card_header {
   display: flex;
@@ -744,16 +733,20 @@ ul.animales-protectora_wrapper{
 }
 
 .animales-protectora-card_content {
-  padding: 56px 16px 24px;
+  padding: 64px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 .animales-protectora-card_content span{
   font-weight: bold;
 }
 
 
 /* EDIT */
-.editar {
-  margin: 16px 0;
+.editar, .add, .login, .registro {
+  padding: 32px 0;
   display: flex;
   justify-content: center;
 }

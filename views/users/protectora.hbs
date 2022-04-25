@@ -7,19 +7,19 @@
     <div class="card-protectora_content">
         <div class="card-protectora-datos_image">
                     {{#if protectoraRender.user.image}}
-                    <div class=""><img id="protectora_logo_card" class="circle_logo" src="../../uploads/{{protectoraRender.user.image}}"
-                            width="60" height="60"></div>
+                    <div class=""><img id="protectora_logo_card" src="../../uploads/{{protectoraRender.user.image}}"></div>
                     {{/if}}
                     {{^if protectoraRender.user.image}}
-                    <div class=""><img id="protectora_logo_card" class="circle_logo" src="../../images/logo.png" width="60"
-                            height="60"></div>
+                    <div class=""><img id="protectora_logo_card" src="../../images/logo.png"></div>
                     {{/if}}        </div>
         <div class="card-protectora_datos">
             <p><span> Email: </span> {{ protectoraRender.email }} </p>
-            <p><span> Telefono: </span> {{ protectoraRender.user.telefono }} </p>
+            <p><span> Teléfono: </span> {{ protectoraRender.user.telefono }} </p>
             <p><span> Ciudad: </span> {{ protectoraRender.user.ciudad }} </p>
             <p><span> CIF: </span> {{ protectoraRender.user.cif }} </p>
-            <p><span> Descripción: </span> {{ protectoraRender.user.descripcion }} </p>
+            {{#if protectoraRender.user.descripcion }}
+                <p><span> Descripción: </span> {{ protectoraRender.user.descripcion }} </p>
+            {{/if}}
         </div>
     </div>
 </div>
