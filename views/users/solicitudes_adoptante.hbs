@@ -20,7 +20,7 @@
 <div class="tg-wrap"><table class="tg">
 <thead>
   <tr>
-    <th class="tg-elvq">ID de la solicitud</th>
+    <th class="tg-elvq">Imagen</th>
         <th class="tg-elvq">Animal</th>
     <th class="tg-elvq">Protectora</th>
     <th class="tg-elvq">Estado</th>
@@ -31,10 +31,10 @@
 <tbody>
   {{#each solicitudes}}
   <tr>
-    <td class="tg-0pky">{{ _id }} </td>
+<td class="tg-0pky">        <a href="/uploads/{{ animal.image }}" target="_blank"><img src="/uploads/{{ animal.image }}" alt="perrete" width="100px"></a></td>
 
     <td class="tg-0pky"><div class="animal_image">
-        <img src="/uploads/{{ animal.image }}" alt="perrete">
+
       </div>  
     <p><span> Nombre:          </span> {{ animal.nombre }}         </p>
         <p><span> Tipo:          </span> {{ animal.tipo  }}         </p>

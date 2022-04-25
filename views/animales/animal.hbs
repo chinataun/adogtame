@@ -1,53 +1,64 @@
+<div id="card-animal">
 
-<div id="animal">
-
-  <div class="top">
+  <div class="card-animal_titulo">
     <h1>
-        {{animal.nombre}}
+      {{animal.nombre}}
     </h1>
   </div>
-    <div class="bottom">
-      <div class="animal_image">
-        <img src="/uploads/{{ animal.image }}" alt="perrete">
-      </div>
-        <p><span> Tipo:          </span> {{ animal.tipo }}         </p>
-        <p><span> Raza:          </span> {{ animal.raza }}         </p>
-        <p><span> Edad:          </span> {{ animal.edad }}         </p>
-        <p><span> Genero:        </span> {{ animal.genero }}       </p>
-        <p><span> Ciudad:        </span> {{ animal.protectora.user.ciudad }}       </p>
-        <p><span> Descripción:        </span> {{ animal.descripcion }}       </p>
-        <p><span> historial:        </span> <a href ="{{animales.historial}}" attributes-list download > historial medico </a>
-      </p>
-
-      </div>
+  <div class="card-animal_content">
+    <div class="card-animal-datos_image">
+      <img src="/uploads/{{ animal.image }}" alt="perrete">
     </div>
-
+    <div class="card-animal_datos">
+      <p><span> Tipo: </span> {{ animal.tipo }} </p>
+      <p><span> Raza: </span> {{ animal.raza }} </p>
+      <p><span> Edad: </span> {{ animal.edad }} </p>
+      <p><span> Genero: </span> {{ animal.genero }} </p>
+      <p><span> Ciudad: </span> {{ animal.ciudad }} </p>
+      {{#if animal.historial}}
+      <p><span> Historial Médico: </span>      
+      <a href="/uploads/{{animal.historial}}" attributes-list download>          
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16" style="color: red;">
+                  <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"/>
+                </svg>
+      </a></p>
+      {{/if}}
+      {{#if animal.descripcion}}
+      <p><span> Descripción: </span> {{ animal.descripcion }} </p>
+            {{/if}}
+    </div>
+    <div class="card-animal_info-user">
       {{#if adoptante}}
         {{#if solicitado}}
-          <span>Ya has solicitado la adopción del animal</span>    
+        <span>Ya has solicitado la adopción del animal.</span>
         {{/if}}
         {{^solicitado}}
-          <span>Si desea solicitar la adopción de {{animal.nombre}}, mandonos una <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#solicitud">
+          <span>Si desea solicitar la adopción de {{animal.nombre}}, mandonos una <a data-bs-toggle="modal" data-bs-target="#solicitud">solicitud</a><button type="button"
+          class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#solicitud">
           solicitud</button> y nos pondremos en contacto con usted.<span>
         {{/solicitado}}
-      {{/if}}     
+      {{/if}}
       {{^if adoptante}}
-        {{#if protectora}}  
+        {{#if protectora}}
           {{#canEdit}}
             <span>
-              <form action="/animales/edit-animal/">
-                <input type="text" class="form-control" id="id" name="id" value="{{animal.id}}" hidden>
-                  <button type="submit" class="btn btn-primary">Editar animal</button>
+              <form action="/animales/edit-animal/{{animal.id}}">
+                {{!-- <input type="text" class="form-control" id="id" name="id" value="{{animal.id}}" hidden> --}}
+                <button type="submit" class="btn btn-primary">Editar animal</button>
               </form>
             </span>
-            <span><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarAnimal">Eliminar</button> <span>
-          {{/canEdit}} 
-        {{/if}} 
-        {{^if protectora}}  
-          <span>Si desea solicitar la adopción de {{animal.nombre}} debe <a href="/users/registro">registrarse</a> como adoptante en nuestra página.
-        {{/if}} 
-      {{/if}} 
-      
+            <span><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarAnimal">
+              Eliminar</button> <span>
+          {{/canEdit}}
+        {{/if}}
+        {{^if protectora}}
+          <span>Si desea solicitar la adopción de {{animal.nombre}} debe <a href="/users/registro">registrarse</a>como adoptante en nuestra página.</span>
+        {{/if}}
+      {{/if}}
+    </div>
+  </div>
+</div>
+
 <!-- Modal -->
 <div class="modal fade" id="solicitud" tabindex="-1" aria-labelledby="solicitudLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -57,11 +68,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-       <form action="/animales/solicitud" method="POST">
+        <form action="/animales/solicitud" method="POST">
 
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Mensaje:</label>
-            <textarea class="form-control" name="mensaje" id="message-text" placeholder="Cuentanos sobre ti. ¿Has tenido alguna experiencia con animales? ¿Vives en un Piso?"></textarea>
+            <textarea class="form-control" name="mensaje" id="message-text"
+              placeholder="Cuentanos sobre ti. ¿Has tenido alguna experiencia con animales? ¿Vives en un Piso?"></textarea>
           </div>
           <input type="text" class="form-control" id="recipient-name" name="animal" value="{{animal.id}}" hidden>
           <div class="modal-footer">
@@ -74,7 +86,7 @@
     </div>
   </div>
 </div>
-</div>
+
 <!-- Modal -->
 <div class="modal fade" id="eliminarAnimal" tabindex="-1" aria-labelledby="eliminalAnimalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -84,7 +96,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-       <form action="/animales/animal/{{animal._id}}?_method=DELETE" method="post" >
+        <form action="/animales/animal/{{animal._id}}?_method=DELETE" method="post">
 
           <div class="mb-3">
             ¿Estas seguro que quieres eliminar a {{animal.nombre}}?
@@ -100,4 +112,3 @@
     </div>
   </div>
 </div>
-﻿

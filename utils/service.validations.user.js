@@ -1,19 +1,20 @@
 const {obligatorio, validLength}  = require('./service.validations')
+const User = require('../models/User')
 
 function validatePassword(password, confirm_password) {
   const validLength = password.length >= 8
   let hasLetter = /[a-zA-Z]/g.test(password)
   let hasNumber = /[0-9]/g.test(password)
   if (obligatorio(password) && obligatorio(confirm_password)) {
-    return 'Las constraseñas son obligatorias'
+    return 'Las contraseñas son obligatorias'
   } else if (password != confirm_password) {
     return 'Las contraseñas no coinciden'
   } else if (!hasLetter) {
     return 'La contraseña debe tener una letra'
   } else if (!hasNumber) {
-    return 'La contraseña debe tener un numero'
+    return 'La contraseña debe tener un número'
   } else if (!validLength) {
-    return 'La contraseña debe tener mas de 8 caracteres'
+    return 'La contraseña debe tener más de 8 caracteres'
   }
   return '';
 }
@@ -27,10 +28,12 @@ function validateRoleUser(role) {
 
 function validateEmail(email) {
   const emailRegexp = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
+  // const user = await User.findById({email})
+  // console.log(user);
   if (obligatorio(email)) {
     return 'Email obligatorio'
   } else if (!emailRegexp.test(email)) {
-    return 'Formato de email invalido. Ej: aaa@aaa.com'
+    return 'Formato de email inválido. Ej: aaa@aaa.com'
   }
   return '';
 }

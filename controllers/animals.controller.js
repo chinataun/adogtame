@@ -7,12 +7,14 @@ const fs = require('fs')
 const { promisify } = require('util')
 const unlinkAsync = promisify(fs.unlink)
 
+
 const renderAnimales = async (request, response) => {
   const animales = await Animal.find({})
   const animales_filtrado_tipo = await Animal.collection.distinct("tipo")
+  const animales_filtrado_genero = await Animal.collection.distinct("genero")
   const animales_filtrado_raza = await Animal.collection.distinct("raza")
   const animales_filtrado_ciudad = await Protectora.collection.distinct("ciudad")
-  response.render('animales/animales', { animales, animales_filtrado_tipo, animales_filtrado_raza, animales_filtrado_ciudad })
+  response.render('animales/animales', { animales, activeAnimales:'active', animales_filtrado_tipo, animales_filtrado_genero, animales_filtrado_raza, animales_filtrado_ciudad })
 }
 
 const renderAddAnimal = async (request, response) => {
@@ -20,6 +22,7 @@ const renderAddAnimal = async (request, response) => {
 }
 
 const busquedaAnimal = async (request, response) => {
+
   const animales_filtrado_tipo = await Animal.collection.distinct("tipo")
   const animales_filtrado_genero = await Animal.collection.distinct("genero")
   const animales_filtrado_raza = await Animal.collection.distinct("raza")
@@ -63,48 +66,70 @@ const busquedaAnimal = async (request, response) => {
   }  
 }
 
+
 const addAnimal = async (request, response, error) => {
 
-  const { file, body, nombre, user } = request
+  const { files, body, user } = request
   const validation = validateAnimal(request)
+  let imageUploaded = body.imageUploaded;
+  let historialUploaded = body.historialUploaded;
 
   if (Object.keys(validation).length !== 0) {
-    let checkedH;
-    let checkedM;
-    if (body.genero === "Hembra") {
-      checkedH = 'checked'
-    } else if (body.genero === "Macho") {
-      checkedM = 'checked'
-    }
-    return response.render('animales/add', { errors: validation, body, checkedH, checkedM })
-  }
 
+    if (files.image && !validation.image) {
+      if (imageUploaded) {
+        try {
+          await unlinkAsync("public/uploads/" + imageUploaded)
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      imageUploaded = files.image[0].filename;
+    }
+    if (files.historial && !validation.image) {
+      if (historialUploaded) {
+        try {
+          await unlinkAsync("public/uploads/" + historialUploaded)
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      historialUploaded = files.historial[0].filename;
+    }
+    let checked = {}
+    if (body.genero === "Hembra") {
+      checked.checkedH = 'checked'
+    } else if (body.genero === "Macho") {
+      checked.checkedM = 'checked'
+    }
+    return response.render('animales/add', { errors: validation,activeProtectora:'active', body, checked, imageUploaded, historialUploaded })
+  }
   try {
-    const datos = body
-    console.log(datos);
+
+    const userFound = await User.findById(user.id).populate([{
+      path: 'user',
+      model: 'Protectora',
+      populate: {
+        path: 'animales',
+        model: 'Animal',
+      }
+    }])
     const animal = new Animal({
       nombre: body.nombre,
       tipo: body.tipo,
       raza: body.raza,
-      edad: (body.edad == '') ? undefined : body.edad,
+      edad: body.edad,
       genero: body.genero,
-      historial: (body.historial == '') ? undefined : body.historial,
-      descripcion: (body.descripcion == '') ? undefined : body.descripcion,
-      image: (file == undefined) ? file : file.filename,
-      protectora: user.user._id
+      historial: (!files.historial) ? historialUploaded : files.historial[0].filename,
+      descripcion: body.descripcion,
+      image: (!files.image) ? imageUploaded : files.image[0].filename,
+      protectora: user.id,
+      ciudad: userFound.user.ciudad,
     })
-
     const savedAnimal = await animal.save()
-
-    const userfound = await User.findById(user.user._id).populate('user')
-
-    const protectoraf = await Protectora.findById(userfound.user._id)
-
-    protectoraf.animales = await protectoraf.animales.concat(savedAnimal._id)
-
-    const protectoraUpdates = await protectoraf.save()
-
-    request.flash('success_msg', 'Añadido con éxito')
+    const protectoraFound = await Protectora.findById(userFound.user._id)
+    protectoraFound.animales = await protectoraFound.animales.concat(savedAnimal._id)
+    await protectoraFound.save()
     return response.redirect('/animales/animal/' + savedAnimal._id)
   } catch (error) {
     response.render('animales/add')
@@ -113,47 +138,37 @@ const addAnimal = async (request, response, error) => {
 
 const renderAnimal = async (request, response) => {
   const { id } = request.params
-  const animal = await Animal.findById(id).populate('protectora').populate([{
+  const user = request.user
+  const animal = await Animal.findById(id).populate([{
     path: 'protectora',
     model: 'User',
-    populate: {
-      path: 'user',
-      model: 'Protectora'
-    }
   }])
-  if (animal) {
-    if (request.user !== undefined) {
-      const { user } = request.user
-      console.log(user._id);
-      console.log(animal.protectora._id.toString());
-      let canEdit = false
-      if (user._id === animal.protectora._id.toString()) {
-        canEdit = true
-      }
-      const solicitado = await Solicitud.find({ adoptante: user._id, animal: id })
-      return response.render('animales/animal', { animal, solicitado, canEdit })
-    }
-    return response.render('animales/animal', { animal })
+  let solicitado = undefined;
+  if (!user) {
+    canEdit = false;
+  } else {
+    canEdit = (user.id == animal.protectora._id)
+    solicitado = await Solicitud.find({ adoptante: user.id, animal: id })
   }
-  else {
-    response.redirect('/animales')
-  }
+  return response.render('animales/animal', { animal, solicitado, canEdit })
 }
 
 const solicitudAnimal = async (request, response) => {
   const { animal, mensaje } = request.body
   const user = request.user
-  const animalfound = await Animal.findById(animal)
-  const protectora = await animalfound.populate('protectora')
+  const animalfound = await Animal.findById(animal).populate([{
+    path: 'protectora',
+    model: 'User',
+  }])
   const solicitud = new Solicitud({
     animal: animalfound._id,
-    adoptante: user.user._id,
+    adoptante: user.id,
     mensajeAdoptante: mensaje,
     mesanjeProtectora: undefined,
-    protectora: protectora.protectora._id,
+    protectora: animalfound.protectora,
     estado: 'En proceso'
   })
-  const saved = await solicitud.save()
+  await solicitud.save()
   request.flash("success_msg", 'Solicitud enviada correctamente.')
   response.redirect('/animales/animal/' + animal)
 }
@@ -164,6 +179,7 @@ const deleteAnimal = async (request, response) => {
     path: 'protectora',
     model: 'User',
   }])
+  console.log(animaldeleted);
   try {
     await unlinkAsync("public/uploads/" + animaldeleted.image)
   } catch (err) {
@@ -172,18 +188,26 @@ const deleteAnimal = async (request, response) => {
   const protectoraf = await Protectora.findById(animaldeleted.protectora.user._id)
   const index = protectoraf.animales.indexOf(animaldeleted._id);
   if (index > -1) {
-    protectoraf.animales.splice(index, 1);
+    protectoraf.animales.splice(index, 1); // 2nd parameter means remove one item only
   }
   await protectoraf.save()
 
   response.redirect('/users/protectora/' + animaldeleted.protectora._id)
 }
 
+
 const renderEditAnimal = async (request, response) => {
-  const { id } = request.query
-
+  const { id } = request.params
   const animal = await Animal.findById(id)
-
+  // console.log(animal);
+  // if (animal) {
+  //   if (request.user !== undefined) {
+  //     const {user} = request.user
+  //     const solicitado = await Solicitud.find({adoptante: user._id, animal: id})
+  //     return response.render('animales/animal', {animal, solicitado})
+  //   }
+  //   return response.render('animales/animal', {animal})
+  // } else{
   let checkedH;
   let checkedM;
   if (animal.genero === "Hembra") {
@@ -192,27 +216,42 @@ const renderEditAnimal = async (request, response) => {
     checkedM = 'checked'
   }
   // }
-  response.render('animales/edit', { animal, checkedH, checkedM })
+  response.render('animales/edit', { animal, checkedH, checkedM,activeProtectora:'active' })
 }
 
 const editAnimal = async (request, response, error) => {
-  const { file, body } = request
+  const { files, body } = request
   const { id } = request.params
   const validation = validateAnimal(request)
 
+  let imageUploaded = body.imageUploaded;
+  let historialUploaded = body.historialUploaded;
+
   if (Object.keys(validation).length !== 0) {
     const animal = body
-    animal.id = id;
     const animalFound = await Animal.findById(id)
+    animal.id = id;
+    console.log(files.image);
+    console.log(files.historial);
+    console.log(files);
+      animal.image = (files.image == undefined) ? animalFound.image : files.image[0].filename;
+      animal.historial = (files.historial == undefined) ? animalFound.historial : files.historial[0].filename;  
 
-    animal.image = (file == undefined) ? animalFound.image : file.filename;
-    if (file && !validation.image) {
+   
+    if (Object.keys(files).length !== 0 && !validation.image) {
       try {
-        await unlinkAsync("public/uploads/" + animalFound.image)
+          if (files.image) {
+            await unlinkAsync("public/uploads/" + animalFound.image)
+            animalFound.image = files.image[0].filename;
+          }
+          if (files.historial) {
+            await unlinkAsync("public/uploads/" + animalFound.historial)
+            animalFound.historial = files.historial[0].filename;
+          }
+
       } catch (err) {
         console.log(err);
-      }
-      animalFound.image = file.filename;
+      }   
       await animalFound.save();
     }
 
@@ -223,19 +262,27 @@ const editAnimal = async (request, response, error) => {
     } else if (body.genero === "Macho") {
       checkedM = 'checked'
     }
-    return response.render('animales/edit', { errors: validation, animal, checkedH, checkedM })
+    return response.render('animales/edit', { errors: validation, animal, checkedH, checkedM,activeProtectora:'active' })
   }
+  const animalFound = await Animal.findById(id)
+  if (Object.keys(files).length !== 0) {
 
-  if (file) {
-    const animalFound = await Animal.findById(id)
     try {
-      await unlinkAsync("public/uploads/" + animalFound.image)
+      if (files.image) {
+        await unlinkAsync("public/uploads/" + animalFound.image)
+        animalFound.image = files.image[0].filename;
+      }
+      if (files.historial) {
+        await unlinkAsync("public/uploads/" + animalFound.historial)
+        animalFound.historial = files.historial[0].filename;
+      }
     } catch (err) {
       console.log(err);
-    }
-    animalFound.image = file.filename;
+    }   
     await animalFound.save();
+
   }
+  
   try {
     const animal = {
       nombre: body.nombre,
@@ -243,18 +290,16 @@ const editAnimal = async (request, response, error) => {
       raza: body.raza,
       edad: body.edad,
       genero: body.genero,
-      image: (file == undefined) ? file : file.filename,
+      image : (files.image == undefined) ? animalFound.image : files.image[0].filename,
+      historial: (files.historial == undefined) ? animalFound.historial : files.historial[0].filename,
       descripcion: body.descripcion,
-
     }
-
     let animalUpdated = await Animal.findByIdAndUpdate(id, animal);
-
-    request.flash('success_msg', 'Editado con éxito')
-    response.redirect('/animales/animal/' + animalUpdated._id)
+    response.redirect('/animales/animal/' + animalUpdated.id)
   } catch (error) {
     response.render('animales/edit')
   }
 }
 
-module.exports = { renderAnimales, solicitudAnimal, renderAddAnimal, addAnimal, busquedaAnimal, renderAnimal, deleteAnimal, renderEditAnimal, editAnimal }
+
+module.exports = { renderAnimales, renderAddAnimal, addAnimal, busquedaAnimal, renderAnimal, solicitudAnimal, deleteAnimal, renderEditAnimal, editAnimal }
