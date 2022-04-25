@@ -1,43 +1,69 @@
-<div id="animal">
+<div id="protectoras">
+    <section id="box" class="buscador">
 
-  <div class="top">
-    <h1>
-        {{protectora.user.nombre}}
-    </h1>
-            {{> messages }}
-  </div>
-    <div class="bottom">
-      <div class="animal_image">
-      <img src="/uploads/{{ protectora.user.image }}" alt="avatar_protectora">
-      </div>
-              <p><span> Email:          </span> {{ protectora.email }}         </p>
-        <p><span> Telefono:          </span> {{ protectora.user.telefono }}         </p>
-                <p><span> Ciudad:          </span> {{ protectora.user.ciudad }}         </p>
-                <p><span> CIF:        </span> {{ protectora.user.cif }}       </p>
-        <p><span> DescripciÃ³n:        </span> {{ protectora.user.descripcion }}       </p>
+        <div class="busqueda_basica">
+            <form name="frmBuscador" method="post" action="/users/protectoras/buscar">
+                <input type="search" id="buscadorBasico" name="busqueda" class="buscadorBasico"
+                    placeholder="Busqueda general de protectora..." />
+                <input type="submit" id="buscadorBasicoSubmit" class="buttonCustom" name="submit" value="Buscar">
+            </form>
+            <button id="buttonMostrarFiltros" class="buttonCustom" style="display: block;" title="Filtros">Mostrar
+                Filtros</button>
+            <button id="buttonOcultarFiltros" class="buttonCustom" style="display: none;" title="Filtros">Ocultar
+                Filtros</button>
+        </div>
+
+        <div id="busqueda_avanzada" style="display: none;">
+            <form name="frmBuscador" method="post" action="/users/protectoras/buscar">
+                <select name="ciudad" id='' class="buttonCustom" onclick='onBusquedaAnimal_Tipo()'
+                    style=" text-transform: lowercase;">
+                    <option value="">Ciudad</option>
+                    {{#each protectoras_filtrado_ciudad }}
+                    <option value={{this}}> {{this}} </option>
+                    {{/each}}
+                </select>
+                <div class="btn">
+                    <button type="submit" name="submit" value="filtrar" class="buttonCustom">Filtrar</button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+    <div class="animales-protectora">
+        <ul class="animales-protectora_wrapper">
+            {{#each protectoras}}
+            <li class="animales-protectora_card">
+                <div class="animales-protectora-card_header">
+                    <h1 class="animales-protectora-card_header-title">
+                        {{user.nombre}}
+                    </h1>
+                    {{#if user.image}}
+                    <div class=""><img id="protectora_logo_card" class="circle_logo" src="../../uploads/{{user.image}}"
+                            width="60" height="60"></div>
+                    {{/if}}
+                    {{^if user.image}}
+                    <div class=""><img id="protectora_logo_card" class="circle_logo" src="../../images/logo.png" width="60"
+                            height="60"></div>
+                    {{/if}}
+                </div>
+                <div class="animales-protectora-card_content">
+                    <p><span> Email: </span> {{#if this.user.email}} {{this.user.email}} {{else}} {{email}} {{/if}} </p>
+                    <p><span> Ciudad: </span> {{#if this.user.ciudad}} {{this.user.ciudad}} {{else}} {{ciudad}} {{/if}}</p>
+                    <div class="sign">
+                        <a href='/users/protectora/{{id}}' class='button'>Ver mas detalles..</a>
+                    </div>
+                </div>
+            </li>
+            {{/each}}
+            {{^if protectoras}}
+            <div style="padding-top:12px;color: white;text-align:center;">
+                <h2>No se han encontrado resultados</h2>
+            </div>
+            {{/if}}
+
+        </ul>
     </div>
+
+
 </div>
-<ul>
-{{#each animales}}
-            <p>
-                <li>
-                    <div class="top">
-                        <h1>
-                            {{nombre}}
-                        </h1>
-                        <div class=""><img id="avatar_animal" src="../images/{{tipo}}.png" width="60" height="60"></div>
-                    </div>
-                    <div class="bottom">
-                        <br>
-                        <p><span> Tipo:          </span> {{ tipo }}         </p>
-                        <p><span> Raza:          </span> {{ raza }}         </p>
-                        <p><span> Genero:        </span> {{ genero}}       </p>
-                        <div class="sign">
-                        <a href='/animales/animal/{{id }}' class='button'>Ver mas detalles..</a>
-                        </div>
-                    </div>
-                    </li>
-            </p>
-        {{/each}}
-       
-    </ul>

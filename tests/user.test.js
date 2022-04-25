@@ -1,4 +1,3 @@
-
 const validations = require('../utils/service.validations')
 
 const validationsUser = require('../utils/service.validations.user')
@@ -10,41 +9,41 @@ const api = supertest(app)
 
 describe('Registro basico de usuario', () => {
 
-  test("Formato invalido sin @", () => {
+  test.skip("Formato invalido sin @", () => {
     expect(validationsUser.validateEmail("Beethoven")).toBe('Formato de email invalido. Ej: aaa@aaa.com')
   })
-  test("Formato invalido con @ sin .*", () => {
+  test.skip("Formato invalido con @ sin .*", () => {
     expect(validationsUser.validateEmail("Beethoven@asd")).toBe('Formato de email invalido. Ej: aaa@aaa.com')
   })
-  test("Formato valido", () => {
+  test.skip("Formato valido", () => {
     expect(validationsUser.validateEmail("Beethoven@gmail.com")).toBe('')
   })
 
-  test("Las constraseñas son obligatorias", () => {
+  test.skip("Las constraseñas son obligatorias", () => {
     expect(validationsUser.validatePassword('','')).toBe('Las constraseñas son obligatorias')
   })
-  test("La contraseña debe tener numero", () => {
+  test.skip("La contraseña debe tener numero", () => {
     expect(validationsUser.validatePassword("asd","asd")).toBe('La contraseña debe tener un numero')
   })
-  test("LA contraseña debe tener letra", () => {
+  test.skip("LA contraseña debe tener letra", () => {
     expect(validationsUser.validatePassword("123","123")).toBe('La contraseña debe tener una letra')
   })
-  test("Las contraseñas no coindicen", () => {
+  test.skip("Las contraseñas no coindicen", () => {
     expect(validationsUser.validatePassword("ads", "klj")).toBe('Las contraseñas no coinciden')
   })
-  test("La contraseña debe tener mas de 8 caracteres", () => {
+  test.skip("La contraseña debe tener mas de 8 caracteres", () => {
     expect(validationsUser.validatePassword("asdasd4", "asdasd4")).toBe('La contraseña debe tener mas de 8 caracteres')
   })
-  test("Contraseñas correctas", () => {
+  test.skip("Contraseñas correctas", () => {
     expect(validationsUser.validatePassword("contraseña1","contraseña1")).toBe('')
   })
 
-  test("Sin Rol Obligatorio", () => {
+  test.skip("Sin Rol Obligatorio", () => {
     expect(validationsUser.validateRoleUser("Adoptante")).toBe('')
   })
 
   
-  test("Con Rol Obligatorio", () => {
+  test.skip("Con Rol Obligatorio", () => {
     expect(validationsUser.validateRoleUser(undefined)).toBe('Rol obligatorio')
   })
 
@@ -66,11 +65,11 @@ describe('Registro basico de usuario', () => {
     }
   }
 
-  test("registro basico done", () => {
+  test.skip("registro basico done", () => {
     expect(validationsUser.validateUser(requestDone)).toStrictEqual({})
   })
 
-  test("registro basico fail", () => {
+  test.skip("registro basico fail", () => {
     expect(validationsUser.validateUser(requestFail)).toStrictEqual({password: 'Las contraseñas no coinciden'})
   })
 

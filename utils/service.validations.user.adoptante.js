@@ -5,9 +5,9 @@ function validateDni(dni) {
   if (obligatorio(dni)) {
     return 'DNI obligatorio'
   } else if (dni.length != 9) {
-    return 'El numero de caracteres de un DNI son 9. Ejemplo: 11111111A'
+    return 'El número de caracteres de un DNI son 9. Ej: 12345678'
   }else if (!/^(\d{7})([ABCDEFGHJKLMNPQRSUVW])([0-9A-J])$/.test(dni)) {
-    return 'Tipo de DNI inválido'
+    return 'Tipo de DNI inválido. Ej: 12345678'
   }
   return '';
 }

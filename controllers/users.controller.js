@@ -7,24 +7,7 @@ const renderRegistro = (request, response) => {
 }
 
 const registro = async (request, response) => {
-  let errors = [];
   const { email, password, confirm_password, role } = request.body;
-  // if (email.length <= 0 ) {
-  //   errors.email = ('Inserta email')
-  // }
-  // if (password != confirm_password) {
-  //   errors.push("Las contraseñas no coinciden");
-  // }
-  // if (password.length < 8 || password.length > 20) {
-  //   errors.push("La contraseña debe contener entre 8 y 20 caracteres");
-  // }
-  // const emailUser = await User.findOne({ email: email });
-  // if (emailUser) {
-  //   errors.push("Ya existe un usuario con ese email");
-  // }
-  // if (role == undefined) {
-  //   errors.push("Debe serleccionar un tipo de registro");
-  // }
   let checkedA;
   let checkedP;
 

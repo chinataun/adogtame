@@ -26,15 +26,12 @@ function validateNombre(nombre) {
 }
 
 function validateTelefono(telefono) {
-  // var str = telefono.toString().replace(/\s/g, '');
-  // console.log(str.length === 9 && /^[679]{1}[0-9]{8}$/.test(str));
-  // return str.length === 9 && /^[679]{1}[0-9]{8}$/.test(str);
   if (obligatorio(telefono)) {
-    return 'Telefono obligatorio'
+    return 'Teléfono obligatorio'
   } else if (telefono.length != 9) {
-    return 'Escribe un telefono con 9 caracteres'
+    return 'Escribe un teléfono con 9 caracteres. Ej: 654654654'
   }else if (!/^[679]{1}[0-9]{8}$/.test(telefono)) {
-    return 'Tipo de telefono invalido'
+    return 'Tipo de teléfono invalido. Ej: 654654654'
   }
   return '';
 }
@@ -43,7 +40,19 @@ function validateImage(file) {
   const mimetypes = /image\/png|image\/jpeg|image\/gif/;
   if (file !== undefined) {
     if(!mimetypes.test(file['mimetype'])) {
-      return ('Tipo de archivo no soportado. Tipos validos: jpg, png o gif')
+      return ('Tipo de archivo no soportado. Tipos válidos: jpg, png o gif')
+    } else if (file.size > 2097153) {
+      return "Tamaño de archivo excedido. Max: 2MB"
+    }    
+  }
+  return '';
+}
+
+function validateFile(file) {
+  const mimetypes = /image\/pdf/;
+  if (file !== undefined) {
+    if(!mimetypes.test(file['mimetype'])) {
+      return ('Tipo de archivo no soportado. Tipos válido: pdf')
     } else if (file.size > 2097153) {
       return "Tamaño de archivo excedido. Max: 2MB"
     }    
@@ -53,7 +62,7 @@ function validateImage(file) {
 
 function validateDescripcion(descripcion) {
   if (validLength(descripcion, 500)) {
-    return 'La descripción no puede tener mas de 500 caracteres'
+    return 'La descripción no puede tener mas de 500 caracteres.'
   }
   return '';
 }

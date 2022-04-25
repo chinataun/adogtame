@@ -1,56 +1,66 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <div class="container-fluid">
+        <div class="container-fluid margenNav">
+
             <a class="navbar-brand " href="/"><img class="circle_logo" src="/images/logo.png" alt=""></a>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div id="navbarCollapse" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/animales">Animales</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/protectoras">Protectoras</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav ms-auto">
 
+            <div id="navbarCollapse" class="collapse navbar-collapse justify-content-end margenNav">
 
-                    {{#if user}}
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Usuario</a>
-                        {{# protectora }}
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a href="/animales/add" class="dropdown-item">Añadir animales</a>
-                                <a href="/users/solicitudesProtectora" class="dropdown-item">Solicitudes</a>
-                                <a href="/users/edit-protectora" class="dropdown-item link" style="color: black;">Mi perfil</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="/users/logout" class="dropdown-item">Logout</a>  
-                            </div>
-                        {{/ protectora}}
-                        {{# adoptante }}
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a href="/users/solicitudesAdoptante" class="dropdown-item">Mis solicitudes</a>
-                                <a href="/users/edit-adoptante" class="dropdown-item" style="color: black;">Mi perfil</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="/users/logout" class="dropdown-item">Logout</a>
-                            </div>
-                        {{/ adoptante}}
-                        
-                    </li>
-                    {{/if}}
-                    {{^ user}}
-                    <li class="nav-item">
-                    <a class="nav-link" href="/users/login">Iniciar sesion</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="/users/registro">Registrarse</a>
-                    </li>
-                    {{/ user}}
+                <li class="nav-item {{activeAnimales}}">
+                    <a class="nav-link link" href="/animales">Animales</a>
+                </li>
+                <li class="nav-item {{activeProtectoras}}">
+                    <a class="nav-link link" href="/users/protectoras">Protectoras</a>
+                </li>
 
-                </ul>
+                {{#if user}}
+                <li class="nav-item dropdown {{activeProtectoras}} {{activeAdoptantes}}">
+                    <a href="#" class="nav-link dropdown-toggle link" data-bs-toggle="dropdown">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-person link" viewBox="0 0 16 16">
+                            <path
+                                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                        </svg>
+
+                        {{user.protectora.nombre}}
+                        {{user.adoptante.nombre}}
+
+                    </a>
+                    {{# protectora }}
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a href="/animales/add" class="dropdown-item letraNegro link" style="color: black;">Añadir
+                            animales</a>
+                        <a href="/users/solicitudesProtectora" class="dropdown-item link"
+                            style="color: black;">Solicitudes</a>
+                        <a href="/users/edit-protectora" class="dropdown-item link" style="color: black;">Mi perfil</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/users/logout" class="dropdown-item letraNegro link" style="color: black;">Logout</a>
+                    </div>
+                    {{/ protectora}}
+                    {{# adoptante }}
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a href="/users/solicitudesAdoptante" class="dropdown-item link" style="color: black;">Mis
+                            solicitudes</a>
+                        <a href="/users/edit-adoptante" class="dropdown-item" style="color: black;">Mi perfil</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/users/logout" class="dropdown-item link" style="color: black;">Logout</a>
+                    </div>
+                    {{/ adoptante}}
+
+                </li>
+                {{/if}}
+                {{^ user}}
+                <li class="nav-item">
+                    <a class="nav-link link" href="/users/login ">Iniciar sesion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link" href="/users/registro">Registrarse</a>
+                </li>
+                {{/ user}}
             </div>
         </div>
-    </nav>      
-  </header>
+    </nav>
+</header>

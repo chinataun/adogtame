@@ -5,18 +5,18 @@ function validateCifProtectora(cif) {
   if (obligatorio(cif)) {
     return 'CIF obligatorio'
   } else if (cif.length != 9) {
-    return 'Escribe un cif con 9 caracteres'
+    return 'Escribe un CIF con 9 caracteres. Ej: A12345678'
   }else if (!/^([ABCDEFGHJKLMNPQRSUVW])(\d{7})([0-9A-J])$/.test(cif)) {
-    return 'Tipo de CIF invalido'
+    return 'Tipo de CIF inválido. Ej: A12345678'
   }
   return '';
 }
 
 function validateCiudadProtectora(ciudad) {
   if (obligatorio(ciudad)) {
-    return 'Ciudad obligatorio'
+    return 'Ciudad obligatoria'
   } else if (validLength(ciudad, 50)) {
-    return 'La ciudad no puede tener mas de 50 caracteres'
+    return 'La ciudad no puede tener más de 50 caracteres'
   }
   return '';
 }

@@ -6,8 +6,12 @@
           Registro Adoptante
         </h1>
       </div>
-      <img class="mx-auto d-block logo m-4" src="/images/logo.png" alt="Logo">
-      <div class="card-body">
+      {{#if imageUploaded}}
+      <img id="image" src="/uploads/{{ imageUploaded }}" alt="logo" title="Logo protectora"/></br>
+      {{/if}}
+      {{^if imageUploaded}}
+      <img class="rounded-circle mx-auto d-block logo m-4" src="/images/logo.png" alt="Logo">
+      {{/if}}      <div class="card-body">
         <form action="/users/registro/adoptante" method="POST" enctype="multipart/form-data" novalidate>
           <div class="mb-3">
             <label class="form-label" for="inputEmail">Nombre</label>
@@ -31,19 +35,13 @@
               {{errors.telefono}}
             </div>
           </div>
-                    <div class="mb-3">
-            <input type="password" hidden class="form-control" name="password" placeholder="Password" value="{{ password }}">
-          </div>
-          <div class="mb-3">
-            <input type="text" hidden class="form-control" name="email" placeholder="email" value="{{ email }}">
-          </div>
-          <div class="mb-3">
-            <input type="text" hidden class="form-control" name="role" placeholder="role" value="{{ role }}">
-          </div>
+
           <div class="mb-3">
             <label class="form-label" for="inputImage">Imagen</label>
+            <input class="form-control" type="text" hidden name="imageHidden" {{#if imageUploaded}}value="{{imageUploaded}}"{{/if}}  id="inputImage">
+
             <input class="form-control {{#errors.file}}is-invalid{{/errors.file}}" type="file" name="image" id="inputImage">
-            <div id="validationImageFeedback" class="invalid-feedback">
+            <div id="validationNombreFeedback" class="invalid-feedback">
               {{errors.file}}
             </div>
           </div>
@@ -53,6 +51,15 @@
             <div id="validationNombreFeedback" class="invalid-feedback">
               {{errors.descripcion}}
             </div>
+          </div>
+          <div class="mb-3">
+            <input type="password" hidden class="form-control" name="password" placeholder="Password" value="{{ password }}">
+          </div>
+          <div class="mb-3">
+            <input type="text" hidden class="form-control" name="email" placeholder="email" value="{{ email }}">
+          </div>
+          <div class="mb-3">
+            <input type="text" hidden class="form-control" name="role" placeholder="role" value="{{ role }}">
           </div>
           <div>
             <button class="btn btn-primary btn-block">

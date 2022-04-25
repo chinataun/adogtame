@@ -4,7 +4,7 @@ function validateTipoAnimal(tipo) {
   if (obligatorio(tipo)) {
     return 'Tipo obligatorio'
   } else if (validLength(tipo, 20)) {
-    return 'El tipo no puede tener mas de 20 caracteres'
+    return 'El tipo no puede tener más de 20 caracteres'
   }
   return '';
 }
@@ -13,7 +13,7 @@ function validateRazaAnimal(raza) {
   if (obligatorio(raza)) {
     return 'Raza obligatoria'
   } else if (validLength(raza, 20)) {
-    return 'La raza no puede tener mas de 20 caracteres'
+    return 'La raza no puede tener más de 20 caracteres'
   }
   return '';
 }

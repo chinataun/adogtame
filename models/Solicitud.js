@@ -24,6 +24,13 @@ const SolicitudSchema = new Schema(
     versionKey: false,
   }
 );
+SolicitudSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
+})
 
 const Solicitud = mongoose.model('Solicitud', SolicitudSchema)
 

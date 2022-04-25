@@ -1,7 +1,6 @@
 <div class="row">
   <div class="col-md-4 mx-auto">
-    <div class="card mt-4 text-center">
-        {{> messages }}
+    <div class="card mt-4">
       <div class="card-header">
         <h1>
           Iniciar sesión
@@ -9,16 +8,22 @@
       </div>
         <img class="rounded-circle mx-auto d-block logo m-4" src="/images/logo.png" alt="Logo">
       <div class="card-body">
-        <form action="/users/login" method="POST">
-          <div class="form-group">
-            <input type="email" class="form-control" name="email" placeholder="Email" autofocus value="{{email}}">
+        <form action="/users/login" method="POST" novalidate>
+          <div class="mb-3">
+            <label for="validationEmail" class="form-label">Email</label>
+            <input type="email" class="form-control {{#errors.email}}is-invalid{{/errors.email}}" name="email" placeholder="Email" id="validationNombre" aria-describedby="validationNombreFeedback" {{#errors.email}}autofocus{{/errors.email}} value="{{^errors.email}}{{email}}{{/errors.email}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.email}}
+            </div>
           </div>
-          <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password">
+          <div class="mb-3">
+            <label for="validationEmail" class="form-label">Password</label>
+            <input type="password" class="form-control {{#errors.password}}is-invalid{{/errors.password}}" name="password" placeholder="Password" id="validationPassword" aria-describedby="validationPasswordFeedback" {{#errors.password}}autofocus{{/errors.password}} value="{{password}}">
+            <div id="validationNombreFeedback" class="invalid-feedback">
+              {{errors.password}}
+            </div>
           </div>
-          <button class="btn btn-primary btn-block">
-            Iniciar sesión
-          </button>
+          <button class="btn btn-primary btn-block">Iniciar sesión</button>
         </form>
       </div>
     </div>

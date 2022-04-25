@@ -20,6 +20,14 @@ const ProtectoraSchema = new Schema(
   }
 );
 
+ProtectoraSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
+})
+
 const Protectora = mongoose.model('Protectora', ProtectoraSchema)
 
 module.exports = Protectora
