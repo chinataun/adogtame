@@ -179,7 +179,7 @@ const procesarSolicitudAdopcion = async (request, response) => {
 const renderEditProtectora = async (request, response) => {
   const user = request.user
   const protectora = await User.findById(user.id).populate('user')
-  console.log(protectora);
+
   response.render('users/edit_protectora', {protectora, activeProtectora:'active'})
 }
 
@@ -243,7 +243,6 @@ const editProtectora = async (request, response, error) => {
   await Protectora.findByIdAndUpdate(user.user, newProtectora);
 
 
-  request.flash("success_msg", `Usuario actualizado`);
   response.redirect('/users/protectora/' + user.id)
 }
 
