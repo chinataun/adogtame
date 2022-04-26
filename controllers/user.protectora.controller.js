@@ -240,7 +240,7 @@ const editProtectora = async (request, response, error) => {
     email: email
   };
   await User.findByIdAndUpdate(user.id, newUser);
-  await Protectora.findByIdAndUpdate(user.user, newProtectora);
+  await Protectora.findByIdAndUpdate(user.user.id, newProtectora);
 
 
   response.redirect('/users/protectora/' + user.id)
