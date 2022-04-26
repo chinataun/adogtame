@@ -751,7 +751,10 @@ ul.animales-protectora_wrapper{
   justify-content: center;
 }
 
-.editar .card {
+.editar .card,
+.add .card,
+.login .card,
+.registro .card {
   width: 100%;
   max-width: 400px; 
 }

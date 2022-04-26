@@ -1,4 +1,6 @@
-const {obligatorio, validLength, validateNombre, validateImage, validateDescripcion,validateTelefono}  = require('./service.validations')
+const {obligatorio, validLength, validateNombre,  validateDescripcion,validateTelefono}  = require('./service.validations')
+const {validateImageUser}  = require('./service.validations.user')
+
 
 function validateCifProtectora(cif) {
   // var str = cif.replace(/\s/g, '');
@@ -28,7 +30,7 @@ function validateProtectora(params) {
   if (validateCifProtectora(body['cif']) !== '') errores.cif = (validateCifProtectora(body['cif']));
   if (validateTelefono(body['telefono']) !== '') errores.telefono = (validateTelefono(body['telefono']));
   if (validateCiudadProtectora(body['ciudad']) !== '') errores.ciudad = (validateCiudadProtectora(body['ciudad']));
-  if (validateImage(file) !== '') errores.file = (validateImage(file));
+  if (validateImageUser(file) !== '') errores.image = (validateImageUser(file));
   if (validateDescripcion(body['descripcion']) !== '') errores.descripcion = (validateDescripcion(body['descripcion']));
 
   return errores;

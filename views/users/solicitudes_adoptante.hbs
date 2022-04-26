@@ -83,9 +83,6 @@
                     src="/uploads/{{ animal.image }}" alt="perrete" width="100px"></a></td>
 
               <td class="tg-0pky">
-                <div class="animal_image">
-
-                </div>
                 <p><span> Nombre: </span> {{ animal.nombre }} </p>
                 <p><span> Tipo: </span> {{ animal.tipo }} </p>
                 <p><span><a href='/animales/animal/{{animal._id }}' class='button'>Ver ficha del animal</a> </span> </p>
@@ -109,7 +106,9 @@
       </div>
       {{/if}}
       {{^solicitudes}}
-      <h2>No hay solicitudes</h2>
+      <div style="padding-top:12px;color: white;text-align:center;">
+            <h2>No se han encontrado solicitudes</h2>
+        </div>
       {{/solicitudes}}
     </div>
 

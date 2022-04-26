@@ -81,7 +81,8 @@
             <tr>
               <td class="tg-0pky">               
                 <div class="animal_image">
-                  <img src="/uploads/{{ animal.image }}" alt="perrete">
+                  <a href="/uploads/{{ animal.image }}" target="_blank"><img
+                    src="/uploads/{{ animal.image }}" alt="perrete" width="100px"></a>
                 </div> 
               </td>
 
@@ -92,7 +93,7 @@
                 <p><span><a href='/animales/animal/{{animal._id }}' class='button'>Ver ficha del animal</a> </span> </p>
               </td>
               <td class="tg-0pky">
-                <p><span> Nombre: </span> {{ adoptante.nombre }} </p>
+                <p><span> Nombre: </span> {{ adoptante.user.nombre }} </p>
                 <p><span> Mensaje: </span> {{ mensajeAdoptante }} </p>
                 <p><span><a href='/users/adoptante/{{adoptante._id }}' class='button'>Ver ficha del adoptante</a>
                   </span> </p>
@@ -119,7 +120,9 @@
         {{/if}}
       </div>
       {{^solicitudes}}
-      <h2>No hay solicitudes</h2>
+      <div style="padding-top:12px;color: white;text-align:center;">
+            <h2>No se han encontrado solicitudes</h2>
+        </div>
       {{/solicitudes}}
     </div>
   </div>

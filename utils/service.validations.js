@@ -38,10 +38,10 @@ function validateTelefono(telefono) {
 
 function validateImage(file) {
   const mimetypes = /image\/png|image\/jpeg|image\/gif/;
-  if (file !== undefined) {
-    if(!mimetypes.test(file['mimetype'])) {
+  if (file[0] !== undefined) {
+    if(!mimetypes.test(file[0]['mimetype'])) {
       return ('Tipo de archivo no soportado. Tipos válidos: jpg, png o gif')
-    } else if (file.size > 2097153) {
+    } else if (file[0].size > 2097153) {
       return "Tamaño de archivo excedido. Max: 2MB"
     }    
   }
@@ -49,11 +49,11 @@ function validateImage(file) {
 }
 
 function validateFile(file) {
-  const mimetypes = /image\/pdf/;
-  if (file !== undefined) {
-    if(!mimetypes.test(file['mimetype'])) {
+  const mimetypes = /application\/pdf/;
+  if (file[0] !== undefined) {
+    if(!mimetypes.test(file[0]['mimetype'])) {
       return ('Tipo de archivo no soportado. Tipos válido: pdf')
-    } else if (file.size > 2097153) {
+    } else if (file[0].size > 2097153) {
       return "Tamaño de archivo excedido. Max: 2MB"
     }    
   }
@@ -67,4 +67,4 @@ function validateDescripcion(descripcion) {
   return '';
 }
 
-module.exports = { obligatorio, validLength, validatePassword, validateNombre,validateTelefono, validateImage, validateDescripcion}
+module.exports = { obligatorio, validLength, validatePassword, validateNombre,validateTelefono, validateImage, validateFile, validateDescripcion}

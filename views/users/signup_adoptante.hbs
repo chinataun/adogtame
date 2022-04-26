@@ -43,10 +43,10 @@
           <input class="form-control" type="text" hidden name="imageHidden" {{#if
             imageUploaded}}value="{{imageUploaded}}" {{/if}} id="inputImage">
 
-          <input class="form-control {{#errors.file}}is-invalid{{/errors.file}}" type="file" name="image"
+          <input class="form-control {{#errors.image}}is-invalid{{/errors.image}}" type="file" name="image"
             id="inputImage">
           <div id="validationNombreFeedback" class="invalid-feedback">
-            {{errors.file}}
+            {{errors.image}}
           </div>
         </div>
         <div class="mb-3">

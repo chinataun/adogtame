@@ -1,4 +1,4 @@
-const {obligatorio,validLength, validateNombre, validateImage, validateDescripcion}  = require('./service.validations')
+const {obligatorio,validLength, validateNombre, validateImage, validateDescripcion, validateFile}  = require('./service.validations')
 
 function validateTipoAnimal(tipo) {
   if (obligatorio(tipo)) {
@@ -34,14 +34,19 @@ function validateGeneroAnimal(genero) {
 }
 
 function validateAnimal(params) {
-  const {file, body} = params
+  const {files, body} = params
   const errores = {};
   if (validateNombre(body['nombre']) !== '') errores.nombre = validateNombre(body['nombre']);
   if (validateTipoAnimal(body['tipo']) !== '') errores.tipo = (validateTipoAnimal(body['tipo']));
   if (validateRazaAnimal(body['raza']) !== '') errores.raza = (validateRazaAnimal(body['raza']));
   if (validateEdadAnimal(body['edad']) !== '') errores.edad = (validateEdadAnimal(body['edad']));
   if (validateGeneroAnimal(body['genero']) !== '') errores.genero = (validateGeneroAnimal(body['genero']));
-  if (validateImage(file) !== '') errores.file = (validateImage(file));
+  if (files.image) {
+    if (validateImage(files.image) !== '') errores.image = (validateImage(files.image));
+  }
+  if (files.historial) {
+    if (validateFile(files.historial) !== '') errores.file = (validateFile(files.historial));
+  }
   if (validateDescripcion(body['descripcion']) !== '') errores.descripcion = (validateDescripcion(body['descripcion']));
 
   return errores;

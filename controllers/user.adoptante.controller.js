@@ -80,20 +80,10 @@ const renderAdoptante = async (request, response) => {
   const userAdoptante = await User.findById(id).populate('user')
   response.render('users/adoptante', {adoptante: userAdoptante, activeProtectora:'active'})
 
-  // User.findById(id).populate('user')
-  //   .then(protectora => {
-  //     if (protectora)
-  //     console.log(protectora.user.populate('animales'));
-
-  //     response.render('users/protectora', {protectora, animales})
-  //   })
-  //   .catch(err => next(err))
-
 }
 
 const renderSolicitudesAdoptante = async (request, response) => {
   const user = request.user
-  console.log(user);
   const solicitudes = await Solicitud.find({adoptante: user.id}).populate('animal protectora').populate([{
     path: 'protectora',
     model: 'User',
@@ -102,7 +92,6 @@ const renderSolicitudesAdoptante = async (request, response) => {
       model: 'Protectora'
     }
   }])
-  console.log(solicitudes);
   response.render('users/solicitudes_adoptante', {solicitudes, activeAdoptante:'active'})
 
 }
