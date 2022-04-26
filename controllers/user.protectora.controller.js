@@ -47,8 +47,7 @@ const registroProtectora = async (request, response) =>
         return response.render('users/signup_protectora', {errors: validation, email, cif, telefono, descripcion, nombre, ciudad, password, role, imageUploaded, error})
       }
     }
-    console.log(imageUploaded);
-    console.log(file);
+
   const newProtectora = new Protectora({ 
     nombre: nombre,
     cif: cif, 
@@ -148,12 +147,14 @@ const renderProtectora = async (request, response) => {
 
 const renderSolicitudesProtectora = async (request, response) => {
   const user = request.user
-  console.log(user);
   const solicitudes = await Solicitud.find({protectora: user.id}).populate('animal').populate([{
     path: 'adoptante',
     model: 'User',
+    populate: {
+      path: 'user',
+      model: 'Adoptante'
+    }
   }])
-  console.log(solicitudes);
   response.render('users/solicitudes_protectora', {solicitudes, activeProtectora:'active'})
 
 }

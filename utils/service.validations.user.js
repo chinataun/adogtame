@@ -26,6 +26,18 @@ function validateRoleUser(role) {
   return '';
 }
 
+function validateImageUser(file) {
+  const mimetypes = /image\/png|image\/jpeg|image\/gif/;
+  if (file !== undefined) {
+    if(!mimetypes.test(file['mimetype'])) {
+      return ('Tipo de archivo no soportado. Tipos válidos: jpg, png o gif')
+    } else if (file.size > 2097153) {
+      return "Tamaño de archivo excedido. Max: 2MB"
+    }    
+  }
+  return '';
+}
+
 function validateEmail(email) {
   const emailRegexp = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
   if (obligatorio(email)) {
@@ -81,4 +93,4 @@ const validatePasswordLogin = (match) => {
 }
 
 
-module.exports = { validateUser, validatePassword,validateEmail,validateEmailLogin,validatePasswordLogin, validateLogin}
+module.exports = { validateUser, validatePassword,validateEmail,validateEmailLogin,validatePasswordLogin, validateLogin,validateImageUser}

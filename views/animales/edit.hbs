@@ -62,17 +62,17 @@
         </div>
         <div class="mb-3">
           <label class="form-label" for="inputImage">Imagen</label>
-          <input class="form-control {{#errors.file}}is-invalid{{/errors.file}}" type="file" name="image"
+          <input class="form-control {{#errors.image}}is-invalid{{/errors.image}}" type="file" name="image"
             id="inputImage">
           <div id="validationTipoFeedback" class="invalid-feedback">
-            {{errors.file}}
+            {{errors.image}}
           </div>
         </div>
 
         <div class="mb-3">
           <label for="message-text" class="col-form-label">Historial médico</label>
 
-          <input class="form-control {{#errors.historial}}is-invalid{{/errors.historial}}" type="file" name="historial"
+          <input class="form-control {{#errors.file}}is-invalid{{/errors.file}}" type="file" name="historial"
             id="inputHistorial">
           {{#if animal.historial}}
           <span>
@@ -85,7 +85,7 @@
           </span>
           {{/if}}
           <div id="validationHistorialFeedback" class="invalid-feedback">
-            {{errors.historial}}
+            {{errors.file}}
           </div>
         </div>
 
