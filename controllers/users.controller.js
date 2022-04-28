@@ -44,6 +44,7 @@ const registro = async (request, response) => {
   }
 }
 
+<<<<<<< HEAD
 // const login2 = passport.authenticate('local', {
 //   successRedirect: "/",
 //   failureRedirect: "/users/login",
@@ -59,6 +60,17 @@ const login = async (request, response) => {
   // const validationEmail = validateEmailLogin(email, user)
   if (Object.keys(pruebas).length !== 0) {
     return response.render("users/login", { errors: pruebas, email })
+=======
+const login = async (request, response) => {
+  const { email, password } = request.body;
+
+  const validation = await validateLogin(request.body)
+  console.log(validation);
+  // const user = await User.findOne({ email: email })
+  // const validationEmail = validateEmailLogin(email, user)
+  if (Object.keys(validation).length !== 0) {
+    return response.render("users/login", { errors: validation, email })
+>>>>>>> develop
   }
   const user = await User.findOne({ email: email })
   const token = jwt.sign({ user }, 'SECRET', { expiresIn: "24h" });
@@ -133,9 +145,13 @@ const deleteUser = async (request, response) => {
   return response.clearCookie("token").redirect('/')
 }
 
+<<<<<<< HEAD
 const nosotros = (request, response) => {
   response.render('users/sobre_nosotros')
 }
 
 
 module.exports = { renderRegistro, registro, login, renderLogin, logout, deleteUser, nosotros }
+=======
+module.exports = { renderRegistro, registro, login, renderLogin, logout, deleteUser}
+>>>>>>> develop

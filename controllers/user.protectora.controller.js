@@ -47,8 +47,6 @@ const registroProtectora = async (request, response) =>
         return response.render('users/signup_protectora', {errors: validation, email, cif, telefono, descripcion, nombre, ciudad, password, role, imageUploaded, error})
       }
     }
-    console.log(imageUploaded);
-    console.log(file);
   const newProtectora = new Protectora({ 
     nombre: nombre,
     cif: cif, 
@@ -148,12 +146,14 @@ const renderProtectora = async (request, response) => {
 
 const renderSolicitudesProtectora = async (request, response) => {
   const user = request.user
-  console.log(user);
   const solicitudes = await Solicitud.find({protectora: user.id}).populate('animal').populate([{
     path: 'adoptante',
     model: 'User',
+    populate: {
+      path: 'user',
+      model: 'Adoptante'
+    }
   }])
-  console.log(solicitudes);
   response.render('users/solicitudes_protectora', {solicitudes, activeProtectora:'active'})
 
 }
@@ -178,7 +178,6 @@ const procesarSolicitudAdopcion = async (request, response) => {
 const renderEditProtectora = async (request, response) => {
   const user = request.user
   const protectora = await User.findById(user.id).populate('user')
-  console.log(protectora);
   response.render('users/edit_protectora', {protectora, activeProtectora:'active'})
 }
 
@@ -239,10 +238,9 @@ const editProtectora = async (request, response, error) => {
     email: email
   };
   await User.findByIdAndUpdate(user.id, newUser);
-  await Protectora.findByIdAndUpdate(user.user, newProtectora);
+  await Protectora.findByIdAndUpdate(user.user.id, newProtectora);
 
 
-  request.flash("success_msg", `Usuario actualizado`);
   response.redirect('/users/protectora/' + user.id)
 }
 

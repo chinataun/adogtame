@@ -1,102 +1,161 @@
-        {{> messages }}
-<div id="animal">
-
-  <div class="top">
-    <h1>
-      SOLICITUDES
-    </h1>
-  </div>
-  {{#if solicitudes}}
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-elvq{background-color:#fffc9e;border-color:inherit;text-align:left;vertical-align:top}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-@media screen and (max-width: 767px) {.tg {width: auto !important;}.tg col {width: auto !important;}.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}}</style>
-<div class="tg-wrap"><table class="tg">
-<thead>
-  <tr>
-    <th class="tg-elvq">ID</th>
-        <th class="tg-elvq">Animal</th>
-    <th class="tg-elvq">Adoptante</th>
-    <th class="tg-elvq">Estado</th>
-    <th class="tg-elvq">Tramitar</th>
-    
-  </tr>
-</thead>
-<tbody>
-  {{#each solicitudes}}
-  <tr>
-    <td class="tg-0pky">{{ _id }} </td>
-
-    <td class="tg-0pky"><div class="animal_image">
-        <img src="/uploads/{{ animal.image }}" alt="perrete">
-      </div>  
-    <p><span> Nombre:          </span> {{ animal.nombre }}         </p>
-        <p><span> Tipo:          </span> {{ animal.tipo  }}         </p>
-        <p><span><a href='/animales/animal/{{animal._id }}' class='button'>Ver ficha del animal</a>        </span>        </p>  
-    </td>
-    <td class="tg-0pky">
-      <p><span> Nombre:          </span> {{ adoptante.user.nombre }}         </p>
-      <p><span> Mensaje:          </span> {{ mensajeAdoptante }}         </p>
-      <p><span><a href='/users/adoptante/{{adoptante._id }}' class='button'>Ver ficha del adoptante</a>        </span>        </p>  
-    </td>
-    <td class="tg-0pky">{{ estado }}  </td>
-    <td class="tg-0pky">     
-
-        {{#if mensajeProtectora}}
-          <span>Ya se ha tramitado la adopción del animal</span>    
-        {{/if}}
-        {{^mensajeProtectora}}
-          <button type="button" class="btn btn-primary" data-id="{{_id}}" data-bs-toggle="modal" data-bs-target="#solicitud">Gestionar solicitud</button>
-        {{/mensajeProtectora}}
-    </td>
-  </tr>
- 
-{{/each}}
-</tbody>
-</table>
-
-
-      </div>
-       {{/if}}
-         {{^solicitudes}}
-         <h2>No hay solicitudes</h2>
-        {{/solicitudes}}
+<div id="solicitudes">
+  <div class="solicitudes_protectora">
+    <div class="animales-protectora-card_header">
+      <h1 class="animales-protectora-card_header-title">
+        SOLICITUDES
+      </h1>
     </div>
-      
+    <div class="solicitudes_content">
+      {{#if solicitudes}}
+      <style type="text/css">
+        .tg {
+          border-collapse: collapse;
+          border-spacing: 0;
+        }
+
+        .tg td {
+          border-color: black;
+          border-style: solid;
+          border-width: 1px;
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          overflow: hidden;
+          padding: 10px 5px;
+          word-break: normal;
+        }
+
+        .tg th {
+          border-color: black;
+          border-style: solid;
+          border-width: 1px;
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          font-weight: normal;
+          overflow: hidden;
+          padding: 10px 5px;
+          word-break: normal;
+        }
+
+        .tg .tg-elvq {
+          background-color: #407093;
+          border-color: inherit;
+          text-align: left;
+          vertical-align: top
+        }
+
+        .tg .tg-0pky {
+          border-color: inherit;
+          text-align: left;
+          vertical-align: top
+        }
+
+        @media screen and (max-width: 767px) {
+          .tg {
+            width: auto !important;
+          }
+
+          .tg col {
+            width: auto !important;
+          }
+
+          .tg-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+          }
+        }
+      </style>
+      <div class="tg-wrap">
+        <table class="tg">
+          <thead>
+            <tr>
+              <th class="tg-elvq">Imagen</th>
+              <th class="tg-elvq">Animal</th>
+              <th class="tg-elvq">Adoptante</th>
+              <th class="tg-elvq">Estado</th>
+              <th class="tg-elvq">Tramitar</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {{#each solicitudes}}
+            <tr>
+              <td class="tg-0pky">               
+                <div class="animal_image">
+                  <a href="/uploads/{{ animal.image }}" target="_blank"><img
+                    src="/uploads/{{ animal.image }}" alt="perrete" width="100px"></a>
+                </div> 
+              </td>
+
+              <td class="tg-0pky">
+ 
+                <p><span> Nombre: </span> {{ animal.nombre }} </p>
+                <p><span> Tipo: </span> {{ animal.tipo }} </p>
+                <p><span><a href='/animales/animal/{{animal._id }}' class='button'>Ver ficha del animal</a> </span> </p>
+              </td>
+              <td class="tg-0pky">
+                <p><span> Nombre: </span> {{ adoptante.user.nombre }} </p>
+                <p><span> Mensaje: </span> {{ mensajeAdoptante }} </p>
+                <p><span><a href='/users/adoptante/{{adoptante._id }}' class='button'>Ver ficha del adoptante</a>
+                  </span> </p>
+              </td>
+              <td class="tg-0pky">{{ estado }} </td>
+              <td class="tg-0pky">
+
+                {{#if mensajeProtectora}}
+                <span>Ya se ha tramitado la adopción del animal</span>
+                {{/if}}
+                {{^mensajeProtectora}}
+                <button type="button" class="btn btn-primary" data-id="{{_id}}" data-bs-toggle="modal"
+                  data-bs-target="#solicitud">Gestionar solicitud</button>
+                {{/mensajeProtectora}}
+              </td>
+            </tr>
+
+            {{/each}}
+          </tbody>
+        </table>
+
+
+
+        {{/if}}
+      </div>
+      {{^solicitudes}}
+      <div style="padding-top:12px;color: white;text-align:center;">
+            <h2>No se han encontrado solicitudes</h2>
+        </div>
+      {{/solicitudes}}
+    </div>
+  </div>
+
 </div>
 
-   <!-- Modal -->
-  <div class="modal fade" id="solicitud" tabindex="-1" aria-labelledby="solicitudLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="solicitudLabel">Procesar Solicitar adopción</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-<form action="/users/protectora/procesarSolicitud" method="POST">
-                  <div class="mb-3">
-                    <label for="message-text" class="col-form-label">Mensaje:</label>
-                    <textarea class="form-control" name="mensaje" id="message-text" placeholder="Avisar de que se pondran en contacto proximamente"></textarea>
-                  </div>
-                  <input type="text" class="form-control" id="idSolicitud" name="idSolicitud" hidden>
-            <div class="modal-footer">
-              
-                <div class="btn">
-                  <button type="submit" name="submit" value="rechazar" class="btn btn-primary">Rechazar</button>
-                </div>
-                <div class="btn">
-                  <button type="submit" name="submit" value="aceptar" class="btn btn-primary">Aceptar</button>
-                </div>
-              </form>
-            </div>
-        </div>
+<!-- Modal -->
+<div class="modal fade" id="solicitud" tabindex="-1" aria-labelledby="solicitudLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="solicitudLabel">Procesar Solicitar adopción</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/users/protectora/procesarSolicitud" method="POST">
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Mensaje:</label>
+            <textarea class="form-control" name="mensaje" id="message-text"
+              placeholder="Avisar de que se pondran en contacto proximamente"></textarea>
+          </div>
+          <input type="text" class="form-control" id="idSolicitud" name="idSolicitud" hidden>
+          <div class="modal-footer">
 
+            <div class="btn">
+              <button type="submit" name="submit" value="rechazar" class="btn btn-primary">Rechazar</button>
+            </div>
+            <div class="btn">
+              <button type="submit" name="submit" value="aceptar" class="btn btn-primary">Aceptar</button>
+            </div>
+        </form>
       </div>
     </div>
+
   </div>
+</div>

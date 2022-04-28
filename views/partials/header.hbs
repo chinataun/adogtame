@@ -7,7 +7,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div id="navbarCollapse" class="collapse navbar-collapse justify-content-end margenNav">
+            <div id="navbarCollapse" class="collapse navbar-collapse justify-content-end">
 
                 <li class="nav-item {{activeAnimales}}">
                     <a class="nav-link link" href="/animales">Animales</a>
@@ -31,22 +31,20 @@
                     </a>
                     {{# protectora }}
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a href="/animales/add" class="dropdown-item letraNegro link" style="color: black;">Añadir
-                            animales</a>
+                        <a href="/animales/add" class="dropdown-item letraNegro link" style="color: black;">Añadir animales</a>
                         <a href="/users/solicitudesProtectora" class="dropdown-item link"
                             style="color: black;">Solicitudes</a>
                         <a href="/users/edit-protectora" class="dropdown-item link" style="color: black;">Mi perfil</a>
                         <div class="dropdown-divider"></div>
-                        <a href="/users/logout" class="dropdown-item letraNegro link" style="color: black;">Logout</a>
+                        <a href="/users/logout" class="dropdown-item letraNegro link" style="color: black;">Cerrar sesión</a>
                     </div>
                     {{/ protectora}}
                     {{# adoptante }}
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a href="/users/solicitudesAdoptante" class="dropdown-item link" style="color: black;">Mis
-                            solicitudes</a>
+                        <a href="/users/solicitudesAdoptante" class="dropdown-item link" style="color: black;">Mis solicitudes</a>
                         <a href="/users/edit-adoptante" class="dropdown-item" style="color: black;">Mi perfil</a>
                         <div class="dropdown-divider"></div>
-                        <a href="/users/logout" class="dropdown-item link" style="color: black;">Logout</a>
+                        <a href="/users/logout" class="dropdown-item link" style="color: black;">Cerrar sesión</a>
                     </div>
                     {{/ adoptante}}
 
@@ -54,7 +52,7 @@
                 {{/if}}
                 {{^ user}}
                 <li class="nav-item">
-                    <a class="nav-link link" href="/users/login ">Iniciar sesion</a>
+                    <a class="nav-link link" href="/users/login ">Iniciar sesión</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link" href="/users/registro">Registrarse</a>
@@ -63,7 +61,4 @@
             </div>
         </div>
     </nav>
-</header>
-
-
 </header>

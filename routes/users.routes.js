@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {renderRegistro, registro, renderLogin, login,logout,deleteUser,nosotros} = require('../controllers/users.controller')
+const {renderRegistro, registro, renderLogin, login,logout,deleteUser} = require('../controllers/users.controller')
 const {renderRegistroProtectora, registroProtectora, renderProtectoras, busquedaProtectoras, renderProtectora, renderSolicitudesProtectora, procesarSolicitudAdopcion, renderEditProtectora, editProtectora} = require('../controllers/user.protectora.controller')
 const {renderRegistroAdoptante, registroAdoptante, renderAdoptantes, renderAdoptante, renderSolicitudesAdoptante, renderEditAdoptante, editAdoptante} = require('../controllers/user.adoptante.controller')
 const upload = require('../utils/handleUpload')
@@ -11,7 +11,6 @@ router.get("/registro", renderRegistro);
 router.post("/registro", registro);
 router.get("/logout", logout);
 router.delete("/delete/:id", deleteUser);
-router.get('/sobreNosotros',nosotros);
 
 //PROTECTORAS
 router.get('/registro/protectora', renderRegistroProtectora)

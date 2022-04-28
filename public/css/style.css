@@ -1,11 +1,19 @@
 :root{
 
+<<<<<<< HEAD
   --fuenteParrafos: 'Open Sans', sans-serif;
+=======
+  --fuenteParrafos: 'Montserrat', sans-serif;
+>>>>>>> develop
 }
 html{
   box-sizing: border-box;/*par aque no afecte al ancho de nuestros elelmentos*/
   font-size: 62.5%;
   /* background-image: url("https://i0.wp.com/medioambienteynaturaleza.com/wp-content/uploads/2015/08/Animales-tiernos-aa.jpg?ssl=1"); */
+<<<<<<< HEAD
+=======
+  font-family: 'Montserrat', sans-serif;
+>>>>>>> develop
 }
 
 body{
@@ -55,6 +63,7 @@ border-radius: 60px;
 }
 
 
+<<<<<<< HEAD
 
 
 /* 
@@ -70,6 +79,8 @@ border-radius: 60px;
   z-index:1000000
 } */
 
+=======
+>>>>>>> develop
 #logo_home{
   display:flex;
   flex-direction: column;
@@ -237,7 +248,7 @@ width: 100%;
 margin-top: 50px  ;
 }
 
-li {list-style:none; font-size:12px;}
+li {list-style:none; }
 
 
 #css_resultado_busqueda_animal li {
@@ -370,6 +381,7 @@ color: #ffffff;
 background-color: #bc9b94;
 }
 
+<<<<<<< HEAD
 #box { 
   opacity: 80%;
   background-color : #407093; 
@@ -384,6 +396,8 @@ background-color: #bc9b94;
   -webkit-border-radius: 10px 10px 10px 10px; 
   border: 0px solid #000000;
 }
+=======
+>>>>>>> develop
 
 .Buscador
 {
@@ -645,6 +659,12 @@ main {
   padding: 20px;
 }
 
+.card-animal_info-user span,
+.card-protectora_info-user span,
+.card-adoptante_info-user span{
+text-align: center;
+}
+
 .bi.bi-person.link:hover{
   color: #0a58ca;
 }
@@ -688,7 +708,7 @@ footer {
 footer .container {
   width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     max-width: 100%;
 }
@@ -716,6 +736,8 @@ footer .btn-outline-light.instagram:hover {
   border-color: #fff;
 }
 
+
+
 /* //ANIMALES PROTECTORA */
 .animales-protectora{
   padding: 24px 12px;
@@ -723,7 +745,7 @@ footer .btn-outline-light.instagram:hover {
 ul.animales-protectora_wrapper{
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-around;
   padding: 0;
   flex-wrap: wrap;
@@ -733,6 +755,8 @@ ul.animales-protectora_wrapper{
   margin-bottom: 16px;
   background: linear-gradient(to bottom, rgb(0, 0, 0), white);
   border-radius: 15px;
+  margin: 0 8px 24px;
+  width: 350px;
 }
 .animales-protectora-card_header {
   display: flex;
@@ -751,21 +775,28 @@ ul.animales-protectora_wrapper{
 }
 
 .animales-protectora-card_content {
-  padding: 56px 16px 24px;
+  padding: 64px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 .animales-protectora-card_content span{
   font-weight: bold;
 }
 
 
 /* EDIT */
-.editar {
-  margin: 16px 0;
+.editar, .add, .login, .registro {
+  padding: 32px 0;
   display: flex;
   justify-content: center;
 }
 
-.editar .card {
+.editar .card,
+.add .card,
+.login .card,
+.registro .card {
   width: 100%;
   max-width: 400px; 
 }
@@ -776,3 +807,18 @@ ul.animales-protectora_wrapper{
   align-items: center;
   justify-content: center;
 }
+
+/* SOLICITUDES */
+.solicitudes_content {
+  display: flex;
+  justify-content: center;
+  padding: 32px;
+}
+
+.solicitudes_content .tg {
+background-color: white;
+}
+
+.solicitudes_content thead tr th {
+  color: white ;
+  }

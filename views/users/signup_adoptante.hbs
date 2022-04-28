@@ -1,74 +1,81 @@
-<div class="row">
-  <div class="col-md-4 mx-auto">
-    <div class="card mt-4">
-      <div class="card-header">
-        <h1>
-          Registro Adoptante
-        </h1>
-      </div>
-      {{#if imageUploaded}}
-      <img id="image" src="/uploads/{{ imageUploaded }}" alt="logo" title="Logo protectora"/></br>
-      {{/if}}
-      {{^if imageUploaded}}
-      <img class="rounded-circle mx-auto d-block logo m-4" src="/images/logo.png" alt="Logo">
-      {{/if}}      <div class="card-body">
-        <form action="/users/registro/adoptante" method="POST" enctype="multipart/form-data" novalidate>
-          <div class="mb-3">
-            <label class="form-label" for="inputEmail">Nombre</label>
-            <input type="text" class="form-control {{#errors.nombre}}is-invalid{{/errors.nombre}}" name="nombre" placeholder="Nombre" value="{{nombre}}">
-            <div id="validationNombreFeedback" class="invalid-feedback">
-              {{errors.nombre}}
-            </div>
+<div class="registro">
+  <div class="card">
+    <div class="card-header">
+      <h1>
+        Registro Adoptante
+      </h1>
+    </div>
+    {{#if imageUploaded}}
+    <img id="image" src="/uploads/{{ imageUploaded }}" alt="logo" title="Logo protectora" /></br>
+    {{/if}}
+    {{^if imageUploaded}}
+    <img class="rounded-circle mx-auto d-block logo m-4" src="/images/logo.png" alt="Logo">
+    {{/if}} <div class="card-body">
+      <form action="/users/registro/adoptante" method="POST" enctype="multipart/form-data" novalidate>
+        <div class="mb-3">
+          <label class="form-label" for="inputEmail">Nombre*</label>
+          <input type="text" class="form-control {{#errors.nombre}}is-invalid{{/errors.nombre}}" name="nombre"
+            placeholder="Nombre" value="{{nombre}}">
+          <div id="validationNombreFeedback" class="invalid-feedback">
+            {{errors.nombre}}
           </div>
+        </div>
 
-          <div class="mb-3">
-            <label class="form-label" for="inputEmail">Dni</label>
-            <input type="text" class="form-control {{#errors.dni}}is-invalid{{/errors.dni}}" name="dni" placeholder="Dni" value="{{dni}}">
-            <div id="validationNombreFeedback" class="invalid-feedback">
-              {{errors.dni}}
-            </div>
+        <div class="mb-3">
+          <label class="form-label" for="inputEmail">DNI*</label>
+          <input type="text" class="form-control {{#errors.dni}}is-invalid{{/errors.dni}}" name="dni" placeholder="DNI"
+            value="{{dni}}">
+          <div id="validationNombreFeedback" class="invalid-feedback">
+            {{errors.dni}}
           </div>
-          <div class="mb-3">
-            <label class="form-label" for="inputEmail">Telefono</label>
-            <input type="text" class="form-control {{#errors.telefono}}is-invalid{{/errors.telefono}}" name="telefono" placeholder="Telefono" value="{{telefono}}">
-            <div id="validationNombreFeedback" class="invalid-feedback">
-              {{errors.telefono}}
-            </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="inputEmail">Teléfono*</label>
+          <input type="text" class="form-control {{#errors.telefono}}is-invalid{{/errors.telefono}}" name="telefono"
+            placeholder="Telefono" value="{{telefono}}">
+          <div id="validationNombreFeedback" class="invalid-feedback">
+            {{errors.telefono}}
           </div>
+        </div>
 
-          <div class="mb-3">
-            <label class="form-label" for="inputImage">Imagen</label>
-            <input class="form-control" type="text" hidden name="imageHidden" {{#if imageUploaded}}value="{{imageUploaded}}"{{/if}}  id="inputImage">
+        <div class="mb-3">
+          <label class="form-label" for="inputImage">Imagen</label>
+          <input class="form-control" type="text" hidden name="imageHidden" {{#if
+            imageUploaded}}value="{{imageUploaded}}" {{/if}} id="inputImage">
 
-            <input class="form-control {{#errors.file}}is-invalid{{/errors.file}}" type="file" name="image" id="inputImage">
-            <div id="validationNombreFeedback" class="invalid-feedback">
-              {{errors.file}}
-            </div>
+          <input class="form-control {{#errors.image}}is-invalid{{/errors.image}}" type="file" name="image"
+            id="inputImage">
+          <div id="validationNombreFeedback" class="invalid-feedback">
+            {{errors.image}}
           </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Descripción</label>
-            <textarea class="form-control {{#errors.descripcion}}is-invalid{{/errors.descripcion}}" name="descripcion" id="inlineDescription" placeholder="Descripcion del adoptante">{{descripcion}}</textarea>
-            <div id="validationNombreFeedback" class="invalid-feedback">
-              {{errors.descripcion}}
-            </div>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Descripción</label>
+          <textarea class="form-control {{#errors.descripcion}}is-invalid{{/errors.descripcion}}" name="descripcion"
+            id="inlineDescription" placeholder="Descripcion del adoptante">{{descripcion}}</textarea>
+          <div id="validationNombreFeedback" class="invalid-feedback">
+            {{errors.descripcion}}
           </div>
-          <div class="mb-3">
-            <input type="password" hidden class="form-control" name="password" placeholder="Password" value="{{ password }}">
-          </div>
-          <div class="mb-3">
-            <input type="text" hidden class="form-control" name="email" placeholder="email" value="{{ email }}">
-          </div>
-          <div class="mb-3">
-            <input type="text" hidden class="form-control" name="role" placeholder="role" value="{{ role }}">
-          </div>
-          <div>
+        </div>
+        <div class="mb-3">
+          <input type="password" hidden class="form-control" name="password" placeholder="Password"
+            value="{{ password }}">
+        </div>
+        <div class="mb-3">
+          <input type="text" hidden class="form-control" name="email" placeholder="email" value="{{ email }}">
+        </div>
+        <div class="mb-3">
+          <input type="text" hidden class="form-control" name="role" placeholder="role" value="{{ role }}">
+        </div>
+        <div>
+          <div class="buttonsCard">
             <button class="btn btn-primary btn-block">
-              Registrar Adoptante 
+              Registrar Adoptante
             </button>
           </div>
+        </div>
 
-        </form>
-      </div>
+      </form>
     </div>
   </div>
 </div>
