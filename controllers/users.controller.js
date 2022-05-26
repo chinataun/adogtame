@@ -3,10 +3,10 @@ const Adoptante = require('../models/Adoptante')
 const Solicitud = require('../models/Solicitud')
 const Protectora = require('../models/Protectora')
 const Animal = require('../models/Animal')
-const { validateUser, validateLogin} = require('../utils/service.validations.user')
+const { validateUser, validateLogin } = require('../utils/service.validations.user')
 const jwt = require('jsonwebtoken')
 const fs = require('fs')
-const {promisify} = require('util')
+const { promisify } = require('util')
 const unlinkAsync = promisify(fs.unlink)
 
 const renderRegistro = (request, response) => {
@@ -25,7 +25,8 @@ const registro = async (request, response) => {
     } else if (role === "Protectora") {
       checkedP = 'checked'
     }
-    return response.render("users/signup", {errors: validation,
+    return response.render("users/signup", {
+      errors: validation,
       email,
       password,
       confirm_password,
@@ -33,16 +34,17 @@ const registro = async (request, response) => {
       checkedA,
       checkedP,
     });
-  } 
+  }
   else {
     if (role === 'Protectora') {
-      response.render("users/signup_protectora", {email, password, role});
+      response.render("users/signup_protectora", { email, password, role });
     } else {
-      response.render("users/signup_adoptante", {email, password, role});
+      response.render("users/signup_adoptante", { email, password, role });
     }
   }
 }
 
+<<<<<<< HEAD
 // const login2 = passport.authenticate('local', {
 //   successRedirect: "/",
 //   failureRedirect: "/users/login",
@@ -50,22 +52,33 @@ const registro = async (request, response) => {
 // })
 
 const login = async (request, response) => {
-  const {email, password} = request.body;
+  const { email, password } = request.body;
 
   const pruebas = await validateLogin(request.body)
   console.log(pruebas);
   // const user = await User.findOne({ email: email })
   // const validationEmail = validateEmailLogin(email, user)
   if (Object.keys(pruebas).length !== 0) {
-    return response.render("users/login", {errors: pruebas,email})
-  } 
+    return response.render("users/login", { errors: pruebas, email })
+=======
+const login = async (request, response) => {
+  const { email, password } = request.body;
+
+  const validation = await validateLogin(request.body)
+  console.log(validation);
+  // const user = await User.findOne({ email: email })
+  // const validationEmail = validateEmailLogin(email, user)
+  if (Object.keys(validation).length !== 0) {
+    return response.render("users/login", { errors: validation, email })
+>>>>>>> develop
+  }
   const user = await User.findOne({ email: email })
-  const token = jwt.sign({user}, 'SECRET', {expiresIn: "24h"});
+  const token = jwt.sign({ user }, 'SECRET', { expiresIn: "24h" });
   response.cookie('token', token, {
     httpOnly: true
   });
 
-  return response.redirect('/')  
+  return response.redirect('/')
 }
 
 const renderLogin = (request, response) => {
@@ -82,38 +95,63 @@ const logout = (request, response) => {
 }
 
 const deleteUser = async (request, response) => {
-  const {user} = request.user; 
+  const user = request.user;
+  if (user.role === 'Adoptante') {
+        // const solicitud = await Solicitud.findOneAndDelete({ adoptante: user.id })
 
-  if( user.role === 'Adoptante') {
-    await Solicitud.findOneAndRemove({adoptante: user._id})
-    const adoptanteDeleted = await Adoptante.findByIdAndDelete(user.user) 
+    const solicitudes = await Solicitud.find({adoptante: user.id}).populate('animal').populate([{
+      path: 'adoptante',
+      model: 'User',
+    }])
+    solicitudes.forEach(async (solicitud) => {
+      await Solicitud.findByIdAndDelete(solicitud.id)
+    });
+    const adoptanteDeleted = await Adoptante.findByIdAndDelete(user.user.id)
     try {
       await unlinkAsync("public/uploads/" + adoptanteDeleted.image)
     } catch (err) {
       console.log(err);
-    } 
+    }
   } else {
-    const protectora = await Protectora.findById(user.user)
-    protectora.animales.forEach(async (animal) => {
-    await Animal.findByIdAndDelete(animal)
-  });
-  
-  await Solicitud.findOneAndRemove({protectora: user._id})
-  const protectoraDeleted = await Protectora.findByIdAndDelete(user.user)  
+    const protectora = await User.findById(user.id).populate('user').populate([{
+      path: 'user',
+      model: 'Protectora',
+      populate: {
+        path: 'animales',
+        model: 'Animal'
+      }
+    }])
+    protectora.user.animales.forEach(async (animal) => {
+      await Animal.findByIdAndDelete(animal)
+    });
+
+    const solicitudes = await Solicitud.find({protectora: user.id})
+    solicitudes.forEach(async (solicitud) => {
+      console.log(solicitud);
+      await Solicitud.findByIdAndDelete(solicitud.id)
+    });
+    // const solicitud = await Solicitud.findOneAndDelete({ protectora: user.id })
+
+    const protectoraDeleted = await Protectora.findByIdAndDelete(user.user.id)
     try {
       await unlinkAsync("public/uploads/" + protectoraDeleted.image)
     } catch (err) {
       console.log(err);
-    } 
+    }
   }
+
+  await User.findByIdAndDelete(user.id)
   
-  await User.findByIdAndDelete(user._id)
   return response.clearCookie("token").redirect('/')
 }
 
+<<<<<<< HEAD
 const nosotros = (request, response) => {
   response.render('users/sobre_nosotros')
 }
 
 
-module.exports = {renderRegistro, registro,login,renderLogin, logout, deleteUser,nosotros}
+module.exports = { renderRegistro, registro, login, renderLogin, logout, deleteUser, nosotros }
+=======
+module.exports = { renderRegistro, registro, login, renderLogin, logout, deleteUser}
+>>>>>>> develop

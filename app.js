@@ -86,9 +86,7 @@ app.use((req, res, next) => {
 
 
 app.get('/',cookieJwtAuth, (request, response) => {  
-
-
-  response.render('index', request.flash('perros'))
+  response.render('index')
 })
 app.use('/animales',cookieJwtAuth, animalsRouter)
 app.use('/users',cookieJwtAuth, usersRouter)
